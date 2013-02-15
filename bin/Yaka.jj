@@ -15,4 +15,39 @@
  * Syntaxe des instructions.
  */void suiteExpr() :{}{  (    expression()    (      ";"      (        expression()      )?    )*  )?}/*
  * Expression .
- */void expression() :{}{  simpleExpr()  (    opRel()     simpleExpr()  )?}void simpleExpr() :{}{  terme()  (    opAdd()     terme()  )*}void terme() :{}{  facteur()  (    opMul()     facteur()  )*}void facteur() :{}{  primaire()| opNeg() primaire()}void primaire() :{}{  valeur()| "(" expression() ")"}void valeur() :{}{  < entier >| < ident >| < VRAI >| < FAUX >}void opRel() :{}{  "="| "<>"| "<"| "<="| ">"| ">="}void opAdd() :{}{  "+"| "-"| < OU >}void opMul() :{}{  "*"| "/"| < ET >}void opNeg() :{}{  "-"| < NON >}
+ */void expression() :{}{  simpleExpr()  (    opRel()     simpleExpr()  )?}void simpleExpr() :{}{  terme()  (    opAdd()     terme()    {		Yaka.expression.generer();
+  	}  )*}void terme() :{}{  facteur()  (    opMul()     facteur()    {		Yaka.expression.generer();
+	}  )*}void facteur() :{}{  primaire()| opNeg() primaire()  {		Yaka.expression.inverser();
+  }}void primaire() :{}{  valeur()| "(" expression() ")"}void valeur() :{}{  < entier >
+  {
+		Yaka.expression.pushInteger(YakaTokenManager.entierLu);
+  }| < ident >
+  {
+		Yaka.expression.pushIdent(YakaTokenManager.identLu);
+  }| < VRAI >
+  {
+		Yaka.expression.pushBoolean(true);
+  }| < FAUX >
+  {
+		Yaka.expression.pushBoolean(false);
+  }}void opRel() :{}{  "="| "<>"| "<"| "<="| ">"| ">="}void opAdd() :{}{  "+"
+  {
+		Yaka.expression.pushOperator('+');
+  }| "-"
+  {
+		Yaka.expression.pushOperator('-');
+  }| < OU >
+  {
+		Yaka.expression.pushOperator('|');
+  }}void opMul() :{}{  "*"  {		Yaka.expression.pushOperator('*');
+  }| "/"  {		Yaka.expression.pushOperator('/');
+  }| < ET >
+  {
+		Yaka.expression.pushOperator('&');
+  }}void opNeg() :{}{  "-"
+  {
+		Yaka.expression.operator('-');
+  }| < NON >
+  {
+		Yaka.expression.operator('n');
+  }}

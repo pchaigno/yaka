@@ -1,49 +1,64 @@
 import java.util.Stack;
 
+/**
+ * TODO Add comments.
+ * @author pchaigno
+ */
 public class Expression {
-	private Stack<Object> pileEnt;
-	private Stack<Character> pileOp;
+	// TODO Use a more specific type than Object. One of our own?
+	private Stack<Object> stackVal;
+	private Stack<Character> stackOp;
 	
 	/**
 	 * Constructor
 	 */
 	public Expression() {
-		this.pileEnt = new Stack<Object>();
-		this.pileOp = new Stack<Character>();
+		this.stackVal = new Stack<Object>();
+		this.stackOp = new Stack<Character>();
 	}
 	
 	/**
-	 * Add an operator to the stack.
+	 * Push an operator to the stack of operators.
 	 * @param op The operator.
 	 */
-	public void operator(char op) {
-		this.pileOp.push(op);
+	public void pushOperator(char op) {
+		this.stackOp.push(op);
 	}
 	
 	/**
-	 * Add an integer to the stack.
+	 * Push an integer to the stack of values.
 	 * @param ent The integer.
 	 */
-	public void integer(int ent) {
-		this.pileEnt.push(ent);
+	public void pushInteger(int ent) {
+		this.stackVal.push(ent);
 	}
 	
 	/**
-	 * Add an ident to the stack.
+	 * Push a boolean to the stack of values.
+	 * @param bool The boolean.
+	 */
+	public void pushBoolean(boolean bool) {
+		this.stackVal.push(bool);
+	}
+	
+	/**
+	 * Push an ident to the stack of values.
 	 * @param ident The ident.
 	 */
-	public void ident(String ident) {
-		this.pileEnt.push(ident);
+	public void pushIdent(String ident) {
+		this.stackVal.push(ident);
 	}
 	
 	/**
 	 * Compute the two last integer with the last operator.
 	 */
+	// TODO Change the name.
 	public void generer() {
-		Object b = this.pileEnt.pop();
-		Object a = this.pileEnt.pop();
-		char op = this.pileOp.pop();
+		Object b = this.stackVal.pop();
+		Object a = this.stackVal.pop();
+		char op = this.stackOp.pop();
 		String expr = "";
+		// TODO Factorize the code:
 		if(Integer.class.equals(a.getClass())) {
 			expr = "iconst "+a+"\n";
 		} else {
@@ -78,23 +93,49 @@ public class Expression {
 				expr += "idiv\n";
 				break;
 		}
-		this.pileEnt.push(expr);
+		this.stackVal.push(expr);
+	}
+	
+	/**
+	 * Invert the value at the top of the values' stack.
+	 * Check if the type match with the last operator.
+	 */
+	public void invert() {
+		Object a = this.stackVal.pop();
+		char op = this.stackOp.pop();
+		if(op=='-') {
+			if(a.getClass()==int.class) {
+				int val = -(int)a;
+				this.stackVal.push(val);
+			} else {
+				System.err.println("Expecting an integer...");
+			}
+		} else if(op=='n') {
+			if(a.getClass()==boolean.class) {
+				boolean val = (boolean)a;
+				val = (val)? false : true;
+				this.stackVal.push(val);
+			} else {
+				System.err.println("Expecting a boolean...");
+			}
+		}
 	}
 	
 	/**
 	 * Write the affectation in Yaka.
 	 */
-	public void affecter() {
-		String expr = (String)this.pileEnt.pop();
-		String var = (String)this.pileEnt.pop();
-		this.pileEnt.push(expr+"istore "+var+"\n");
+	public void allocate() {
+		String expr = (String)this.stackVal.pop();
+		String var = (String)this.stackVal.pop();
+		this.stackVal.push(expr+"istore "+var+"\n");
 	}
 	
 	/**
 	 * Display the result.
+	 * TODO Useless?
 	 */
 	public void displayResult() {
-		System.out.println("Yaka:\n"+this.pileEnt.pop());
+		System.out.println("Yaka:\n"+this.stackVal.pop());
 	}
 	
 	/**
