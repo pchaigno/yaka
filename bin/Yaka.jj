@@ -15,9 +15,9 @@
  * Syntaxe des instructions.
  */void suiteExpr() :{}{  (    expression()    (      ";"      (        expression()      )?    )*  )?}/*
  * Expression .
- */void expression() :{}{  simpleExpr()  (    opRel()     simpleExpr()  )?}void simpleExpr() :{}{  terme()  (    opAdd()     terme()    {		Yaka.expression.generer();
-  	}  )*}void terme() :{}{  facteur()  (    opMul()     facteur()    {		Yaka.expression.generer();
-	}  )*}void facteur() :{}{  primaire()| opNeg() primaire()  {		Yaka.expression.inverser();
+ */void expression() :{}{  simpleExpr()  (    opRel()     simpleExpr()  )?}void simpleExpr() :{}{  terme()  (    opAdd()     terme()    {		Yaka.expression.compute();
+  	}  )*}void terme() :{}{  facteur()  (    opMul()     facteur()    {		Yaka.expression.compute();
+	}  )*}void facteur() :{}{  primaire()| opNeg() primaire()  {		Yaka.expression.invert();
   }}void primaire() :{}{  valeur()| "(" expression() ")"}void valeur() :{}{  < entier >
   {
 		Yaka.expression.pushInteger(YakaTokenManager.entierLu);
@@ -30,24 +30,42 @@
   }| < FAUX >
   {
 		Yaka.expression.pushBoolean(false);
-  }}void opRel() :{}{  "="| "<>"| "<"| "<="| ">"| ">="}void opAdd() :{}{  "+"
+  }}void opRel() :{}{  "="
   {
-		Yaka.expression.pushOperator('+');
+		Yaka.expression.pushOperator(Operator.EQ);
+  }| "<>"
+  {
+		Yaka.expression.pushOperator(Operator.DIFF);
+  }| "<"
+  {
+		Yaka.expression.pushOperator(Operator.LT);
+  }| "<="
+  {
+		Yaka.expression.pushOperator(Operator.LTE);
+  }| ">"
+  {
+		Yaka.expression.pushOperator(Operator.GT);
+  }| ">="
+  {
+		Yaka.expression.pushOperator(Operator.GTE);
+  }}void opAdd() :{}{  "+"
+  {
+		Yaka.expression.pushOperator(Operator.ADD);
   }| "-"
   {
-		Yaka.expression.pushOperator('-');
+		Yaka.expression.pushOperator(Operator.SUB);
   }| < OU >
   {
-		Yaka.expression.pushOperator('|');
-  }}void opMul() :{}{  "*"  {		Yaka.expression.pushOperator('*');
-  }| "/"  {		Yaka.expression.pushOperator('/');
+		Yaka.expression.pushOperator(Operator.OR);
+  }}void opMul() :{}{  "*"  {		Yaka.expression.pushOperator(Operator.MUL);
+  }| "/"  {		Yaka.expression.pushOperator(Operator.DIV);
   }| < ET >
   {
-		Yaka.expression.pushOperator('&');
+		Yaka.expression.pushOperator(Operator.AND);
   }}void opNeg() :{}{  "-"
   {
-		Yaka.expression.operator('-');
+		Yaka.expression.pushOperator(Operator.NEG);
   }| < NON >
   {
-		Yaka.expression.operator('n');
+		Yaka.expression.pushOperator(Operator.NOT);
   }}
