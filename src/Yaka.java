@@ -105,6 +105,7 @@ public class Yaka implements YakaConstants {
 
   static final public void defConst() throws ParseException {
     jj_consume_token(ident);
+             declaration.defConst(YakaTokenManager.identLu);
     jj_consume_token(42);
     valConst();
   }
@@ -113,15 +114,18 @@ public class Yaka implements YakaConstants {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case entier:
       jj_consume_token(entier);
+              declaration.valConst(Type.INT, YakaTokenManager.entierLu);
       break;
     case ident:
       jj_consume_token(ident);
       break;
     case VRAI:
       jj_consume_token(VRAI);
+            declaration.valConst(Type.BOOL, Constante.VRAI);
       break;
     case FAUX:
       jj_consume_token(FAUX);
+            declaration.valConst(Type.BOOL, Constante.FAUX);
       break;
     default:
       jj_la1[3] = jj_gen;

@@ -1,4 +1,7 @@
-
+/**
+ * Represent the type of a value.
+ */
 public enum Type {
-	INT, BOOL;
+	INT, // Integer 
+	BOOL; // Boolean
 }

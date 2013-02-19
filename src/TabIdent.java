@@ -1,11 +1,14 @@
 import java.util.HashMap;
 
+/**
+ * The identificators' table.
+ */
 public class TabIdent {
 	private HashMap<String, Ident> table;
 	
 	/**
 	 * Constructor
-	 * @param taille
+	 * @param size The initial size of the table.
 	 */
 	public TabIdent(int size) {
 		this.table = new HashMap<String, Ident>(size); 
@@ -37,6 +40,4 @@ public class TabIdent {
 	public void setIdent(String key, Ident id) {
 		this.table.put(key, id);
 	}
-	
-	
 }

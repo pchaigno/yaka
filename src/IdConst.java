@@ -1,10 +1,17 @@
-
+/**
+ * Represent an identificator of constant.
+ */
 public class IdConst extends Ident {
 	private int value;
 	
-	public IdConst(Type t, int v) {
-		super(t);
-		this.value = v;
+	/**
+	 * Constructor
+	 * @param type The type.
+	 * @param value The value.
+	 */
+	public IdConst(Type type, int value) {
+		super(type);
+		this.value = value;
 	}
 
 	@Override

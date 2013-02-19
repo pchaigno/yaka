@@ -1,15 +1,14 @@
-
+/**
+ * Generate the ASM code for each YVM function.
+ */
 public class YVMasm extends YVM {
 	
-	/**
-	 * 
-	 * @param obj
-	 * @return
-	 */
+	@Override
 	String iconstInt(int obj) {
 		return "push "+obj+"\n";
 	}
 	
+	@Override
 	String iconstBool(boolean obj) {
 		if(obj) {
 			return "iconst 0\n";
@@ -17,17 +16,9 @@ public class YVMasm extends YVM {
 		return "iconst -1\n";
 	}
 	
-	/**
-	 * 
-	 * @param str
-	 * @return
-	 */
-	String iident(String str) {
-		Ident ident = Yaka.tabIdent.chercheIdent(str);
-		if(ident.isVar()) {
-			return "push word ptr [bp"+ident.getValue()+"]\n";
-		}
-		return "push "+ident.getValue()+"\n";
+	@Override
+	String iload(int offset) {
+		return "push word ptr [bp"+offset+"]\n";
 	}
 	
 	@Override
@@ -85,6 +76,7 @@ public class YVMasm extends YVM {
 		return str;
 	}
 
+	@Override
 	String iinf() {
 		String str = "pop bx\n";
 		str += "pop ax\n";
@@ -96,6 +88,7 @@ public class YVMasm extends YVM {
 		return str;
 	}
 
+	@Override
 	String iinfegal() {
 		String str = "pop bx\n";
 		str += "pop ax\n";
@@ -107,6 +100,7 @@ public class YVMasm extends YVM {
 		return str;
 	}
 
+	@Override
 	String isupegal() {
 		String str = "pop bx\n";
 		str += "pop ax\n";
@@ -118,6 +112,7 @@ public class YVMasm extends YVM {
 		return str;
 	}
 
+	@Override
 	String isup() {
 		String str = "pop bx\n";
 		str += "pop ax\n";
@@ -129,6 +124,7 @@ public class YVMasm extends YVM {
 		return str;
 	}
 
+	@Override
 	String iegal() {
 		String str = "pop bx\n";
 		str += "pop ax\n";
@@ -140,6 +136,7 @@ public class YVMasm extends YVM {
 		return str;
 	}
 
+	@Override
 	String idiff() {
 		String str = "pop bx\n";
 		str += "pop ax\n";

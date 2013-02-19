@@ -1,7 +1,7 @@
 import java.util.Stack;
 
 /**
- * TODO Add comments.
+ * Compute the expressions.
  */
 public class Expression {
 	private Stack<Type> stackType;
@@ -18,6 +18,9 @@ public class Expression {
 		this.invert = false;
 	}
 	
+	/**
+	 * Tell Expression that the next value need to be inverted.
+	 */
 	public void invert() {
 		this.invert = true;
 	}
@@ -58,20 +61,21 @@ public class Expression {
 	
 	/**
 	 * Push an ident to the stack of values.
-	 * @param ident The ident.
+	 * @param str The key for the ident.
 	 */
 	public void pushIdent(String str) {
-		Ident ident = Yaka.tabIdent.chercheIdent(str);
+		Ident ident = Yaka.tabIdent.searchIdent(str);
 		this.stackType.push(ident.getType());
 		if(ident.isVar()) {
-			Yaka.yvm.iload(""+ident.getValue());
+			Yaka.yvm.iload(ident.getValue());
 		} else {
 			Yaka.yvm.iconstInt(ident.getValue());
 		}
 	}
 	
 	/**
-	 * Compute the two last integer with the last operator.
+	 * Add the operation part of the expression according to the two last values.
+	 * Display an error if the type of the values doesn't match with the operator.
 	 */
 	public void compute() {
 		boolean isPredicate = this.stackType.pop()==Type.BOOL && this.stackType.pop()==Type.BOOL;
