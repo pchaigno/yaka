@@ -57,7 +57,6 @@ public class YVM {
 	 * 
 	 * @return
 	 */
-	// TODO Check that it's ior.
 	String ior() {
 		return "ior\n";
 	}
