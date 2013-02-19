@@ -7,34 +7,36 @@ public class TabIdent {
 	 * Constructor
 	 * @param taille
 	 */
-	public TabIdent(int taille) {
-		this.table = new HashMap<String, Ident>(taille); 
+	public TabIdent(int size) {
+		this.table = new HashMap<String, Ident>(size); 
 	}
 	
 	/**
 	 * Search a key in the map.
-	 * @param clef The key to search.
+	 * @param key The key to search.
 	 * @return The value corresponding to the key.
 	 */
-	public Ident chercheIdent(String clef) {
-		return this.table.get(clef);
+	public Ident searchIdent(String key) {
+		return this.table.get(key);
 	}
 	
 	/**
 	 * Search a key in the map.
-	 * @param clef The key to search.
-	 * @return True if the map contain the key clef.
+	 * @param key The key to search.
+	 * @return True if the map contain the key key.
 	 */
-	public boolean existeIdent(String clef) {
-		return this.table.containsKey(clef);
+	public boolean existIdent(String key) {
+		return this.table.containsKey(key);
 	}
 	
 	/**
 	 * Add a couple (key, value).
-	 * @param clef The key.
+	 * @param key The key.
 	 * @param id The value.
 	 */
-	public void rangeIdent(String clef, Ident id) {
-		this.table.put(clef, id);
+	public void setIdent(String key, Ident id) {
+		this.table.put(key, id);
 	}
+	
+	
 }
