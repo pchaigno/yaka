@@ -1,10 +1,24 @@
 
 public class IdConst extends Ident {
-
-	public IdConst(String t, int v) {
-		super(t, v);
+	private int value;
+	
+	public IdConst(Type t, int v) {
+		super(t);
+		this.value = v;
 	}
 
+	@Override
+	public int getValue() {
+		return this.value;
+	}
 
-	
+	@Override
+	public boolean isConst() {
+		return true;
+	}
+
+	@Override
+	public boolean isVar() {
+		return false;
+	}
 }

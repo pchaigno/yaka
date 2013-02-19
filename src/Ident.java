@@ -1,10 +1,18 @@
 
 public abstract class Ident {
-	protected String type;
-	protected int valeur;
+	protected Type type;
 	
-	public Ident(String t, int v){
-		type = t;
-		valeur = v;
+	public Ident(Type t){
+		this.type = t;
 	}
+	
+	public abstract int getValue();
+	
+	public Type getType() {
+		return this.type;
+	}
+	
+	public abstract boolean isConst();
+	
+	public abstract boolean isVar();
 }

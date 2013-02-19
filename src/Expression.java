@@ -2,19 +2,24 @@ import java.util.Stack;
 
 /**
  * TODO Add comments.
- * @author pchaigno
  */
 public class Expression {
-	// TODO Use a more specific type than Object. One of our own?
-	private Stack<Object> stackVal;
+	private Stack<Type> stackType;
 	private Stack<Operator> stackOp;
+	private String expr;
+	private boolean invert;
 	
 	/**
 	 * Constructor
 	 */
 	public Expression() {
-		this.stackVal = new Stack<Object>();
+		this.stackType = new Stack<Type>();
 		this.stackOp = new Stack<Operator>();
+		this.invert = false;
+	}
+	
+	public void invert() {
+		this.invert = true;
 	}
 	
 	/**
@@ -30,7 +35,12 @@ public class Expression {
 	 * @param ent The integer.
 	 */
 	public void pushInteger(int ent) {
-		this.stackVal.push(ent);
+		this.stackType.push(Type.INT);
+		if(this.invert) {
+			ent = -ent;
+			this.invert = false;
+		}
+		this.expr += Yaka.yvm.iconstInt(ent);
 	}
 	
 	/**
@@ -38,67 +48,47 @@ public class Expression {
 	 * @param bool The boolean.
 	 */
 	public void pushBoolean(boolean bool) {
-		this.stackVal.push(bool);
+		this.stackType.push(Type.BOOL);
+		if(this.invert) {
+			bool = !bool;
+			this.invert = false;
+		}
+		this.expr += Yaka.yvm.iconstBool(bool);
 	}
 	
 	/**
 	 * Push an ident to the stack of values.
 	 * @param ident The ident.
 	 */
-	public void pushIdent(String ident) {
-		this.stackVal.push(ident);
+	public void pushIdent(String str) {
+		Ident ident = Yaka.tabIdent.chercheIdent(str);
+		this.stackType.push(ident.getType());
+		if(ident.isVar()) {
+			Yaka.yvm.iload(""+ident.getValue());
+		} else {
+			Yaka.yvm.iconstInt(ident.getValue());
+		}
 	}
 	
 	/**
 	 * Compute the two last integer with the last operator.
 	 */
-	// TODO Change the name.
 	public void compute() {
-		Object b = this.stackVal.pop();
-		Object a = this.stackVal.pop();
+		boolean isPredicate = this.stackType.pop()==Type.BOOL && this.stackType.pop()==Type.BOOL;
 		Operator op = this.stackOp.pop();
-		String expr = "";
-		boolean isPredicate = false;
-		// TODO Factorize the code.
-		if(Integer.class.equals(a.getClass())) {
-			expr += Yaka.yvm.iconst(String.valueOf((int)a));
-		} else if(Boolean.class.equals(b.getClass())) {
-			expr += Yaka.yvm.iconst(String.valueOf((boolean)a));
-			isPredicate = true;
-		} else {
-			String str = (String)a;
-			if(isVariable(str)) {
-				expr += Yaka.yvm.iload(str);
-			} else {
-				expr += str;
-			}
-		}
-		if(Integer.class.equals(b.getClass())) {
-			expr += Yaka.yvm.iconst(String.valueOf((int)b));
-		} else if(Boolean.class.equals(b.getClass())) {
-			expr += Yaka.yvm.iconst(String.valueOf((boolean)b));
-			isPredicate = true;
-		} else {
-			String str = (String)b;
-			if(isVariable(str)) {
-				expr += Yaka.yvm.iload(str);
-			} else {
-				expr += str;
-			}
-		}
 		if(isPredicate) {
 			switch(op) {
 				case ADD:
-					expr += Yaka.yvm.iadd();
+					this.expr += Yaka.yvm.iadd();
 					break;
 				case SUB:
-					expr += Yaka.yvm.isub();
+					this.expr += Yaka.yvm.isub();
 					break;
 				case MUL:
-					expr += Yaka.yvm.imul();
+					this.expr += Yaka.yvm.imul();
 					break;
 				case DIV:
-					expr += Yaka.yvm.idiv();
+					this.expr += Yaka.yvm.idiv();
 					break;
 				default:
 					System.err.println("Unexpected operator in a predicat: "+op);
@@ -106,39 +96,31 @@ public class Expression {
 		} else {
 			switch(op) {
 				case ADD:
-					expr += Yaka.yvm.iadd();
+					this.expr += Yaka.yvm.iadd();
 					break;
 				case OR:
-					expr += Yaka.yvm.ior();
+					this.expr += Yaka.yvm.ior();
+					break;
+				case LT:
+					this.expr += Yaka.yvm.iinf();
+					break;
+				case LTE:
+					this.expr += Yaka.yvm.iinfegal();
+					break;
+				case GT:
+					this.expr += Yaka.yvm.isup();
+					break;
+				case GTE:
+					this.expr += Yaka.yvm.isupegal();
+					break;
+				case DIFF:
+					this.expr += Yaka.yvm.idiff();
+					break;
+				case EQUAL:
+					this.expr += Yaka.yvm.iegal();
 					break;
 				default:
 					System.err.println("Unexpected operator in an expression: "+op);
-			}
-		}
-		this.stackVal.push(expr);
-	}
-	
-	/**
-	 * Invert the value at the top of the values' stack.
-	 * Check if the type match with the last operator.
-	 */
-	public void invert() {
-		Object a = this.stackVal.pop();
-		Operator op = this.stackOp.pop();
-		if(op==Operator.NEG) {
-			if(a.getClass()==int.class) {
-				int val = -(int)a;
-				this.stackVal.push(val);
-			} else {
-				System.err.println("Expecting an integer...");
-			}
-		} else if(op==Operator.NOT) {
-			if(a.getClass()==boolean.class) {
-				boolean val = (boolean)a;
-				val = (val)? false : true;
-				this.stackVal.push(val);
-			} else {
-				System.err.println("Expecting a boolean...");
 			}
 		}
 	}
@@ -148,22 +130,6 @@ public class Expression {
 	 * TODO Useless?
 	 */
 	public void displayResult() {
-		System.out.println("Yaka:\n"+this.stackVal.pop());
-	}
-	
-	/**
-	 * Check if a string can be a variable.
-	 * @param string The string.
-	 * @return True if it can be a variable.
-	 */
-	private static boolean isVariable(String string) {
-		char ch;
-		for(int i=0 ; i<string.length() ; i++) {
-			ch = string.charAt(i);
-			if(Character.isWhitespace(ch)) {
-				return false;
-			}
-		}
-		return true;
+		System.out.println("Yaka:\n"+this.expr);
 	}
 }

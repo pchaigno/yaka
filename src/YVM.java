@@ -2,14 +2,26 @@
  * 
  */
 public class YVM {
-
+	
 	/**
 	 * 
 	 * @param obj
 	 * @return
 	 */
-	String iconst(String obj) {
-		return "iconst"+obj+"\n";
+	String iconstInt(int obj) {
+		return "iconst "+obj+"\n";
+	}
+	
+	/**
+	 * 
+	 * @param obj
+	 * @return
+	 */
+	String iconstBool(boolean obj) {
+		if(obj) {
+			return "iconst VRAI\n";
+		}
+		return "iconst FAUX\n";
 	}
 	
 	/**
@@ -19,6 +31,15 @@ public class YVM {
 	 */
 	String iload(String str) {
 		return "iload "+str+"\n";
+	}
+	
+	/**
+	 * 
+	 * @param str
+	 * @return
+	 */
+	String iconst(String str) {
+		return "iconst "+str+"\n";
 	}
 	
 	/**
@@ -67,5 +88,29 @@ public class YVM {
 	 */
 	String idiv() {
 		return "idiv\n";
+	}
+
+	String iinf() {
+		return "iinf\n";
+	}
+
+	String iinfegal() {
+		return "iinfegal\n";
+	}
+
+	String isupegal() {
+		return "isupegal\n";
+	}
+
+	String isup() {
+		return "isup\n";
+	}
+
+	String iegal() {
+		return "iegal\n";
+	}
+
+	String idiff() {
+		return "idiff\n";
 	}
 }
