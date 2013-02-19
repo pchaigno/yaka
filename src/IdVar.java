@@ -1,8 +1,11 @@
 
 public class IdVar extends Ident {
 
-	public IdVar(String t, int v) {
-		super(t, v);
+	protected int offset;
+	
+	public IdVar(Type t, int o) {
+		type = t;
+		offset = o;
 	}
 
 	
