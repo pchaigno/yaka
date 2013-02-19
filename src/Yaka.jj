@@ -17,7 +17,9 @@
  * Expression .
  */void expression() :{}{  simpleExpr()  (    opRel()     simpleExpr()  )?}void simpleExpr() :{}{  terme()  (    opAdd()     terme()    {		Yaka.expression.compute();
   	}  )*}void terme() :{}{  facteur()  (    opMul()     facteur()    {		Yaka.expression.compute();
-	}  )*}void facteur() :{}{  primaire()| opNeg() primaire()  {		Yaka.expression.invert();
+	}  )*}void facteur() :{}{  primaire()| opNeg()	{		Yaka.expression.invert();
+	}
+  primaire()  {		Yaka.expression.compute();
   }}void primaire() :{}{  valeur()| "(" expression() ")"}void valeur() :{}{  < entier >
   {
 		Yaka.expression.pushInteger(YakaTokenManager.entierLu);
@@ -32,7 +34,7 @@
 		Yaka.expression.pushBoolean(false);
   }}void opRel() :{}{  "="
   {
-		Yaka.expression.pushOperator(Operator.EQ);
+		Yaka.expression.pushOperator(Operator.EQUAL);
   }| "<>"
   {
 		Yaka.expression.pushOperator(Operator.DIFF);

@@ -284,8 +284,9 @@ public class Yaka implements YakaConstants {
     case NON:
     case 51:
       opNeg();
-      primaire();
                 Yaka.expression.invert();
+      primaire();
+                Yaka.expression.compute();
       break;
     default:
       jj_la1[12] = jj_gen;
@@ -343,7 +344,7 @@ public class Yaka implements YakaConstants {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case 42:
       jj_consume_token(42);
-                Yaka.expression.pushOperator(Operator.EQ);
+                Yaka.expression.pushOperator(Operator.EQUAL);
       break;
     case 45:
       jj_consume_token(45);
