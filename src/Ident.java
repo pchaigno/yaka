@@ -5,6 +5,9 @@ public abstract class Ident {
 	
 	protected int valeur;
 	
-	
+	public Ident(String t, int v){
+		type = t;
+		valeur = v;
+	}
 	
 }
