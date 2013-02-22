@@ -20,6 +20,14 @@ public class Yaka
   public static Expression expression;
   public static YVM yvm;
   
+  public static void  lanceReco(){
+      expression = new Expression();
+  	  declaration = new Declaration();
+  	  yvm = new YVM();
+      Yaka.tabIdent = new TabIdent(10);
+
+  }
+  
   public static void main(String args [])
   {
     java.io.InputStream input;
@@ -174,7 +182,7 @@ TOKEN :
 	void bloc() : {} {
 	  (declConst())*
 	  (declVar())*
-	  suiteExpr()
+	  suiteInstr()
 	}
 
 /******** Definitions ********/
@@ -191,7 +199,7 @@ TOKEN :
 	
 	void valConst() : {} {
 	  < entier > 	{declaration.valConst(Type.INT, YakaTokenManager.entierLu);}
-	| < ident > 	{declaration.valConst(Type.INT, tabIdent.searchIdent(YakaTokenManager.identLu).getValue());}
+	| < ident > 	{declaration.valConstRef(YakaTokenManager.identLu);}
 	| < VRAI > 		{declaration.valConst(Type.BOOL, Constante.VRAI);}
 	| < FAUX > 		{declaration.valConst(Type.BOOL, Constante.FAUX);}
 	}
@@ -277,7 +285,8 @@ TOKEN :
 
 /******** Affectation ********/
 
-	void suiteInstr() : {} {		instruction()		(		  		  ";" instruction()?		)*
+
+	void suiteInstr() : {} {		instruction()		(		  ";" (instruction())?		)*
 	}
 
 	void instruction() : {} {
