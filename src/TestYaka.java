@@ -91,6 +91,34 @@ public class TestYaka extends TestCase {
 	}
 	
 	/**
+	 * Test the program for affectations part.
+	 */
+	public void testAffectations() {
+		String program = "PROGRAMME declar " +
+				"VAR ENTIER x,y,z; " +
+				"z=(x+y/2)/5; x=y+3*y-4;" +
+				"FPROGRAMME";
+		String programYVM = "iload -2\n"+
+				"iload -4\n"+
+				"iconst 2\n"+
+				"idiv\n"+
+				"iadd\n"+
+				"iconst 5\n"+
+				"idiv\n"+
+				"istore -6\n"+
+				"iload -4\n"+
+				"iconst 3\n"+
+				"iload -4\n"+
+				"imul\n"+
+				"iadd\n"+
+				"iconst 4\n"+
+				"isub\n"+
+				"istore -2\n";
+		this.launchAnalyse(program);
+		assertEquals(programYVM, Yaka.expression.getResult());
+	}
+	
+	/**
 	 * Compile the program.
 	 * @param program The program.
 	 */
