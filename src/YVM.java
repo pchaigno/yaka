@@ -129,4 +129,12 @@ public class YVM {
 	String idiff() {
 		return "idiff\n";
 	}
+	
+	/**
+	 * Generate the code for an istore instruction.
+	 * @return The YVM code.
+	 */
+	String istore(int offset){
+		return "istore "+ offset +"\n";
+	}
 }

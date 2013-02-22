@@ -9,6 +9,7 @@ public class Expression {
 	private Stack<Operator> stackOp;
 	private String expr;
 	private boolean invert;
+	private Ident affectTo;
 	
 	/**
 	 * Constructor
@@ -154,7 +155,7 @@ public class Expression {
 					this.stackType.push(Type.ERROR);
 			}
 		} else {
-			System.err.println("The two operands doesn't match.");
+			System.err.println("Expression : The two operands doesn't match.");
 		}
 	}
 	
@@ -164,4 +165,21 @@ public class Expression {
 	public String getResult() {
 		return this.expr;
 	}
+	
+	public void setAffectation(String ident){
+		if(Yaka.tabIdent.containsIdent(ident)){
+			affectTo = Yaka.tabIdent.getIdent(ident);			
+		} else {
+			System.err.println("Expression : Ident does not exist.");
+		}
+	}
+	
+	public void affectation(){
+		if(affectTo.getType().equals(stackType.peek())){
+			Yaka.yvm.istore(affectTo.getValue());
+		} else {
+			System.err.println("Expression : Different type.");
+		}
+	}
+	
 }

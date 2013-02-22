@@ -277,13 +277,14 @@ TOKEN :
 
 /******** Affectation ********/
 
-	void suiteInstr() : {} {		instruction()		{		  ; instruction()?		}*
+	void suiteInstr() : {} {		instruction()		(		  		  ";" instruction()?		)*
 	}
 
 	void instruction() : {} {
 	  affectation() | lecture() | ecriture()	}
 
-	void affectation() : {} {	  < ident > "=" expression()	}
+	void affectation() : {} {	  < ident > {expression.setAffectation(String identLu);}
+	   "=" expression() {expression.affectation();}	}
 
 	void lecture() : {} {
 	  < LIRE > "(" < ident > ")"	}
