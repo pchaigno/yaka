@@ -288,7 +288,7 @@ TOKEN :
 	void lecture() : {} {
 	  < LIRE > "(" < ident > ")"	}
  	void ecriture() : {} {
- 	  < ECRIRE > "(" expression() | < chaine > ")" 	}
+ 	  < ECRIRE > "(" expression() | < chaine > ")" | < ALALIGNE > 	}
 
 /******** Reading ********/
 
