@@ -155,31 +155,37 @@ public class Expression {
 					this.stackType.push(Type.ERROR);
 			}
 		} else {
-			System.err.println("Expression : The two operands doesn't match.");
+			System.err.println("Expression: The two operands doesn't match.");
 		}
 	}
 	
 	/**
-	 * Display the result.
+	 * @return The final result: the generated code.
 	 */
 	public String getResult() {
 		return this.expr;
 	}
 	
-	public void setAffectation(String ident){
-		if(Yaka.tabIdent.containsIdent(ident)){
-			affectTo = Yaka.tabIdent.getIdent(ident);			
+	/**
+	 * Record the ident for the affectation.
+	 * @param name The name of the ident.
+	 */
+	public void setAffectation(String name) {
+		if(Yaka.tabIdent.containsIdent(name)) {
+			this.affectTo = Yaka.tabIdent.getIdent(name);			
 		} else {
-			System.err.println("Expression : Ident does not exist.");
+			System.err.println("Expression: Ident does not exist.");
 		}
 	}
 	
-	public void affectation(){
-		if(affectTo.getType().equals(stackType.peek())){
-			Yaka.yvm.istore(affectTo.getValue());
+	/**
+	 * Add the affectation part of an expression.
+	 */
+	public void affectation() {
+		if(this.affectTo.getType()==this.stackType.pop()) {
+			this.expr += Yaka.yvm.istore(this.affectTo.getValue());
 		} else {
-			System.err.println("Expression : Different type.");
+			System.err.println("Expression: Different types.");
 		}
 	}
-	
 }
