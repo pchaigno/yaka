@@ -148,4 +148,11 @@ public class YVMasm extends YVM {
 		str += "push 0\n";
 		return str;
 	}
+	
+	@Override
+	String istore(int offset) {
+		String str = "pop ax\n";
+		str += "mov word ptr [bp"+offset+"], ax\n";
+		return str;
+	}
 }

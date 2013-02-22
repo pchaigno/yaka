@@ -34,17 +34,20 @@ public class Declaration {
 		if(this.lastConstName != "") {
 			Yaka.tabIdent.setIdent(this.lastConstName, new IdConst(type, value));
 		} else {
-			System.err.println("Declaration: Const def name undefined");
+			System.err.println("Declaration: Constant name undefined");
 		}
 	}
 	
+	/**
+	 * Called when a reference to an other constant is set as the value of the last constant.
+	 * @param ref The name of the other constant.
+	 */
 	public void valConstRef(String ref) {
 		Ident ident = Yaka.tabIdent.getIdent(ref);
 		if(ident != null) {
 			Yaka.tabIdent.setIdent(this.lastConstName, new IdConst(ident.type, ident.getValue()));
-		}
-		else {
-			System.err.println("Declaration: Ref to undefined const");
+		} else {
+			System.err.println("Declaration: Reference to undefined const");
 		}
 	}
 	
@@ -68,5 +71,4 @@ public class Declaration {
 			System.err.println("Declaration: Name '"+name+"' already taken.");
 		}
 	}
-	
 }

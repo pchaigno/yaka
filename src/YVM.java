@@ -134,7 +134,7 @@ public class YVM {
 	 * Generate the code for an istore instruction.
 	 * @return The YVM code.
 	 */
-	String istore(int offset){
-		return "istore "+ offset +"\n";
+	String istore(int offset) {
+		return "istore "+offset+"\n";
 	}
 }
