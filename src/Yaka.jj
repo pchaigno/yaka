@@ -209,11 +209,11 @@ TOKEN :
 
 	
 /******** Expression ********/
-	void suiteExpr() : {} {
+	/*void suiteExpr() : {} {
 	  (expression()
 	  	(";" (expression())? )*
 	  )?
-	}
+	}*/
 	
 	void expression() : {} {
 	  simpleExpr()
@@ -277,6 +277,18 @@ TOKEN :
 
 /******** Affectation ********/
 
+	void suiteInstr() : {} {		instruction()		{		  ; instruction()?		}*
+	}
+
+	void instruction() : {} {
+	  affectation() | lecture() | ecriture()	}
+
+	void affectation() : {} {	  < ident > "=" expression()	}
+
+	void lecture() : {} {
+	  < LIRE > "(" < ident > ")"	}
+ 	void ecriture() : {} {
+ 	  < ECRIRE > "(" expression() | < chaine > ")" 	}
 
 /******** Reading ********/
 
