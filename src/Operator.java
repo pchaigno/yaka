@@ -1,3 +1,4 @@
+
 /**
  * Represents an operator.
  */

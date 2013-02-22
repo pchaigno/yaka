@@ -3,6 +3,7 @@
  */
 public class Declaration {
 	private String lastConstName;
+	private Type lastVarType;
 	private static int offset;
 	
 	/**
@@ -17,10 +18,10 @@ public class Declaration {
 	 * @param name The name of the constant.
 	 */
 	public void defConst(String name) {
-		if(!Yaka.tabIdent.existIdent(name)) {
-			lastConstName = name;
+		if(!Yaka.tabIdent.containsIdent(name)) {
+			this.lastConstName = name;
 		} else {
-			System.err.println("Declaration: Name '" + name + "' already taken.");
+			System.err.println("Declaration: Name '"+name+"' already taken.");
 		}
 	}
 	
@@ -30,24 +31,31 @@ public class Declaration {
 	 * @param value The value.
 	 */
 	public void valConst(Type type, int value) {
-		if(lastConstName != "") {
-			Yaka.tabIdent.setIdent(lastConstName, new IdConst(type, value));
+		if(this.lastConstName != "") {
+			Yaka.tabIdent.setIdent(this.lastConstName, new IdConst(type, value));
 		} else {
 			System.err.println("Declaration: Const def name undefined");
 		}
 	}
 	
 	/**
+	 * Called when a type of variable is announced.
+	 * @param type The type.
+	 */
+	public void declVar(Type type) {
+		this.lastVarType = type;
+	}
+	
+	/**
 	 * Called when a variable is declared.
-	 * @param type The type of the variable.
 	 * @param name The name of the variable.
 	 */
-	public void declVar(Type type, String name){
-		if(!Yaka.tabIdent.existIdent(name)) {
-			Yaka.tabIdent.setIdent(name, new IdVar(type, offset));
+	public void defVar(String name) {
+		if(!Yaka.tabIdent.containsIdent(name)) {
+			Yaka.tabIdent.setIdent(name, new IdVar(lastVarType, offset));
 			offset -= 2;
 		} else {
-			System.err.println("Declaration: Name '" + name + "' already taken.");
+			System.err.println("Declaration: Name '"+name+"' already taken.");
 		}
 	}
 	

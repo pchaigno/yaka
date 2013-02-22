@@ -1,3 +1,4 @@
+
 import java.util.HashMap;
 
 /**
@@ -19,7 +20,7 @@ public class TabIdent {
 	 * @param key The key to search.
 	 * @return The value corresponding to the key.
 	 */
-	public Ident searchIdent(String key) {
+	public Ident getIdent(String key) {
 		return this.table.get(key);
 	}
 	
@@ -28,7 +29,7 @@ public class TabIdent {
 	 * @param key The key to search.
 	 * @return True if the map contain the key key.
 	 */
-	public boolean existIdent(String key) {
+	public boolean containsIdent(String key) {
 		return this.table.containsKey(key);
 	}
 	
@@ -39,5 +40,10 @@ public class TabIdent {
 	 */
 	public void setIdent(String key, Ident id) {
 		this.table.put(key, id);
+	}
+	
+	@Override
+	public String toString() {
+		return this.table.toString();
 	}
 }

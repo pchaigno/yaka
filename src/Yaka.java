@@ -7,7 +7,6 @@ public class Yaka implements YakaConstants {
 
   public static void main(String args [])
   {
-    Yaka analyseur;
     java.io.InputStream input;
     if (args.length == 1)
     {
@@ -34,8 +33,12 @@ public class Yaka implements YakaConstants {
     }
     try
     {
-      analyseur = new Yaka(input);
-      analyseur.analyse();
+      new Yaka(input);
+          expression = new Expression();
+          declaration = new Declaration();
+          yvm = new YVM();
+      Yaka.tabIdent = new TabIdent(10);
+      Yaka.analyse();
       System.out.println("analyse syntaxique reussie!");
     }
     catch (ParseException e)
@@ -54,6 +57,7 @@ public class Yaka implements YakaConstants {
     jj_consume_token(ident);
     bloc();
     jj_consume_token(FPROGRAMME);
+                  System.out.println(expression.getResult());
   }
 
   static final public void bloc() throws ParseException {
@@ -138,6 +142,7 @@ public class Yaka implements YakaConstants {
     jj_consume_token(VAR);
     type();
     jj_consume_token(ident);
+             declaration.defVar(YakaTokenManager.identLu);
     label_4:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -150,6 +155,7 @@ public class Yaka implements YakaConstants {
       }
       jj_consume_token(40);
       jj_consume_token(ident);
+             declaration.defVar(YakaTokenManager.identLu);
     }
     jj_consume_token(41);
   }
@@ -158,9 +164,11 @@ public class Yaka implements YakaConstants {
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case ENTIER:
       jj_consume_token(ENTIER);
+              declaration.declVar(Type.INT);
       break;
     case BOOLEEN:
       jj_consume_token(BOOLEEN);
+               declaration.declVar(Type.BOOL);
       break;
     default:
       jj_la1[5] = jj_gen;

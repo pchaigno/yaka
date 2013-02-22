@@ -1,3 +1,4 @@
+
 /**
  * Represent an identificator of constant.
  */
