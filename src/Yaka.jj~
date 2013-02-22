@@ -20,14 +20,6 @@ public class Yaka
   public static Expression expression;
   public static YVM yvm;
   
-  public static void  lanceReco(){
-      expression = new Expression();
-  	  declaration = new Declaration();
-  	  yvm = new YVM();
-      Yaka.tabIdent = new TabIdent(10);
-
-  }
-  
   public static void main(String args [])
   {
     java.io.InputStream input;
@@ -182,7 +174,7 @@ TOKEN :
 	void bloc() : {} {
 	  (declConst())*
 	  (declVar())*
-	  suiteInstr()
+	  suiteExpr()
 	}
 
 /******** Definitions ********/
@@ -199,7 +191,7 @@ TOKEN :
 	
 	void valConst() : {} {
 	  < entier > 	{declaration.valConst(Type.INT, YakaTokenManager.entierLu);}
-	| < ident > 	{declaration.valConstRef(YakaTokenManager.identLu);}
+	| < ident > 	{declaration.valConst(Type.INT, tabIdent.searchIdent(YakaTokenManager.identLu).getValue());}
 	| < VRAI > 		{declaration.valConst(Type.BOOL, Constante.VRAI);}
 	| < FAUX > 		{declaration.valConst(Type.BOOL, Constante.FAUX);}
 	}
@@ -215,13 +207,14 @@ TOKEN :
 	| < BOOLEEN > {declaration.declVar(Type.BOOL);}
 	}
 
+
 	
 /******** Expression ********/
-	/*void suiteExpr() : {} {
+	void suiteExpr() : {} {
 	  (expression()
 	  	(";" (expression())? )*
 	  )?
-	}*/
+	}
 	
 	void expression() : {} {
 	  simpleExpr()
@@ -285,18 +278,6 @@ TOKEN :
 
 /******** Affectation ********/
 
-	void suiteInstr() : {} {		instruction()		(		  ";" (instruction())?		)*
-	}
-
-	void instruction() : {} {
-	  affectation() | lecture() | ecriture()	}
-
-	void affectation() : {} {	  < ident > "=" expression()	}
-
-	void lecture() : {} {
-	  < LIRE > "(" < ident > ")"	}
- 	void ecriture() : {} {
- 	  < ECRIRE > "(" expression() | < chaine > ")" | < ALALIGNE > 	}
 
 /******** Reading ********/
 
