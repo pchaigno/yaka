@@ -38,6 +38,16 @@ public class Declaration {
 		}
 	}
 	
+	public void valConstRef(String ref) {
+		Ident ident = Yaka.tabIdent.getIdent(ref);
+		if(ident != null) {
+			Yaka.tabIdent.setIdent(this.lastConstName, ident);
+		}
+		else {
+			System.err.println("Declaration: Ref to undefined const");
+		}
+	}
+	
 	/**
 	 * Called when a type of variable is announced.
 	 * @param type The type.

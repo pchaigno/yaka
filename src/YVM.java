@@ -20,9 +20,9 @@ public class YVM {
 	 */
 	String iconstBool(boolean obj) {
 		if(obj) {
-			return "iconst VRAI\n";
+			return "iconst -1\n";
 		}
-		return "iconst FAUX\n";
+		return "iconst 0\n";
 	}
 	
 	/**

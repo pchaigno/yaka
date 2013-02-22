@@ -5,6 +5,15 @@ public class Yaka implements YakaConstants {
   public static Expression expression;
   public static YVM yvm;
 
+  public static void  lanceReco(){
+      expression = new Expression();
+          declaration = new Declaration();
+          yvm = new YVM();
+      Yaka.tabIdent = new TabIdent(10);
+
+  }
+
+
   public static void main(String args [])
   {
     java.io.InputStream input;
@@ -122,6 +131,7 @@ public class Yaka implements YakaConstants {
       break;
     case ident:
       jj_consume_token(ident);
+             declaration.valConstRef(YakaTokenManager.identLu);
       break;
     case VRAI:
       jj_consume_token(VRAI);
@@ -237,6 +247,7 @@ public class Yaka implements YakaConstants {
     case 49:
       opRel();
       simpleExpr();
+                  Yaka.expression.compute();
       break;
     default:
       jj_la1[9] = jj_gen;
