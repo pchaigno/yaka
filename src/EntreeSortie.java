@@ -5,12 +5,8 @@ public class EntreeSortie {
 		Yaka.yvm.aLaLigne();
 	}
 	
-	public void ecrireExpr(String ident) {
-		if(Yaka.tabIdent.containsIdent(ident)){
-			Yaka.yvm.iload(Yaka.tabIdent.getIdent(ident).getValue());
-		}else{
-			System.err.println("EntreeSortie: ");
-		}
+	public void ecrireEnt() {
+		Yaka.yvm.ecrireEnt();
 	}
 	
 	public void ecrireChaine(String ident) {

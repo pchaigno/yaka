@@ -4,8 +4,16 @@
  */
 public class YVMasm extends YVM {
 	
-	private static int compt = 0;
+	private static int cptES;
 	
+	
+	
+	public YVMasm() {
+		super();
+		cptES = 0;
+	}
+
+
 	@Override
 	String iconst(int obj) {
 		return "push "+obj+"\n";
@@ -170,8 +178,16 @@ public class YVMasm extends YVM {
 	String ecrireChaine(String s) {
 		String str = "";
 		str += ".DATA\n";
-		str += "mess"+compt+" DB \""+s+"\" \n";
-		compt++;
+		str += "mess"+cptES+" DB \""+s+"$\" \n";
+		str += ".CODE\n";
+		str += "lea dx,mess"+cptES+"\n";
+		str += "push dx\n";
+		str += "call ecrch\n";
+		cptES++;
 		return str;
+	}
+	
+	String ecrireEnt() {
+		return "call ecrent\n"; 
 	}
 }

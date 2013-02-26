@@ -150,4 +150,8 @@ public class YVM {
 		return "ecrireChaine \""+s+"\"\n"; 
 	}
 	
+	String ecrireEnt() {
+		return "ecrireEnt\n"; 
+	}
+	
 }
