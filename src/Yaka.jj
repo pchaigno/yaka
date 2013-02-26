@@ -14,17 +14,19 @@ options
 
 PARSER_BEGIN(Yaka)
 public class Yaka {
+  public static YVM yvm;
+  public static Programme programme;
   public static Declaration declaration;
   public static TabIdent tabIdent;
   public static Expression expression;
-  public static YVM yvm;
   public static EntreeSortie entreeSortie;
   
   public static void initVariables() {
-      expression = new Expression();
-  	  declaration = new Declaration();
   	  yvm = new YVM();
+  	  programme = new Programme();
       Yaka.tabIdent = new TabIdent(10);
+  	  declaration = new Declaration();
+      expression = new Expression();
       entreeSortie = new EntreeSortie();      
   }
   
@@ -164,7 +166,7 @@ TOKEN :
 
 /******** Main ********/
 void analyse() : {}	{
-  < PROGRAMME > < ident > 
+  < PROGRAMME > < ident > {Yaka.programme.entete();}
   bloc() 
   < FPROGRAMME >
 }

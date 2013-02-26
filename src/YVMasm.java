@@ -5,12 +5,22 @@
 public class YVMasm extends YVM {
 	
 	private static int compt = 0;
+
+	@Override
+	String entete() {
+		String str = "; " + super.entete();
+		str += "extrn lirent:proc, ecrent:proc\n";
+		str += "extrn ecrbool:proc\n";
+		str += "extrn ecrch:proc, ligsuiv:proc\n";
+		str += ".model SMALL\n";
+		str += ".586\n\n";
+		return str;
+	}
 	
 	@Override
 	String iconst(int obj) {
 		return "push "+obj+"\n";
 	}
-
 	
 	@Override
 	String iload(int offset) {
@@ -19,7 +29,8 @@ public class YVMasm extends YVM {
 	
 	@Override
 	String iadd() {
-		String str = "pop bx\n";
+		String str = "; " + super.iadd();
+		str += "pop bx\n";
 		str += "pop ax\n";
 		str += "add ax, bx\n";
 		str += "push ax\n";
@@ -28,7 +39,8 @@ public class YVMasm extends YVM {
 
 	@Override
 	String imul() {
-		String str = "pop bx\n";
+		String str = "; " + super.imul();
+		str += "pop bx\n";
 		str += "pop ax\n";
 		str += "imul bx\n";
 		str += "push ax\n";
@@ -37,7 +49,8 @@ public class YVMasm extends YVM {
 
 	@Override
 	String isub() {
-		String str = "pop bx\n";
+		String str = "; " + super.isub();
+		str += "pop bx\n";
 		str += "pop ax\n";
 		str += "sub ax, bx\n";
 		str += "push ax\n";
@@ -46,7 +59,8 @@ public class YVMasm extends YVM {
 
 	@Override
 	String iand() {
-		String str = "pop bx\n";
+		String str = "; " + super.iand();
+		str += "pop bx\n";
 		str += "pop ax\n";
 		str += "and ax, bx\n";
 		str += "push ax\n";
@@ -55,7 +69,8 @@ public class YVMasm extends YVM {
 
 	@Override
 	String ior() {
-		String str = "pop bx\n";
+		String str = "; " + super.ior();
+		str += "pop bx\n";
 		str += "pop ax\n";
 		str += "or ax, bx\n";
 		str += "push ax\n";
@@ -64,7 +79,8 @@ public class YVMasm extends YVM {
 
 	@Override
 	String idiv() {
-		String str = "pop bx\n";
+		String str = "; " + super.idiv();
+		str += "pop bx\n";
 		str += "pop ax\n";
 		str += "cwd\n";
 		str += "idiv bx\n";
@@ -74,7 +90,8 @@ public class YVMasm extends YVM {
 
 	@Override
 	String iinf() {
-		String str = "pop bx\n";
+		String str = "; " + super.iinf();
+		str += "pop bx\n";
 		str += "pop ax\n";
 		str += "cmp ax, bx\n";
 		str += "jge $+6\n";
@@ -86,7 +103,8 @@ public class YVMasm extends YVM {
 
 	@Override
 	String iinfegal() {
-		String str = "pop bx\n";
+		String str = "; " + super.iinfegal();
+		str += "pop bx\n";
 		str += "pop ax\n";
 		str += "cmp ax, bx\n";
 		str += "jg $+6\n";
@@ -98,7 +116,8 @@ public class YVMasm extends YVM {
 
 	@Override
 	String isupegal() {
-		String str = "pop bx\n";
+		String str = "; " + super.isupegal();
+		str += "pop bx\n";
 		str += "pop ax\n";
 		str += "cmp ax, bx\n";
 		str += "jl $+6\n";
@@ -110,7 +129,8 @@ public class YVMasm extends YVM {
 
 	@Override
 	String isup() {
-		String str = "pop bx\n";
+		String str = "; " + super.isup();
+		str += "pop bx\n";
 		str += "pop ax\n";
 		str += "cmp ax, bx\n";
 		str += "jle $+6\n";
@@ -122,7 +142,8 @@ public class YVMasm extends YVM {
 
 	@Override
 	String iegal() {
-		String str = "pop bx\n";
+		String str = "; " + super.iegal();
+		str += "pop bx\n";
 		str += "pop ax\n";
 		str += "cmp ax, bx\n";
 		str += "jne $+6\n";
@@ -134,7 +155,8 @@ public class YVMasm extends YVM {
 
 	@Override
 	String idiff() {
-		String str = "pop bx\n";
+		String str = "; " + super.idiff();
+		str += "pop bx\n";
 		str += "pop ax\n";
 		str += "cmp ax, bx\n";
 		str += "je $+6\n";
@@ -146,7 +168,8 @@ public class YVMasm extends YVM {
 	
 	@Override
 	String istore(int offset) {
-		String str = "pop ax\n";
+		String str = "; " + super.istore(offset);
+		str += "pop ax\n";
 		str += "mov word ptr [bp"+offset+"], ax\n";
 		return str;
 	}
