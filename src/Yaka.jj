@@ -284,8 +284,9 @@ void lecture() : {} {
   < LIRE > "(" < ident > ")" {Yaka.entreeSortie.lire(YakaTokenManager.identLu);}}
 /******** Writing ********/
 void ecriture() : {} {
-  < ECRIRE > "(" { expression() {Yaka.entreeSortie.ecrireEnt();} 
-  | < chaine > {Yaka.entreeSortie.ecrireChaine(YakaTokenManager.identLu);} } ")" 
+  < ECRIRE > "(" (expression() {Yaka.entreeSortie.ecrireEnt();}
+  		| < chaine >  {Yaka.entreeSortie.ecrireChaine(YakaTokenManager.identLu);}) ")"
+
   | < ALALIGNE > {Yaka.entreeSortie.aLaLigne();}}
 
 
