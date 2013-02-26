@@ -5,26 +5,14 @@
 public class YVM {
 	
 	/**
-	 * Generate the code for an iconst instruction with an integer.
+	 * Generate the code for an iconst instruction.
 	 * @param obj The integer.
 	 * @return The YVM code.
 	 */
-	String iconstInt(int obj) {
+	String iconst(int obj) {
 		return "iconst "+obj+"\n";
 	}
-	
-	/**
-	 * Generate the code for an iconst instruction with a boolean.
-	 * @param obj The boolean
-	 * @return The YVM code.
-	 */
-	String iconstBool(boolean obj) {
-		if(obj) {
-			return "iconst -1\n";
-		}
-		return "iconst 0\n";
-	}
-	
+		
 	/**
 	 * Generate the code for an iload instruction.
 	 * @param offset The offset.
@@ -137,4 +125,29 @@ public class YVM {
 	String istore(int offset) {
 		return "istore "+offset+"\n";
 	}
+	
+	/**
+	 * Generate the code for an aLaLigne instruction.
+	 * @return The YVM code.
+	 */
+	String aLaLigne() {
+		return "aLaLigne";
+	}
+	
+	/**
+	 * Generate the code for an lire instruction.
+	 * @return The YVM code.
+	 */
+	String lire(int offset) {
+		return "lireEnt "+offset+"\n"; 
+	}
+	
+	/**
+	 * Generate the code for an ecrireChaine instruction.
+	 * @return The YVM code.
+	 */
+	String ecrireChaine(String s) {
+		return "ecrireChaine \""+s+"\"\n"; 
+	}
+	
 }
