@@ -46,20 +46,26 @@ public class Expression {
 			ent = -ent;
 			this.invert = false;
 		}
-		this.expr += Yaka.yvm.iconstInt(ent);
+		this.expr += Yaka.yvm.iconst(ent);
 	}
 	
 	/**
 	 * Push a boolean to the stack of values.
 	 * @param bool The boolean.
 	 */
-	public void pushBoolean(boolean bool) {
+	public void pushBoolean(int bool) {
 		this.stackType.push(Type.BOOL);
 		if(this.invert) {
-			bool = !bool;
+			if (bool == Constante.TRUE) {
+				bool = Constante.FALSE;
+			} else if (bool == Constante.FALSE) {
+				bool = Constante.TRUE;
+			} else {
+				System.err.println("Expression: Booleen mal defini");
+			}
 			this.invert = false;
 		}
-		this.expr += Yaka.yvm.iconstBool(bool);
+		this.expr += Yaka.yvm.iconst(bool);
 	}
 	
 	/**
@@ -76,7 +82,7 @@ public class Expression {
 		if(ident.isVar()) {
 			this.expr += Yaka.yvm.iload(ident.getValue());
 		} else {
-			this.expr += Yaka.yvm.iconstInt(ident.getValue());
+			this.expr += Yaka.yvm.iconst(ident.getValue());
 		}
 	}
 	

@@ -2,7 +2,7 @@
  *
  *       Auteur: La team des arracheurs de dents
  *
- * 	création : 15 février 2013
+ * 	crï¿½ation : 15 fï¿½vrier 2013
  *
  *     nature : projet etudiant
  *
@@ -98,7 +98,7 @@ SKIP :
   }
 }
 
-/* Mots réservés*/
+/* Mots rï¿½servï¿½s*/
 TOKEN :
 {
   < BOOLEEN : "BOOLEEN" >
@@ -234,8 +234,8 @@ void primaire() : {} {
 void valeur() : {} {
   < entier > 	{Yaka.expression.pushInteger(YakaTokenManager.entierLu);}
 | < ident > 	{Yaka.expression.pushIdent(YakaTokenManager.identLu);}
-| < VRAI > 		{Yaka.expression.pushBoolean(true);}
-| < FAUX > 		{Yaka.expression.pushBoolean(false);}
+| < VRAI > 		{Yaka.expression.pushBoolean(Constante.TRUE);}
+| < FAUX > 		{Yaka.expression.pushBoolean(Constante.FALSE);}
 }
 
 void opRel() : {} {
