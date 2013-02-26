@@ -5,6 +5,14 @@
 public class YVM {
 	
 	/**
+	 * Generate program header
+	 * @return The YVM code.
+	 */
+	String entete() {
+		return "entete\n";
+	}
+	
+	/**
 	 * Generate the code for an iconst instruction.
 	 * @param obj The integer.
 	 * @return The YVM code.
