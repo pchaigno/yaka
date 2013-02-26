@@ -18,12 +18,14 @@ public class Yaka {
   public static TabIdent tabIdent;
   public static Expression expression;
   public static YVM yvm;
+  public static EntreeSortie entreeSortie;
   
   public static void initVariables() {
       expression = new Expression();
   	  declaration = new Declaration();
   	  yvm = new YVM();
       Yaka.tabIdent = new TabIdent(10);
+      entreeSortie = new EntreeSortie();      
   }
   
   public static void main(String args []) {
@@ -277,15 +279,19 @@ void affectation() : {} {  < ident > {Yaka.expression.setAffectation(YakaTokenM
    "="
    expression() {Yaka.expression.affectation();}}
 
-void lecture() : {} {
-  < LIRE > "(" < ident > ")"}
-void ecriture() : {} {
-  < ECRIRE > "(" expression() | < chaine > ")" | < ALALIGNE >}
-
 /******** Reading ********/
+void lecture() : {} {
+  < LIRE > "(" < ident > ")" {Yaka.entreeSortie.lire(YakaTokenManager.identLu);}}
+/******** Writing ********/
+void ecriture() : {} {
+  < ECRIRE > "(" { expression() {Yaka.entreeSortie.ecrireExpr(YakaTokenManager.identLu);} 
+  | < chaine > {Yaka.entreeSortie.ecrireChaine(YakaTokenManager.identLu);} } ")" 
+  | < ALALIGNE > {Yaka.entreeSortie.aLaLigne();}}
 
 
-/******** Writing ********/
+
+
+
 
 
 /******** Iteration ********/

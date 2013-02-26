@@ -4,18 +4,13 @@
  */
 public class YVMasm extends YVM {
 	
-	@Override
-	String iconstInt(int obj) {
-		return "push "+obj+"\n";
-	}
+	private static int compt = 0;
 	
 	@Override
-	String iconstBool(boolean obj) {
-		if(obj) {
-			return "iconst 0\n";
-		}
-		return "iconst -1\n";
+	String iconst(int obj) {
+		return "push "+obj+"\n";
 	}
+
 	
 	@Override
 	String iload(int offset) {
@@ -153,6 +148,30 @@ public class YVMasm extends YVM {
 	String istore(int offset) {
 		String str = "pop ax\n";
 		str += "mov word ptr [bp"+offset+"], ax\n";
+		return str;
+	}
+	
+	String aLaLigne() {
+		return "call ligsuiv";
+	}
+	
+	String lire(int offset) {
+		String str = "";
+		if(offset<0){
+			str += "lea dx,[bp"+offset+"]\n";
+		}else{
+			str += "lea dx,[bp+"+offset+"]\n";
+		}
+		str += "push dx\n";
+		str += "call lirent\n";
+		return str;
+	}
+	
+	String ecrireChaine(String s) {
+		String str = "";
+		str += ".DATA\n";
+		str += "mess"+compt+" DB \""+s+"\" \n";
+		compt++;
 		return str;
 	}
 }
