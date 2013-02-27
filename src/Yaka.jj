@@ -2,7 +2,7 @@
  *
  *       Auteur: La team des arracheurs de dents
  *
- * 	cr�ation : 15 f�vrier 2013
+ * 	creation : 15 fevrier 2013
  *
  *     nature : projet etudiant
  *
@@ -26,7 +26,8 @@ public class Yaka {
   	  declaration = new Declaration();
   	  iteration = new Iteration();
   	  yvm = new YVM();
-      Yaka.tabIdent = new TabIdent(10);
+      tabIdent = new TabIdent(10);
+      entreeSortie = new EntreeSortie();  
       program = "";
   }
   
@@ -102,7 +103,7 @@ SKIP :
   }
 }
 
-/* Mots r�serv�s*/
+/* Mots reserves*/
 TOKEN :
 {
   < BOOLEEN : "BOOLEEN" >
@@ -166,7 +167,8 @@ TOKEN :
 
 /******** Main ********/
 void analyse() : {}	{
-  < PROGRAMME > < ident > 
+  < PROGRAMME >
+  < ident > {yvm.entete();}
   bloc() 
   < FPROGRAMME >
 }
@@ -281,16 +283,14 @@ void affectation() : {} {  < ident > {Yaka.expression.setAffectation(YakaTokenM
    "="
    expression() {Yaka.expression.affectation();}}
 
-void lecture() : {} {
-  < LIRE > "(" < ident > ")"}
-void ecriture() : {} {
-  < ECRIRE > "(" expression() | < chaine > ")" | < ALALIGNE >}
-
 /******** Reading ********/
-
-
-/******** Writing ********/
-
+void lecture() : {} {
+  < LIRE > "(" < ident > ")" {Yaka.entreeSortie.lire(YakaTokenManager.identLu);}}
+/******** Writing ********/
+void ecriture() : {} {
+  < ECRIRE > "(" (expression() {Yaka.entreeSortie.ecrireEnt();}
+  		| < chaine >  {Yaka.entreeSortie.ecrireChaine(YakaTokenManager.identLu);}) ")"
+  | < ALALIGNE > {Yaka.entreeSortie.aLaLigne();}}
 
 /******** Iteration ********/
 void iteration() : {} {	< TANTQUE > {Yaka.iteration.tantQue();}

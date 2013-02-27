@@ -180,4 +180,8 @@ public class YVM {
 	String labelFait() {
 		return "FAIT"+this.iterations.pop()+" :\n";
 	}
+	
+	String ecrireEnt() {
+		return "ecrireEnt\n"; 
+	}
 }

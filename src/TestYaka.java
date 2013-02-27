@@ -125,7 +125,7 @@ public class TestYaka extends TestCase {
 	}
 	
 	public void testEntreeSortie() {
-		String program = "PROGRAMME entreeSotie" +
+		String program = "PROGRAMME entreeSortie" +
 				" VAR ENTIER x,y,z;" +
 				" ECRIRE(\"x=\"); " +
 				"LIRE(x); " +

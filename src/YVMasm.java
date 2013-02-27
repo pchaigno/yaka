@@ -3,12 +3,18 @@
  * Generate the ASM code for each YVM function.
  */
 public class YVMasm extends YVM {
-	
+	private static int cptES = 0;
+
+	public YVMasm() {
+		super();
+		cptES = 0;
+	}
+
 	@Override
 	String iconstInt(int obj) {
 		return "push "+obj+"\n";
 	}
-	
+
 	@Override
 	String iconstBool(boolean obj) {
 		if(obj) {
@@ -179,5 +185,21 @@ public class YVMasm extends YVM {
 	@Override
 	String labelFait() {
 		return "FAIT"+this.iterations.pop()+" :\n";
+	}
+	
+	String ecrireChaine(String s) {
+		String str = "";
+		str += ".DATA\n";
+		str += "mess"+cptES+" DB \""+s+"$\" \n";
+		str += ".CODE\n";
+		str += "lea dx,mess"+cptES+"\n";
+		str += "push dx\n";
+		str += "call ecrch\n";
+		cptES++;
+		return str;
+	}
+	
+	String ecrireEnt() {
+		return "call ecrent\n"; 
 	}
 }
