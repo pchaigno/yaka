@@ -40,7 +40,8 @@ public class TestYaka extends TestCase {
 				"VAR ENTIER c1,c2; VAR BOOLEEN b1,b2; " +
 				"c1 = 5; " +
 				"FPROGRAMME";
-		String programYVM = "iconst 5\n" +
+		String programYVM = "entete\n" +
+				"iconst 5\n" +
 				"istore -2\n";
 		this.launchAnalyse(program);
 		assertEquals(programYVM, Yaka.expression.getResult());
@@ -55,7 +56,8 @@ public class TestYaka extends TestCase {
 				"VAR ENTIER c1,c2; VAR BOOLEEN b1,b2; " +
 				"c1 = 5; " +
 				"FPROGRAMME";
-		String programYVM = "iconst 5\n" +
+		String programYVM = "entete\n" +
+				"iconst 5\n" +
 				"istore -2\n";
 		this.launchAnalyse(program);
 		assertEquals(programYVM, Yaka.expression.getResult());
@@ -104,7 +106,8 @@ public class TestYaka extends TestCase {
 				"VAR ENTIER x,y,z; " +
 				"z=(x+y/2)/5; x=y+3*y-4;" +
 				"FPROGRAMME";
-		String programYVM = "iload -2\n"+
+		String programYVM = "entete\n" +
+				"iload -2\n"+
 				"iload -4\n"+
 				"iconst 2\n"+
 				"idiv\n"+
@@ -140,6 +143,7 @@ public class TestYaka extends TestCase {
 				"x=y+3*y-4; " +
 				"FPROGRAMME";
 		this.launchAnalyse(program);
+		System.out.println("TestEntreeSortie:");
 		System.out.println(Yaka.expression.getResult());
 	}
 	
@@ -154,6 +158,7 @@ public class TestYaka extends TestCase {
 				"FAIT " +
 				"FPROGRAMME";
 		this.launchAnalyse(program);
+		System.out.println("TestIteration:");
 		System.out.println(Yaka.expression.getResult());
 	}
 	
@@ -174,6 +179,7 @@ public class TestYaka extends TestCase {
 				"FAIT " +
 				"FPROGRAMME";
 		this.launchAnalyse(program);
+		System.out.println("TestIterationImbriquee:");
 		System.out.println(Yaka.expression.getResult());
 	}
 	

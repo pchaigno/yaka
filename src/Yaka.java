@@ -6,6 +6,7 @@ public class Yaka implements YakaConstants {
   public static TabIdent tabIdent;
   public static YVM yvm;
   public static String program;
+  public static EntreeSortie entreeSortie;
 
   public static void initVariables() {
       expression = new Expression();
@@ -59,7 +60,7 @@ public class Yaka implements YakaConstants {
   static final public void analyse() throws ParseException {
     jj_consume_token(PROGRAMME);
     jj_consume_token(ident);
-             yvm.entete();
+             program += yvm.entete();
     bloc();
     jj_consume_token(FPROGRAMME);
   }
@@ -485,11 +486,11 @@ public class Yaka implements YakaConstants {
       case 43:
       case 51:
         expression();
-                                Yaka.entreeSortie.ecrireEnt();
+                      Yaka.entreeSortie.ecrireEnt();
         break;
       case chaine:
         jj_consume_token(chaine);
-                               Yaka.entreeSortie.ecrireChaine(YakaTokenManager.identLu);
+                       Yaka.entreeSortie.ecrireChaine(YakaTokenManager.chaineLue);
         break;
       default:
         jj_la1[19] = jj_gen;

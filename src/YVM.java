@@ -14,6 +14,14 @@ public class YVM {
 	}
 	
 	/**
+	* Generate program header
+	* @return The YVM code.
+	*/
+	String entete() {
+		return "entete\n";
+	}
+	
+	/**
 	 * Generate the code for an iconst instruction with an integer.
 	 * @param obj The integer.
 	 * @return The YVM code.
@@ -179,6 +187,30 @@ public class YVM {
 	 */
 	String labelFait() {
 		return "FAIT"+this.iterations.pop()+" :\n";
+	}
+	
+	/**
+	* Generate the code for an aLaLigne instruction.
+	* @return The YVM code.
+	*/
+	String aLaLigne() {
+		return "aLaLigne\n";
+	}
+	
+	/**
+	* Generate the code for an lire instruction.
+	* @return The YVM code.
+	*/
+	String lire(int offset) {
+		return "lireEnt "+offset+"\n";
+	}
+	
+	/**
+	* Generate the code for an ecrireChaine instruction.
+	* @return The YVM code.
+	*/
+	String ecrireChaine(String s) {
+		return "ecrireChaine "+s+"\n";
 	}
 	
 	String ecrireEnt() {

@@ -9,6 +9,17 @@ public class YVMasm extends YVM {
 		super();
 		cptES = 0;
 	}
+	
+	@Override
+	String entete() {
+		String str = "; " + super.entete();
+		str += "extrn lirent:proc, ecrent:proc\n";
+		str += "extrn ecrbool:proc\n";
+		str += "extrn ecrch:proc, ligsuiv:proc\n";
+		str += ".model SMALL\n";
+		str += ".586\n\n";
+		return str;
+	}
 
 	@Override
 	String iconstInt(int obj) {
@@ -187,6 +198,22 @@ public class YVMasm extends YVM {
 		return "FAIT"+this.iterations.pop()+" :\n";
 	}
 	
+	String aLaLigne() {
+		return "call ligsuiv";
+	}
+	
+	String lire(int offset) {
+		String str = "";
+		if(offset<0){
+		str += "lea dx,[bp"+offset+"]\n";
+		}else{
+		str += "lea dx,[bp+"+offset+"]\n";
+		}
+		str += "push dx\n";
+		str += "call lirent\n";
+		return str;
+	}
+	
 	String ecrireChaine(String s) {
 		String str = "";
 		str += ".DATA\n";
@@ -200,6 +227,6 @@ public class YVMasm extends YVM {
 	}
 	
 	String ecrireEnt() {
-		return "call ecrent\n"; 
+		return "call ecrent\n";
 	}
 }

@@ -20,6 +20,7 @@ public class Yaka {
   public static TabIdent tabIdent;
   public static YVM yvm;
   public static String program;
+  public static EntreeSortie entreeSortie;
   
   public static void initVariables() {
       expression = new Expression();
@@ -168,7 +169,7 @@ TOKEN :
 /******** Main ********/
 void analyse() : {}	{
   < PROGRAMME >
-  < ident > {yvm.entete();}
+  < ident > {program += yvm.entete();}
   bloc() 
   < FPROGRAMME >
 }
@@ -288,8 +289,12 @@ void lecture() : {} {
   < LIRE > "(" < ident > ")" {Yaka.entreeSortie.lire(YakaTokenManager.identLu);}}
 /******** Writing ********/
 void ecriture() : {} {
-  < ECRIRE > "(" (expression() {Yaka.entreeSortie.ecrireEnt();}
-  		| < chaine >  {Yaka.entreeSortie.ecrireChaine(YakaTokenManager.identLu);}) ")"
+  < ECRIRE > "("
+  (
+  	expression() {Yaka.entreeSortie.ecrireEnt();}
+  	| < chaine >  {Yaka.entreeSortie.ecrireChaine(YakaTokenManager.chaineLue);}
+  )
+  ")"
   | < ALALIGNE > {Yaka.entreeSortie.aLaLigne();}}
 
 /******** Iteration ********/
