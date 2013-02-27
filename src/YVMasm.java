@@ -197,7 +197,7 @@ public class YVMasm extends YVM {
 	}
 	
 	String aLaLigne() {
-		return addLine("call ligsuiv");
+		return addLine("call ligsuiv\n");
 	}
 	
 	String lire(int offset) {

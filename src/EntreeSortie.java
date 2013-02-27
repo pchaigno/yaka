@@ -9,8 +9,8 @@ public class EntreeSortie {
 		Yaka.yvm.ecrireEnt();
 	}
 	
-	public void ecrireChaine(String ident) {
-		Yaka.yvm.ecrireChaine(ident);
+	public void ecrireChaine(String chaine) {
+		Yaka.yvm.ecrireChaine(chaine);
 	}
 	
 	public void lire (String ident) {

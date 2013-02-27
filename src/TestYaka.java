@@ -18,7 +18,7 @@ public class TestYaka extends TestCase {
 	/*public void testEmpty() {
 		String program = "PROGRAMME empty FPROGRAMME";
 		this.launchAnalyse(program);
-		assertEquals("", Yaka.expression.getResult());
+		assertEquals("", Yaka.yvm.getProgram());
 	}*/
 	
 	/**
@@ -29,7 +29,7 @@ public class TestYaka extends TestCase {
 				"CONST aa=10, ba=VRAI, cc=aa;" +
 				"FPROGRAMME";
 		this.launchAnalyse(program);
-		assertEquals("", Yaka.expression.getResult());
+		assertEquals("", Yaka.yvm.getProgram());
 	}*/
 	
 	/**
@@ -43,7 +43,7 @@ public class TestYaka extends TestCase {
 		String programYVM = "iconst 5\n" +
 				"istore -2\n";
 		this.launchAnalyse(program);
-		assertEquals(programYVM, Yaka.expression.getResult());
+		assertEquals(programYVM, Yaka.yvm.getProgram());
 	}
 	
 	/**
@@ -58,7 +58,7 @@ public class TestYaka extends TestCase {
 		String programYVM = "iconst 5\n" +
 				"istore -2\n";
 		this.launchAnalyse(program);
-		assertEquals(programYVM, Yaka.expression.getResult());
+		assertEquals(programYVM, Yaka.yvm.getProgram());
 	}
 	
 	/**
@@ -93,7 +93,7 @@ public class TestYaka extends TestCase {
 				"ior\n"+
 				"iinfegal\n";
 		this.launchAnalyse(program);
-		assertEquals(programYVM, Yaka.expression.getResult());
+		assertEquals(programYVM, Yaka.yvm.getProgram());
 	}*/
 	
 	/**
@@ -121,7 +121,7 @@ public class TestYaka extends TestCase {
 				"isub\n"+
 				"istore -2\n";
 		this.launchAnalyse(program);
-		assertEquals(programYVM, Yaka.expression.getResult());
+		assertEquals(programYVM, Yaka.yvm.getProgram());
 	}
 	
 	public void testEntreeSortie() {
@@ -140,7 +140,7 @@ public class TestYaka extends TestCase {
 				"x=y+3*y-4; " +
 				"FPROGRAMME";
 		this.launchAnalyse(program);
-		System.out.println(Yaka.expression.getResult());
+		System.out.println(Yaka.yvm.getProgram());
 	}
 	
 	/**

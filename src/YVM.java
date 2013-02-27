@@ -16,6 +16,10 @@ public class YVM {
 		return str;
 	}
 	
+	public String getProgram() {
+		return this.program;
+	}
+	
 	public void generateFile(String name) {
 		OutputStream f = Ecriture.ouvrir(name);
 		Ecriture.ecrireString(f, program);
@@ -158,7 +162,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String aLaLigne() {
-		return addLine("aLaLigne");
+		return addLine("aLaLigne\n");
 	}
 	
 	/**
@@ -174,7 +178,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String ecrireChaine(String s) {
-		return addLine("ecrireChaine \""+s+"\"\n"); 
+		return addLine("ecrireChaine "+s+"\n"); 
 	}
 	
 	String ecrireEnt() {
