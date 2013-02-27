@@ -6,7 +6,7 @@ import java.io.OutputStream;
  * Generate the YVM code for each YVM function.
  */
 public class YVM {
-	private String program;
+	protected String program;
 	
 	/**
 	 * Constructor
@@ -48,7 +48,16 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String header() {
-		return addLine("entete\n");
+		return this.addLine("entete\n");
+	}
+	
+	/**
+	 * Generate the code to book memory space.
+	 * @param nbVariables The number of variables.
+	 * @return The YVM code.
+	 */
+	String bookMemory(int nbVariables) {
+		return this.addLine("ouvrePrinc "+nbVariables*2+"\n");
 	}
 	
 	/**
@@ -57,7 +66,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String iconst(int obj) {
-		return addLine("iconst "+obj+"\n");
+		return this.addLine("iconst "+obj+"\n");
 	}
 		
 	/**
@@ -66,7 +75,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String iload(int offset) {
-		return addLine("iload "+offset+"\n");
+		return this.addLine("iload "+offset+"\n");
 	}
 	
 	/**
@@ -74,7 +83,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String iadd() {
-		return addLine("iadd\n");
+		return this.addLine("iadd\n");
 	}
 
 	/**
@@ -82,7 +91,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String imul() {
-		return addLine("imul\n");
+		return this.addLine("imul\n");
 	}
 
 	/**
@@ -90,7 +99,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String isub() {
-		return addLine("isub\n");
+		return this.addLine("isub\n");
 	}
 
 	/**
@@ -98,7 +107,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String iand() {
-		return addLine("iand\n");
+		return this.addLine("iand\n");
 	}
 
 	/**
@@ -106,7 +115,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String ior() {
-		return addLine("ior\n");
+		return this.addLine("ior\n");
 	}
 
 	/**
@@ -114,7 +123,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String idiv() {
-		return addLine("idiv\n");
+		return this.addLine("idiv\n");
 	}
 
 	/**
@@ -122,7 +131,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String iinf() {
-		return addLine("iinf\n");
+		return this.addLine("iinf\n");
 	}
 
 	/**
@@ -130,7 +139,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String iinfegal() {
-		return addLine("iinfegal\n");
+		return this.addLine("iinfegal\n");
 	}
 
 	/**
@@ -138,7 +147,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String isupegal() {
-		return addLine("isupegal\n");
+		return this.addLine("isupegal\n");
 	}
 
 	/**
@@ -146,7 +155,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String isup() {
-		return addLine("isup\n");
+		return this.addLine("isup\n");
 	}
 
 	/**
@@ -154,7 +163,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String iegal() {
-		return addLine("iegal\n");
+		return this.addLine("iegal\n");
 	}
 
 	/**
@@ -162,7 +171,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String idiff() {
-		return addLine("idiff\n");
+		return this.addLine("idiff\n");
 	}
 	
 	/**
@@ -170,7 +179,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String istore(int offset) {
-		return addLine("istore "+offset+"\n");
+		return this.addLine("istore "+offset+"\n");
 	}
 	
 	/**
@@ -178,7 +187,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String aLaLigne() {
-		return addLine("aLaLigne\n");
+		return this.addLine("aLaLigne\n");
 	}
 	
 	/**
@@ -186,7 +195,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String lire(int offset) {
-		return addLine("lireEnt "+offset+"\n"); 
+		return this.addLine("lireEnt "+offset+"\n"); 
 	}
 	
 	/**
@@ -194,7 +203,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String ecrireChaine(String s) {
-		return addLine("ecrireChaine "+s+"\n"); 
+		return this.addLine("ecrireChaine \""+s+"\"\n"); 
 	}
 	
 	/**
@@ -202,13 +211,13 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String ecrireEnt() {
-		return addLine("ecrireEnt\n"); 
+		return this.addLine("ecrireEnt\n"); 
 	}
 	
 	/**
 	 * Generate the program's footer.
 	 */
 	String footer() {
-		return addLine("queue");
+		return this.addLine("queue\n");
 	}
 }
