@@ -1,3 +1,4 @@
+package compilateur;
 
 import java.util.Stack;
 
@@ -180,7 +181,7 @@ public class Expression {
 		if(Yaka.tabIdent.containsIdent(name)) {
 			this.affectTo = Yaka.tabIdent.getIdent(name);			
 		} else {
-			System.err.println("Expression: Ident does not exist.");
+			System.err.println("Expression: Ident does not exist in the table of idents.");
 		}
 	}
 	
@@ -191,7 +192,7 @@ public class Expression {
 		if(this.affectTo.getType()==this.stackType.pop()) {
 			this.expr += Yaka.yvm.istore(this.affectTo.getValue());
 		} else {
-			System.err.println("Expression: Different types.");
+			System.err.println("Expression: Types don't match at the affectation.");
 		}
 	}
 }

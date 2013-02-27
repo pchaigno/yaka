@@ -1,37 +1,53 @@
+package compilateur;
+
 import java.io.OutputStream;
 
 /**
  * Generate the YVM code for each YVM function.
  */
 public class YVM {
-	
 	private String program;
 	
+	/**
+	 * Constructor
+	 */
 	public YVM() {
-		program = "";
+		this.program = "";
 	}
 	
+	/**
+	 * Add some lines to the program and return this line.
+	 * @param str The lines to add.
+	 * @return The lines.
+	 */
 	protected String addLine(String str) {
-		program += str;
+		this.program += str;
 		return str;
 	}
 	
+	/**
+	 * @return The program generated.
+	 */
 	public String getProgram() {
 		return this.program;
 	}
 	
+	/**
+	 * Generate the file with the result program.
+	 * @param name The name of the file.
+	 */
 	public void generateFile(String name) {
 		OutputStream f = Ecriture.ouvrir(name);
-		Ecriture.ecrireString(f, program);
+		Ecriture.ecrireString(f, this.program);
 		Ecriture.fermer(f);
 		System.out.println("---- Code YVM genere dans '" + name + "' ---- \n" + program);
 	}
 	
 	/**
-	 * Generate program header
+	 * Generate the program's header.
 	 * @return The YVM code.
 	 */
-	String entete() {
+	String header() {
 		return addLine("entete\n");
 	}
 	
@@ -181,8 +197,18 @@ public class YVM {
 		return addLine("ecrireChaine "+s+"\n"); 
 	}
 	
+	/**
+	 * Generate the code for an ecrireEnt instruction.
+	 * @return The YVM code.
+	 */
 	String ecrireEnt() {
 		return addLine("ecrireEnt\n"); 
 	}
 	
+	/**
+	 * Generate the program's footer.
+	 */
+	String footer() {
+		return addLine("queue");
+	}
 }

@@ -13,24 +13,27 @@ options
 }
 
 PARSER_BEGIN(Yaka)
+
+package compilateur;
+
 public class Yaka {
   public static YVM yvm;
   public static Declaration declaration;
   public static TabIdent tabIdent;
   public static Expression expression;
-  public static EntreeSortie entreeSortie;
+  public static InputOutput inputOutput;
   
   public static void initVariables() {
   	  yvm = new YVM();
       tabIdent = new TabIdent(10);
   	  declaration = new Declaration();
       expression = new Expression();
-      entreeSortie = new EntreeSortie();      
+      inputOutput = new InputOutput();      
   }
   
   public static void main(String args []) {
     java.io.InputStream input;
-    if (args.length == 1) {
+    if(args.length == 1) {
       System.out.print(args [args.length - 1] + ": ");
       try {
         input = new java.io.FileInputStream(args [args.length - 1] + ".yaka");
@@ -38,8 +41,7 @@ public class Yaka {
         System.out.println("Fichier introuvable.");
         return;
       }
-    }
-    else if (args.length == 0) {
+    } else if (args.length == 0) {
       System.out.println("Lecture sur l'entree standard...");
       input = System.in;
     } else {
@@ -71,7 +73,6 @@ PARSER_END(Yaka)
 TOKEN_MGR_DECLS :
 {
   public static String identLu, chaineLue;
-
   public static int entierLu;
 }
 
@@ -164,9 +165,10 @@ TOKEN :
 
 /******** Main ********/
 void analyse() : {}	{
-  < PROGRAMME > < ident > {Yaka.yvm.entete();}
+  < PROGRAMME > {Yaka.yvm.header();}
+  < ident >
   bloc() 
-  < FPROGRAMME >
+  < FPROGRAMME > {Yaka.yvm.footer();}
 }
 
 void bloc() : {} {
@@ -183,15 +185,15 @@ void declConst() : {} {
 }
 
 void defConst() : {} {
-  < ident > 	{declaration.defConst(YakaTokenManager.identLu);}
+  < ident > {declaration.defConst(YakaTokenManager.identLu);}
   "=" valConst()
 }
 
 void valConst() : {} {
-  < entier > 	{declaration.valConst(Type.INT, YakaTokenManager.entierLu);}
-| < ident > 	{declaration.valConstRef(YakaTokenManager.identLu);}
-| < VRAI > 		{declaration.valConst(Type.BOOL, Constante.TRUE);}
-| < FAUX > 		{declaration.valConst(Type.BOOL, Constante.FALSE);}
+  < entier > {declaration.valConst(Type.INT, YakaTokenManager.entierLu);}
+| < ident > {declaration.valConstRef(YakaTokenManager.identLu);}
+| < VRAI > {declaration.valConst(Type.BOOL, Constante.TRUE);}
+| < FAUX > {declaration.valConst(Type.BOOL, Constante.FALSE);}
 }
 
 void declVar() : {} {
@@ -214,18 +216,18 @@ void expression() : {} {
 
 void simpleExpr() : {} {
   terme()
-  (opAdd() terme() {Yaka.expression.compute();} )*
+  (opAdd() terme() {Yaka.expression.compute();})*
 }
 
 void terme() : {} {
   facteur()
-  (opMul() facteur() {Yaka.expression.compute();} )*
+  (opMul() facteur() {Yaka.expression.compute();})*
 }
 
 void facteur() : {} {
   primaire()
-| opNeg() 		{Yaka.expression.invert();}
-  primaire() 	{Yaka.expression.compute();}
+| opNeg() {Yaka.expression.invert();}
+  primaire() {Yaka.expression.compute();}
 }
 
 void primaire() : {} {
@@ -234,36 +236,36 @@ void primaire() : {} {
 }
 
 void valeur() : {} {
-  < entier > 	{Yaka.expression.pushInteger(YakaTokenManager.entierLu);}
-| < ident > 	{Yaka.expression.pushIdent(YakaTokenManager.identLu);}
-| < VRAI > 		{Yaka.expression.pushBoolean(Constante.TRUE);}
-| < FAUX > 		{Yaka.expression.pushBoolean(Constante.FALSE);}
+  < entier > {Yaka.expression.pushInteger(YakaTokenManager.entierLu);}
+| < ident > {Yaka.expression.pushIdent(YakaTokenManager.identLu);}
+| < VRAI > {Yaka.expression.pushBoolean(Constante.TRUE);}
+| < FAUX > {Yaka.expression.pushBoolean(Constante.FALSE);}
 }
 
 void opRel() : {} {
-  "=" 	{Yaka.expression.pushOperator(Operator.EQUAL);}
-| "<>" 	{Yaka.expression.pushOperator(Operator.DIFF);}
-| "<" 	{Yaka.expression.pushOperator(Operator.LT);}
-| "<=" 	{Yaka.expression.pushOperator(Operator.LTE);}
-| ">" 	{Yaka.expression.pushOperator(Operator.GT);}
-| ">=" 	{Yaka.expression.pushOperator(Operator.GTE);}
+  "=" {Yaka.expression.pushOperator(Operator.EQUAL);}
+| "<>" {Yaka.expression.pushOperator(Operator.DIFF);}
+| "<" {Yaka.expression.pushOperator(Operator.LT);}
+| "<=" {Yaka.expression.pushOperator(Operator.LTE);}
+| ">" {Yaka.expression.pushOperator(Operator.GT);}
+| ">=" {Yaka.expression.pushOperator(Operator.GTE);}
 }
 
 void opAdd() : {} {
-  "+" 		{Yaka.expression.pushOperator(Operator.ADD);}
-| "-" 		{Yaka.expression.pushOperator(Operator.SUB);}
-| < OU > 	{Yaka.expression.pushOperator(Operator.OR);}
+  "+" {Yaka.expression.pushOperator(Operator.ADD);}
+| "-" {Yaka.expression.pushOperator(Operator.SUB);}
+| < OU > {Yaka.expression.pushOperator(Operator.OR);}
 }
 
 void opMul() : {} {
-  "*" 		{Yaka.expression.pushOperator(Operator.MUL);}
-| "/" 		{Yaka.expression.pushOperator(Operator.DIV);}
-| < ET > 	{Yaka.expression.pushOperator(Operator.AND);}
+  "*" {Yaka.expression.pushOperator(Operator.MUL);}
+| "/" {Yaka.expression.pushOperator(Operator.DIV);}
+| < ET > {Yaka.expression.pushOperator(Operator.AND);}
 }
 
 void opNeg() : {} {
-  "-" 		{Yaka.expression.pushOperator(Operator.NEG);}
-| < NON > 	{Yaka.expression.pushOperator(Operator.NOT);}
+  "-" {Yaka.expression.pushOperator(Operator.NEG);}
+| < NON > {Yaka.expression.pushOperator(Operator.NOT);}
 }
 
 
@@ -281,12 +283,16 @@ void affectation() : {} {  < ident > {Yaka.expression.setAffectation(YakaTokenM
 
 /******** Reading ********/
 void lecture() : {} {
-  < LIRE > "(" < ident > ")" {Yaka.entreeSortie.lire(YakaTokenManager.identLu);}}
+  < LIRE > "(" < ident > ")" {Yaka.inputOutput.read(YakaTokenManager.identLu);}}
 /******** Writing ********/
 void ecriture() : {} {
-  < ECRIRE > "(" (expression() {Yaka.entreeSortie.ecrireEnt();}
-  		| < chaine >  {Yaka.entreeSortie.ecrireChaine(YakaTokenManager.chaineLue);}) ")"
-  | < ALALIGNE > {Yaka.entreeSortie.aLaLigne();}}
+  < ECRIRE > "("
+  (
+    expression() {Yaka.inputOutput.writeInteger();}
+  	| < chaine > {Yaka.inputOutput.writeString(YakaTokenManager.chaineLue);}
+  )
+  ")"
+  | < ALALIGNE > {Yaka.inputOutput.newLine();}}
 
 /******** Iteration ********/
 

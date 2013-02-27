@@ -1,8 +1,13 @@
+package compilateur;
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import junit.framework.TestCase;
 
+/**
+ * Unit tests
+ */
 public class TestYaka extends TestCase {
 	
 	/**
@@ -124,7 +129,10 @@ public class TestYaka extends TestCase {
 		assertEquals(programYVM, Yaka.yvm.getProgram());
 	}
 	
-	public void testEntreeSortie() {
+	/**
+	 * Test the inputs and outputs.
+	 */
+	public void testInputOutput() {
 		String program = "PROGRAMME entreeSortie" +
 				" VAR ENTIER x,y,z;" +
 				" ECRIRE(\"x=\"); " +

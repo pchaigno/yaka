@@ -1,3 +1,4 @@
+package compilateur;
 
 /**
  * Represents an operator.

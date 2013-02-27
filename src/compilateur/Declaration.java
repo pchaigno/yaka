@@ -1,3 +1,5 @@
+package compilateur;
+
 /**
  * Compute the declaration part.
  */
