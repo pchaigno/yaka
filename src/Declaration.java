@@ -33,7 +33,6 @@ public class Declaration {
 	public void valConst(Type type, int value) {
 		if(this.lastConstName != "") {
 			Yaka.tabIdent.setIdent(this.lastConstName, new IdConst(type, value));
-			Yaka.yvm.iconst(value);
 		} else {
 			System.err.println("Declaration: Constant name undefined");
 		}

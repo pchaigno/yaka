@@ -1,26 +1,39 @@
+import java.util.Stack;
+
 
 /**
  * Generate the YVM code for each YVM function.
  */
 public class YVM {
-	
-	/**
-	 * Generate program header
-	 * @return The YVM code.
-	 */
-	String entete() {
-		return "entete\n";
+	protected int nbIterations;
+	protected Stack<Integer> iterations;
+
+	public YVM() {
+		this.nbIterations = 0;
+		this.iterations = new Stack<Integer>();
 	}
 	
 	/**
-	 * Generate the code for an iconst instruction.
+	 * Generate the code for an iconst instruction with an integer.
 	 * @param obj The integer.
 	 * @return The YVM code.
 	 */
-	String iconst(int obj) {
+	String iconstInt(int obj) {
 		return "iconst "+obj+"\n";
 	}
-		
+	
+	/**
+	 * Generate the code for an iconst instruction with a boolean.
+	 * @param obj The boolean
+	 * @return The YVM code.
+	 */
+	String iconstBool(boolean obj) {
+		if(obj) {
+			return "iconst -1\n";
+		}
+		return "iconst 0\n";
+	}
+	
 	/**
 	 * Generate the code for an iload instruction.
 	 * @param offset The offset.
@@ -133,29 +146,38 @@ public class YVM {
 	String istore(int offset) {
 		return "istore "+offset+"\n";
 	}
-	
+
 	/**
-	 * Generate the code for an aLaLigne instruction.
+	 * Generate the code for a label at the beginning of the loop.
 	 * @return The YVM code.
 	 */
-	String aLaLigne() {
-		return "aLaLigne";
+	String labelFaire() {
+		this.nbIterations++;
+		this.iterations.push(this.nbIterations);
+		return "FAIRE"+this.iterations.peek()+" :\n";
 	}
-	
+
 	/**
-	 * Generate the code for an lire instruction.
+	 * Generate the code to go to the end of the loop if the expression is false.
 	 * @return The YVM code.
 	 */
-	String lire(int offset) {
-		return "lireEnt "+offset+"\n"; 
+	String ifFaux() {
+		return "iffaux FAIT"+this.iterations.peek()+"\n";
 	}
-	
+
 	/**
-	 * Generate the code for an ecrireChaine instruction.
+	 * Generate the code to go to the beginning of the loop.
 	 * @return The YVM code.
 	 */
-	String ecrireChaine(String s) {
-		return "ecrireChaine \""+s+"\"\n"; 
+	String gotoFaire() {
+		return "goto FAIRE"+this.iterations.peek()+"\n";
 	}
-	
+
+	/**
+	 * Generate the code for a label at the end of the loop.
+	 * @return The YVM code.
+	 */
+	String labelFait() {
+		return "FAIT"+this.iterations.pop()+" :\n";
+	}
 }

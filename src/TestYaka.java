@@ -124,7 +124,7 @@ public class TestYaka extends TestCase {
 		assertEquals(programYVM, Yaka.expression.getResult());
 	}
 	
-	public void testEntreeSotie() {
+	public void testEntreeSortie() {
 		String program = "PROGRAMME entreeSotie" +
 				" VAR ENTIER x,y,z;" +
 				" ECRIRE(\"x=\"); " +
@@ -138,7 +138,41 @@ public class TestYaka extends TestCase {
 				"ALALIGNE; " +
 				"z=(x+y/2)/5; " +
 				"x=y+3*y-4; " +
-				"FINPROGRAMME";
+				"FPROGRAMME";
+		this.launchAnalyse(program);
+		System.out.println(Yaka.expression.getResult());
+	}
+	
+	public void testIteration() {
+		String program = "PROGRAMME iter1 " +
+				"VAR ENTIER s,i,n; " +
+				"n=5; " +
+				"i=1; " +
+				"s=0; " +
+				"TANTQUE i<=n " +
+				"FAIRE s=s+i; i=i+1; " +
+				"FAIT " +
+				"FPROGRAMME";
+		this.launchAnalyse(program);
+		System.out.println(Yaka.expression.getResult());
+	}
+	
+	public void testIterationImbriquee() {
+		String program = "PROGRAMME iter1 " +
+				"VAR ENTIER i,j,n; " +
+				"n=5; " +
+				"i=1; " +
+				"j=1; " +
+				"TANTQUE i<=n " +
+				"FAIRE i=i+1; " +
+				"TANTQUE j<=n " +
+				"FAIRE j=j+1; " +
+				"FAIT; " +
+				"TANTQUE j<=n " +
+				"FAIRE j=j+1; " +
+				"FAIT " +
+				"FAIT " +
+				"FPROGRAMME";
 		this.launchAnalyse(program);
 		System.out.println(Yaka.expression.getResult());
 	}

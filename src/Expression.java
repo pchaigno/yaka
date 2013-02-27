@@ -7,7 +7,6 @@ import java.util.Stack;
 public class Expression {
 	private Stack<Type> stackType;
 	private Stack<Operator> stackOp;
-	private String expr;
 	private boolean invert;
 	private Ident affectTo;
 	
@@ -18,7 +17,13 @@ public class Expression {
 		this.stackType = new Stack<Type>();
 		this.stackOp = new Stack<Operator>();
 		this.invert = false;
-		this.expr = "";
+	}
+	
+	/**
+	 * @return True if the type of the top of the stack is boolean.
+	 */
+	public boolean isBool() {
+		return stackType.pop()==Type.BOOL;
 	}
 	
 	/**
@@ -46,26 +51,20 @@ public class Expression {
 			ent = -ent;
 			this.invert = false;
 		}
-		this.expr += Yaka.yvm.iconst(ent);
+		Yaka.program += Yaka.yvm.iconstInt(ent);
 	}
 	
 	/**
 	 * Push a boolean to the stack of values.
 	 * @param bool The boolean.
 	 */
-	public void pushBoolean(int bool) {
+	public void pushBoolean(boolean bool) {
 		this.stackType.push(Type.BOOL);
 		if(this.invert) {
-			if (bool == Constante.TRUE) {
-				bool = Constante.FALSE;
-			} else if (bool == Constante.FALSE) {
-				bool = Constante.TRUE;
-			} else {
-				System.err.println("Expression: Booleen mal defini");
-			}
+			bool = !bool;
 			this.invert = false;
 		}
-		this.expr += Yaka.yvm.iconst(bool);
+		Yaka.program += Yaka.yvm.iconstBool(bool);
 	}
 	
 	/**
@@ -80,9 +79,9 @@ public class Expression {
 		}
 		this.stackType.push(ident.getType());
 		if(ident.isVar()) {
-			this.expr += Yaka.yvm.iload(ident.getValue());
+			Yaka.program += Yaka.yvm.iload(ident.getValue());
 		} else {
-			this.expr += Yaka.yvm.iconst(ident.getValue());
+			Yaka.program += Yaka.yvm.iconstInt(ident.getValue());
 		}
 	}
 	
@@ -97,19 +96,19 @@ public class Expression {
 		if((a==Type.BOOL || a==Type.ERROR) && (b==Type.BOOL || b==Type.ERROR)) {
 			switch(op) {
 				case OR:
-					this.expr += Yaka.yvm.ior();
+					Yaka.program += Yaka.yvm.ior();
 					this.stackType.push(Type.BOOL);
 					break;
 				case AND:
-					this.expr += Yaka.yvm.iand();
+					Yaka.program += Yaka.yvm.iand();
 					this.stackType.push(Type.BOOL);
 					break;
 				case DIFF:
-					this.expr += Yaka.yvm.idiff();
+					Yaka.program += Yaka.yvm.idiff();
 					this.stackType.push(Type.BOOL);
 					break;
 				case EQUAL:
-					this.expr += Yaka.yvm.iegal();
+					Yaka.program += Yaka.yvm.iegal();
 					this.stackType.push(Type.BOOL);
 					break;
 				default:
@@ -118,43 +117,43 @@ public class Expression {
 		} else if((a==Type.INT || a==Type.ERROR) && (b==Type.INT || b==Type.ERROR)) {
 			switch(op) {
 				case ADD:
-					this.expr += Yaka.yvm.iadd();
+					Yaka.program += Yaka.yvm.iadd();
 					this.stackType.push(Type.INT);
 					break;
 				case SUB:
-					this.expr += Yaka.yvm.isub();
+					Yaka.program += Yaka.yvm.isub();
 					this.stackType.push(Type.INT);
 					break;
 				case MUL:
-					this.expr += Yaka.yvm.imul();
+					Yaka.program += Yaka.yvm.imul();
 					this.stackType.push(Type.INT);
 					break;
 				case DIV:
-					this.expr += Yaka.yvm.idiv();
+					Yaka.program += Yaka.yvm.idiv();
 					this.stackType.push(Type.INT);
 					break;
 				case LT:
-					this.expr += Yaka.yvm.iinf();
+					Yaka.program += Yaka.yvm.iinf();
 					this.stackType.push(Type.BOOL);
 					break;
 				case LTE:
-					this.expr += Yaka.yvm.iinfegal();
+					Yaka.program += Yaka.yvm.iinfegal();
 					this.stackType.push(Type.BOOL);
 					break;
 				case GT:
-					this.expr += Yaka.yvm.isup();
+					Yaka.program += Yaka.yvm.isup();
 					this.stackType.push(Type.BOOL);
 					break;
 				case GTE:
-					this.expr += Yaka.yvm.isupegal();
+					Yaka.program += Yaka.yvm.isupegal();
 					this.stackType.push(Type.BOOL);
 					break;
 				case DIFF:
-					this.expr += Yaka.yvm.idiff();
+					Yaka.program += Yaka.yvm.idiff();
 					this.stackType.push(Type.BOOL);
 					break;
 				case EQUAL:
-					this.expr += Yaka.yvm.iegal();
+					Yaka.program += Yaka.yvm.iegal();
 					this.stackType.push(Type.BOOL);
 					break;
 				default:
@@ -169,7 +168,7 @@ public class Expression {
 	 * @return The final result: the generated code.
 	 */
 	public String getResult() {
-		return this.expr;
+		return Yaka.program;
 	}
 	
 	/**
@@ -189,7 +188,7 @@ public class Expression {
 	 */
 	public void affectation() {
 		if(this.affectTo.getType()==this.stackType.pop()) {
-			this.expr += Yaka.yvm.istore(this.affectTo.getValue());
+			Yaka.program += Yaka.yvm.istore(this.affectTo.getValue());
 		} else {
 			System.err.println("Expression: Different types.");
 		}

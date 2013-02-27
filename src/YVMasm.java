@@ -4,22 +4,17 @@
  */
 public class YVMasm extends YVM {
 	
-	private static int compt = 0;
-
 	@Override
-	String entete() {
-		String str = "; " + super.entete();
-		str += "extrn lirent:proc, ecrent:proc\n";
-		str += "extrn ecrbool:proc\n";
-		str += "extrn ecrch:proc, ligsuiv:proc\n";
-		str += ".model SMALL\n";
-		str += ".586\n\n";
-		return str;
+	String iconstInt(int obj) {
+		return "push "+obj+"\n";
 	}
 	
 	@Override
-	String iconst(int obj) {
-		return "push "+obj+"\n";
+	String iconstBool(boolean obj) {
+		if(obj) {
+			return "iconst 0\n";
+		}
+		return "iconst -1\n";
 	}
 	
 	@Override
@@ -29,8 +24,7 @@ public class YVMasm extends YVM {
 	
 	@Override
 	String iadd() {
-		String str = "; " + super.iadd();
-		str += "pop bx\n";
+		String str = "pop bx\n";
 		str += "pop ax\n";
 		str += "add ax, bx\n";
 		str += "push ax\n";
@@ -39,8 +33,7 @@ public class YVMasm extends YVM {
 
 	@Override
 	String imul() {
-		String str = "; " + super.imul();
-		str += "pop bx\n";
+		String str = "pop bx\n";
 		str += "pop ax\n";
 		str += "imul bx\n";
 		str += "push ax\n";
@@ -49,8 +42,7 @@ public class YVMasm extends YVM {
 
 	@Override
 	String isub() {
-		String str = "; " + super.isub();
-		str += "pop bx\n";
+		String str = "pop bx\n";
 		str += "pop ax\n";
 		str += "sub ax, bx\n";
 		str += "push ax\n";
@@ -59,8 +51,7 @@ public class YVMasm extends YVM {
 
 	@Override
 	String iand() {
-		String str = "; " + super.iand();
-		str += "pop bx\n";
+		String str = "pop bx\n";
 		str += "pop ax\n";
 		str += "and ax, bx\n";
 		str += "push ax\n";
@@ -69,8 +60,7 @@ public class YVMasm extends YVM {
 
 	@Override
 	String ior() {
-		String str = "; " + super.ior();
-		str += "pop bx\n";
+		String str = "pop bx\n";
 		str += "pop ax\n";
 		str += "or ax, bx\n";
 		str += "push ax\n";
@@ -79,8 +69,7 @@ public class YVMasm extends YVM {
 
 	@Override
 	String idiv() {
-		String str = "; " + super.idiv();
-		str += "pop bx\n";
+		String str = "pop bx\n";
 		str += "pop ax\n";
 		str += "cwd\n";
 		str += "idiv bx\n";
@@ -90,8 +79,7 @@ public class YVMasm extends YVM {
 
 	@Override
 	String iinf() {
-		String str = "; " + super.iinf();
-		str += "pop bx\n";
+		String str = "pop bx\n";
 		str += "pop ax\n";
 		str += "cmp ax, bx\n";
 		str += "jge $+6\n";
@@ -103,8 +91,7 @@ public class YVMasm extends YVM {
 
 	@Override
 	String iinfegal() {
-		String str = "; " + super.iinfegal();
-		str += "pop bx\n";
+		String str = "pop bx\n";
 		str += "pop ax\n";
 		str += "cmp ax, bx\n";
 		str += "jg $+6\n";
@@ -116,8 +103,7 @@ public class YVMasm extends YVM {
 
 	@Override
 	String isupegal() {
-		String str = "; " + super.isupegal();
-		str += "pop bx\n";
+		String str = "pop bx\n";
 		str += "pop ax\n";
 		str += "cmp ax, bx\n";
 		str += "jl $+6\n";
@@ -129,8 +115,7 @@ public class YVMasm extends YVM {
 
 	@Override
 	String isup() {
-		String str = "; " + super.isup();
-		str += "pop bx\n";
+		String str = "pop bx\n";
 		str += "pop ax\n";
 		str += "cmp ax, bx\n";
 		str += "jle $+6\n";
@@ -142,8 +127,7 @@ public class YVMasm extends YVM {
 
 	@Override
 	String iegal() {
-		String str = "; " + super.iegal();
-		str += "pop bx\n";
+		String str = "pop bx\n";
 		str += "pop ax\n";
 		str += "cmp ax, bx\n";
 		str += "jne $+6\n";
@@ -155,8 +139,7 @@ public class YVMasm extends YVM {
 
 	@Override
 	String idiff() {
-		String str = "; " + super.idiff();
-		str += "pop bx\n";
+		String str = "pop bx\n";
 		str += "pop ax\n";
 		str += "cmp ax, bx\n";
 		str += "je $+6\n";
@@ -168,33 +151,33 @@ public class YVMasm extends YVM {
 	
 	@Override
 	String istore(int offset) {
-		String str = "; " + super.istore(offset);
-		str += "pop ax\n";
+		String str = "pop ax\n";
 		str += "mov word ptr [bp"+offset+"], ax\n";
 		return str;
 	}
 	
-	String aLaLigne() {
-		return "call ligsuiv";
+	@Override
+	String labelFaire() {
+		this.nbIterations++;
+		this.iterations.push(this.nbIterations);
+		return "FAIRE"+this.iterations.peek()+" :\n";
 	}
-	
-	String lire(int offset) {
-		String str = "";
-		if(offset<0){
-			str += "lea dx,[bp"+offset+"]\n";
-		}else{
-			str += "lea dx,[bp+"+offset+"]\n";
-		}
-		str += "push dx\n";
-		str += "call lirent\n";
+
+	@Override
+	String ifFaux() {
+		String str = "pop ax\n";
+		str += "cmp ax\n";
+		str += "je FAIT"+this.iterations.peek()+"\n";
 		return str;
 	}
-	
-	String ecrireChaine(String s) {
-		String str = "";
-		str += ".DATA\n";
-		str += "mess"+compt+" DB \""+s+"\" \n";
-		compt++;
-		return str;
+
+	@Override
+	String gotoFaire() {
+		return "jmp FAIRE"+this.iterations.peek()+"\n";
+	}
+
+	@Override
+	String labelFait() {
+		return "FAIT"+this.iterations.pop()+" :\n";
 	}
 }
