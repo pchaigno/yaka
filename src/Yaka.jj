@@ -2,7 +2,7 @@
  *
  *       Auteur: La team des arracheurs de dents
  *
- * 	cr�ation : 15 f�vrier 2013
+ * 	creation : 15 fevrier 2013
  *
  *     nature : projet etudiant
  *
@@ -15,7 +15,6 @@ options
 PARSER_BEGIN(Yaka)
 public class Yaka {
   public static YVM yvm;
-  public static Programme programme;
   public static Declaration declaration;
   public static TabIdent tabIdent;
   public static Expression expression;
@@ -23,8 +22,7 @@ public class Yaka {
   
   public static void initVariables() {
   	  yvm = new YVM();
-  	  programme = new Programme();
-      Yaka.tabIdent = new TabIdent(10);
+      tabIdent = new TabIdent(10);
   	  declaration = new Declaration();
       expression = new Expression();
       entreeSortie = new EntreeSortie();      
@@ -102,7 +100,7 @@ SKIP :
   }
 }
 
-/* Mots r�serv�s*/
+/* Mots reserves*/
 TOKEN :
 {
   < BOOLEEN : "BOOLEEN" >
@@ -166,7 +164,7 @@ TOKEN :
 
 /******** Main ********/
 void analyse() : {}	{
-  < PROGRAMME > < ident > {Yaka.programme.entete();}
+  < PROGRAMME > < ident > {yvm.entete();}
   bloc() 
   < FPROGRAMME >
 }
