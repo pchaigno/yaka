@@ -1,2 +1,9 @@
 *.class
 bin/
+YakaTokenManager.java
+Yaka.java
+YakaConstants.java
+Token.java
+TokenMgrError.java
+ParseException.java
+SimpleCharStream.java
