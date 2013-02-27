@@ -4,13 +4,12 @@
  */
 public class YVMasm extends YVM {
 
-	private static int cptEs = 0;
+	private static int cptES = 0;
 	
 	public YVMasm() {
 		super();
 		cptES = 0;
 	}
-	
 
 	@Override
 	String entete() {

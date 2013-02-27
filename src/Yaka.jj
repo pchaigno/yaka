@@ -192,8 +192,8 @@ void defConst() : {} {
 void valConst() : {} {
   < entier > 	{declaration.valConst(Type.INT, YakaTokenManager.entierLu);}
 | < ident > 	{declaration.valConstRef(YakaTokenManager.identLu);}
-| < VRAI > 		{declaration.valConst(Type.BOOL, Constante.VRAI);}
-| < FAUX > 		{declaration.valConst(Type.BOOL, Constante.FAUX);}
+| < VRAI > 		{declaration.valConst(Type.BOOL, Constante.TRUE);}
+| < FAUX > 		{declaration.valConst(Type.BOOL, Constante.FALSE);}
 }
 
 void declVar() : {} {
@@ -288,14 +288,7 @@ void lecture() : {} {
 void ecriture() : {} {
   < ECRIRE > "(" (expression() {Yaka.entreeSortie.ecrireEnt();}
   		| < chaine >  {Yaka.entreeSortie.ecrireChaine(YakaTokenManager.identLu);}) ")"
-
   | < ALALIGNE > {Yaka.entreeSortie.aLaLigne();}}
-
-
-
-
-
-
 
 /******** Iteration ********/
 
