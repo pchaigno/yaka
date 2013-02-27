@@ -54,7 +54,7 @@ public class Yaka {
       Yaka.tabIdent = new TabIdent(10);
       Yaka.analyse();
       System.out.println("analyse syntaxique reussie!");
-      System.out.println(Yaka.expression.getResult());
+      Yaka.yvm.generateFile("test.yvm");
     } catch (ParseException e) {
       String msg = e.getMessage();
       msg = msg.substring(0, msg.indexOf("\n"));
@@ -164,7 +164,7 @@ TOKEN :
 
 /******** Main ********/
 void analyse() : {}	{
-  < PROGRAMME > < ident > {yvm.entete();}
+  < PROGRAMME > < ident > {Yaka.yvm.entete();}
   bloc() 
   < FPROGRAMME >
 }
@@ -285,7 +285,7 @@ void lecture() : {} {
 /******** Writing ********/
 void ecriture() : {} {
   < ECRIRE > "(" (expression() {Yaka.entreeSortie.ecrireEnt();}
-  		| < chaine >  {Yaka.entreeSortie.ecrireChaine(YakaTokenManager.identLu);}) ")"
+  		| < chaine >  {Yaka.entreeSortie.ecrireChaine(YakaTokenManager.chaineLue);}) ")"
   | < ALALIGNE > {Yaka.entreeSortie.aLaLigne();}}
 
 /******** Iteration ********/

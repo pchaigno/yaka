@@ -1,15 +1,34 @@
+import java.io.OutputStream;
 
 /**
  * Generate the YVM code for each YVM function.
  */
 public class YVM {
 	
+	private String program;
+	
+	public YVM() {
+		program = "";
+	}
+	
+	protected String addLine(String str) {
+		program += str;
+		return str;
+	}
+	
+	public void generateFile(String name) {
+		OutputStream f = Ecriture.ouvrir(name);
+		Ecriture.ecrireString(f, program);
+		Ecriture.fermer(f);
+		System.out.println("---- Code YVM genere dans '" + name + "' ---- \n" + program);
+	}
+	
 	/**
 	 * Generate program header
 	 * @return The YVM code.
 	 */
 	String entete() {
-		return "entete\n";
+		return addLine("entete\n");
 	}
 	
 	/**
@@ -18,7 +37,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String iconst(int obj) {
-		return "iconst "+obj+"\n";
+		return addLine("iconst "+obj+"\n");
 	}
 		
 	/**
@@ -27,7 +46,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String iload(int offset) {
-		return "iload "+offset+"\n";
+		return addLine("iload "+offset+"\n");
 	}
 	
 	/**
@@ -35,7 +54,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String iadd() {
-		return "iadd\n";
+		return addLine("iadd\n");
 	}
 
 	/**
@@ -43,7 +62,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String imul() {
-		return "imul\n";
+		return addLine("imul\n");
 	}
 
 	/**
@@ -51,7 +70,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String isub() {
-		return "isub\n";
+		return addLine("isub\n");
 	}
 
 	/**
@@ -59,7 +78,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String iand() {
-		return "iand\n";
+		return addLine("iand\n");
 	}
 
 	/**
@@ -67,7 +86,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String ior() {
-		return "ior\n";
+		return addLine("ior\n");
 	}
 
 	/**
@@ -75,7 +94,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String idiv() {
-		return "idiv\n";
+		return addLine("idiv\n");
 	}
 
 	/**
@@ -83,7 +102,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String iinf() {
-		return "iinf\n";
+		return addLine("iinf\n");
 	}
 
 	/**
@@ -91,7 +110,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String iinfegal() {
-		return "iinfegal\n";
+		return addLine("iinfegal\n");
 	}
 
 	/**
@@ -99,7 +118,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String isupegal() {
-		return "isupegal\n";
+		return addLine("isupegal\n");
 	}
 
 	/**
@@ -107,7 +126,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String isup() {
-		return "isup\n";
+		return addLine("isup\n");
 	}
 
 	/**
@@ -115,7 +134,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String iegal() {
-		return "iegal\n";
+		return addLine("iegal\n");
 	}
 
 	/**
@@ -123,7 +142,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String idiff() {
-		return "idiff\n";
+		return addLine("idiff\n");
 	}
 	
 	/**
@@ -131,7 +150,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String istore(int offset) {
-		return "istore "+offset+"\n";
+		return addLine("istore "+offset+"\n");
 	}
 	
 	/**
@@ -139,7 +158,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String aLaLigne() {
-		return "aLaLigne";
+		return addLine("aLaLigne");
 	}
 	
 	/**
@@ -147,7 +166,7 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String lire(int offset) {
-		return "lireEnt "+offset+"\n"; 
+		return addLine("lireEnt "+offset+"\n"); 
 	}
 	
 	/**
@@ -155,11 +174,11 @@ public class YVM {
 	 * @return The YVM code.
 	 */
 	String ecrireChaine(String s) {
-		return "ecrireChaine \""+s+"\"\n"; 
+		return addLine("ecrireChaine \""+s+"\"\n"); 
 	}
 	
 	String ecrireEnt() {
-		return "ecrireEnt\n"; 
+		return addLine("ecrireEnt\n"); 
 	}
 	
 }

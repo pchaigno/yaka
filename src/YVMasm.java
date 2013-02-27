@@ -1,16 +1,33 @@
+import java.io.OutputStream;
+
 
 /**
  * Generate the ASM code for each YVM function.
  */
 public class YVMasm extends YVM {
 
+	private String program;
 	private static int cptES = 0;
 	
 	public YVMasm() {
-		super();
+		program = "";
 		cptES = 0;
 	}
 
+	@Override
+	protected String addLine(String str) {
+		program += str;
+		return str;
+	}
+
+	@Override
+	public void generateFile(String name) {
+		OutputStream f = Ecriture.ouvrir(name);
+		Ecriture.ecrireString(f, program);
+		Ecriture.fermer(f);
+		System.out.println("---- Code ASM genere dans '" + name + "' : \n" + program);
+	}
+	
 	@Override
 	String entete() {
 		String str = "; " + super.entete();
@@ -19,17 +36,17 @@ public class YVMasm extends YVM {
 		str += "extrn ecrch:proc, ligsuiv:proc\n";
 		str += ".model SMALL\n";
 		str += ".586\n\n";
-		return str;
+		return addLine(str);
 	}
 
 	@Override
 	String iconst(int obj) {
-		return "push "+obj+"\n";
+		return addLine("push "+obj+"\n");
 	}
 	
 	@Override
 	String iload(int offset) {
-		return "push word ptr [bp"+offset+"]\n";
+		return addLine("push word ptr [bp"+offset+"]\n");
 	}
 	
 	@Override
@@ -39,7 +56,7 @@ public class YVMasm extends YVM {
 		str += "pop ax\n";
 		str += "add ax, bx\n";
 		str += "push ax\n";
-		return str;
+		return addLine(str);
 	}
 
 	@Override
@@ -49,7 +66,7 @@ public class YVMasm extends YVM {
 		str += "pop ax\n";
 		str += "imul bx\n";
 		str += "push ax\n";
-		return str;
+		return addLine(str);
 	}
 
 	@Override
@@ -59,7 +76,7 @@ public class YVMasm extends YVM {
 		str += "pop ax\n";
 		str += "sub ax, bx\n";
 		str += "push ax\n";
-		return str;
+		return addLine(str);
 	}
 
 	@Override
@@ -69,7 +86,7 @@ public class YVMasm extends YVM {
 		str += "pop ax\n";
 		str += "and ax, bx\n";
 		str += "push ax\n";
-		return str;
+		return addLine(str);
 	}
 
 	@Override
@@ -79,7 +96,7 @@ public class YVMasm extends YVM {
 		str += "pop ax\n";
 		str += "or ax, bx\n";
 		str += "push ax\n";
-		return str;
+		return addLine(str);
 	}
 
 	@Override
@@ -90,7 +107,7 @@ public class YVMasm extends YVM {
 		str += "cwd\n";
 		str += "idiv bx\n";
 		str += "push ax\n";
-		return str;
+		return addLine(str);
 	}
 
 	@Override
@@ -103,7 +120,7 @@ public class YVMasm extends YVM {
 		str += "push -1\n";
 		str += "jmp $+4\n";
 		str += "push 0\n";
-		return str;
+		return addLine(str);
 	}
 
 	@Override
@@ -116,7 +133,7 @@ public class YVMasm extends YVM {
 		str += "push -1\n";
 		str += "jmp $+4\n";
 		str += "push 0\n";
-		return str;
+		return addLine(str);
 	}
 
 	@Override
@@ -129,7 +146,7 @@ public class YVMasm extends YVM {
 		str += "push -1\n";
 		str += "jmp $+4\n";
 		str += "push 0\n";
-		return str;
+		return addLine(str);
 	}
 
 	@Override
@@ -142,7 +159,7 @@ public class YVMasm extends YVM {
 		str += "push -1\n";
 		str += "jmp $+4\n";
 		str += "push 0\n";
-		return str;
+		return addLine(str);
 	}
 
 	@Override
@@ -155,7 +172,7 @@ public class YVMasm extends YVM {
 		str += "push -1\n";
 		str += "jmp $+4\n";
 		str += "push 0\n";
-		return str;
+		return addLine(str);
 	}
 
 	@Override
@@ -168,7 +185,7 @@ public class YVMasm extends YVM {
 		str += "push -1\n";
 		str += "jmp $+4\n";
 		str += "push 0\n";
-		return str;
+		return addLine(str);
 	}
 	
 	@Override
@@ -176,11 +193,11 @@ public class YVMasm extends YVM {
 		String str = "; " + super.istore(offset);
 		str += "pop ax\n";
 		str += "mov word ptr [bp"+offset+"], ax\n";
-		return str;
+		return addLine(str);
 	}
 	
 	String aLaLigne() {
-		return "call ligsuiv";
+		return addLine("call ligsuiv");
 	}
 	
 	String lire(int offset) {
@@ -192,7 +209,7 @@ public class YVMasm extends YVM {
 		}
 		str += "push dx\n";
 		str += "call lirent\n";
-		return str;
+		return addLine(str);
 	}
 	
 	String ecrireChaine(String s) {
@@ -204,10 +221,10 @@ public class YVMasm extends YVM {
 		str += "push dx\n";
 		str += "call ecrch\n";
 		cptES++;
-		return str;
+		return addLine(str);
 	}
 	
 	String ecrireEnt() {
-		return "call ecrent\n"; 
+		return addLine("call ecrent\n"); 
 	}
 }
