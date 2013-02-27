@@ -24,6 +24,7 @@ public class InputOutput {
 	 * @param str The string to write.
 	 */
 	public void writeString(String str) {
+		str = str.substring(1, str.length()-1);
 		Yaka.yvm.ecrireChaine(str);
 	}
 	
@@ -35,7 +36,7 @@ public class InputOutput {
 		if(Yaka.tabIdent.containsIdent(ident)) {
 			Yaka.yvm.lire(Yaka.tabIdent.getIdent(ident).getValue());
 		} else {
-			System.err.println("EntreeSortie: ");
+			System.err.println("InputOutput: ");
 		}
 	}
 }
