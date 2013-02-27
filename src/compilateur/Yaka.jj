@@ -22,9 +22,12 @@ public class Yaka {
   public static TabIdent tabIdent;
   public static Expression expression;
   public static InputOutput inputOutput;
-  
-  public static void initVariables() {
-  	  yvm = new YVM();
+
+  public static void initVariables(boolean toYVM) {
+	  if(toYVM) {		yvm = new YVM();
+	  } else {
+	    yvm = new YVMasm();
+	  }
       tabIdent = new TabIdent(10);
   	  declaration = new Declaration();
       expression = new Expression();
@@ -172,8 +175,10 @@ void analyse() : {}	{
 }
 
 void bloc() : {} {
-  (declConst())*
-  (declVar())*
+  (
+    (declConst())*
+    (declVar())*
+  ) {declaration.bookMemory();}
   suiteInstr()
 }
 

@@ -13,7 +13,7 @@ public class TabIdent {
 	 * @param size The initial size of the table.
 	 */
 	public TabIdent(int size) {
-		this.table = new HashMap<String, Ident>(size); 
+		this.table = new HashMap<String, Ident>(); 
 	}
 	
 	/**
@@ -41,6 +41,19 @@ public class TabIdent {
 	 */
 	public void setIdent(String key, Ident id) {
 		this.table.put(key, id);
+	}
+	
+	/**
+	 * @return The number of variables in the table.
+	 */
+	public int getNumberOfVariables() {
+		int nbVariables = 0;
+		for(String key: this.table.keySet()) {
+			if(this.table.get(key).isVar()) {
+				nbVariables++;
+			}
+		}
+		return nbVariables;
 	}
 	
 	@Override

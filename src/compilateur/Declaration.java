@@ -35,7 +35,6 @@ public class Declaration {
 	public void valConst(Type type, int value) {
 		if(this.lastConstName != "") {
 			Yaka.tabIdent.setIdent(this.lastConstName, new IdConst(type, value));
-			Yaka.yvm.iconst(value);
 		} else {
 			System.err.println("Declaration: Constant name undefined");
 		}
@@ -73,5 +72,13 @@ public class Declaration {
 		} else {
 			System.err.println("Declaration: Name '"+name+"' already taken.");
 		}
+	}
+	
+	/**
+	 * Called at the end of the declarations.
+	 * Book memory space according to the number of variables.
+	 */
+	public void bookMemory() {
+		Yaka.yvm.bookMemory(Yaka.tabIdent.getNumberOfVariables());
 	}
 }
