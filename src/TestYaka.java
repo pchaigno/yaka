@@ -124,8 +124,8 @@ public class TestYaka extends TestCase {
 		assertEquals(programYVM, Yaka.expression.getResult());
 	}
 	
-	public void testEntreeSotie() {
-		String program = "PROGRAMME entreeSotie" +
+	public void testEntreeSortie() {
+		String program = "PROGRAMME entreeSortie" +
 				" VAR ENTIER x,y,z;" +
 				" ECRIRE(\"x=\"); " +
 				"LIRE(x); " +
@@ -138,7 +138,7 @@ public class TestYaka extends TestCase {
 				"ALALIGNE; " +
 				"z=(x+y/2)/5; " +
 				"x=y+3*y-4; " +
-				"FINPROGRAMME";
+				"FPROGRAMME";
 		this.launchAnalyse(program);
 		System.out.println(Yaka.expression.getResult());
 	}
