@@ -1,3 +1,4 @@
+package compilateur;
 
 /**
  * Represent an identificator of constant.

@@ -1,3 +1,4 @@
+package compilateur;
 
 import java.util.Stack;
 
@@ -51,7 +52,7 @@ public class Expression {
 			ent = -ent;
 			this.invert = false;
 		}
-		Yaka.program += Yaka.yvm.iconstInt(ent);
+		Yaka.yvm.iconst(ent);
 	}
 	
 	/**
@@ -64,7 +65,11 @@ public class Expression {
 			bool = !bool;
 			this.invert = false;
 		}
-		Yaka.program += Yaka.yvm.iconstBool(bool);
+		if(bool) {
+			Yaka.yvm.iconst(Constante.TRUE);
+		} else {
+			Yaka.yvm.iconst(Constante.FALSE);
+		}
 	}
 	
 	/**
@@ -79,9 +84,9 @@ public class Expression {
 		}
 		this.stackType.push(ident.getType());
 		if(ident.isVar()) {
-			Yaka.program += Yaka.yvm.iload(ident.getValue());
+			Yaka.yvm.iload(ident.getValue());
 		} else {
-			Yaka.program += Yaka.yvm.iconstInt(ident.getValue());
+			Yaka.yvm.iconst(ident.getValue());
 		}
 	}
 	
@@ -96,19 +101,19 @@ public class Expression {
 		if((a==Type.BOOL || a==Type.ERROR) && (b==Type.BOOL || b==Type.ERROR)) {
 			switch(op) {
 				case OR:
-					Yaka.program += Yaka.yvm.ior();
+					Yaka.yvm.ior();
 					this.stackType.push(Type.BOOL);
 					break;
 				case AND:
-					Yaka.program += Yaka.yvm.iand();
+					Yaka.yvm.iand();
 					this.stackType.push(Type.BOOL);
 					break;
 				case DIFF:
-					Yaka.program += Yaka.yvm.idiff();
+					Yaka.yvm.idiff();
 					this.stackType.push(Type.BOOL);
 					break;
 				case EQUAL:
-					Yaka.program += Yaka.yvm.iegal();
+					Yaka.yvm.iegal();
 					this.stackType.push(Type.BOOL);
 					break;
 				default:
@@ -117,43 +122,43 @@ public class Expression {
 		} else if((a==Type.INT || a==Type.ERROR) && (b==Type.INT || b==Type.ERROR)) {
 			switch(op) {
 				case ADD:
-					Yaka.program += Yaka.yvm.iadd();
+					Yaka.yvm.iadd();
 					this.stackType.push(Type.INT);
 					break;
 				case SUB:
-					Yaka.program += Yaka.yvm.isub();
+					Yaka.yvm.isub();
 					this.stackType.push(Type.INT);
 					break;
 				case MUL:
-					Yaka.program += Yaka.yvm.imul();
+					Yaka.yvm.imul();
 					this.stackType.push(Type.INT);
 					break;
 				case DIV:
-					Yaka.program += Yaka.yvm.idiv();
+					Yaka.yvm.idiv();
 					this.stackType.push(Type.INT);
 					break;
 				case LT:
-					Yaka.program += Yaka.yvm.iinf();
+					Yaka.yvm.iinf();
 					this.stackType.push(Type.BOOL);
 					break;
 				case LTE:
-					Yaka.program += Yaka.yvm.iinfegal();
+					Yaka.yvm.iinfegal();
 					this.stackType.push(Type.BOOL);
 					break;
 				case GT:
-					Yaka.program += Yaka.yvm.isup();
+					Yaka.yvm.isup();
 					this.stackType.push(Type.BOOL);
 					break;
 				case GTE:
-					Yaka.program += Yaka.yvm.isupegal();
+					Yaka.yvm.isupegal();
 					this.stackType.push(Type.BOOL);
 					break;
 				case DIFF:
-					Yaka.program += Yaka.yvm.idiff();
+					Yaka.yvm.idiff();
 					this.stackType.push(Type.BOOL);
 					break;
 				case EQUAL:
-					Yaka.program += Yaka.yvm.iegal();
+					Yaka.yvm.iegal();
 					this.stackType.push(Type.BOOL);
 					break;
 				default:
@@ -165,13 +170,6 @@ public class Expression {
 	}
 	
 	/**
-	 * @return The final result: the generated code.
-	 */
-	public String getResult() {
-		return Yaka.program;
-	}
-	
-	/**
 	 * Record the ident for the affectation.
 	 * @param name The name of the ident.
 	 */
@@ -179,7 +177,7 @@ public class Expression {
 		if(Yaka.tabIdent.containsIdent(name)) {
 			this.affectTo = Yaka.tabIdent.getIdent(name);			
 		} else {
-			System.err.println("Expression: Ident does not exist.");
+			System.err.println("Expression: Ident does not exist in the table of idents.");
 		}
 	}
 	
@@ -188,9 +186,9 @@ public class Expression {
 	 */
 	public void affectation() {
 		if(this.affectTo.getType()==this.stackType.pop()) {
-			Yaka.program += Yaka.yvm.istore(this.affectTo.getValue());
+			Yaka.yvm.istore(this.affectTo.getValue());
 		} else {
-			System.err.println("Expression: Different types.");
+			System.err.println("Expression: Types don't match at the affectation.");
 		}
 	}
 }

@@ -1,3 +1,5 @@
+package compilateur;
+
 /**
  * Compute the declaration part.
  */
@@ -70,5 +72,13 @@ public class Declaration {
 		} else {
 			System.err.println("Declaration: Name '"+name+"' already taken.");
 		}
+	}
+	
+	/**
+	 * Called at the end of the declarations.
+	 * Book memory space according to the number of variables.
+	 */
+	public void bookMemory() {
+		Yaka.yvm.bookMemory(Yaka.tabIdent.getNumberOfVariables());
 	}
 }

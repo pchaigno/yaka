@@ -1,3 +1,5 @@
+package compilateur;
+
 /**
  * Compute the iteration part.
  */
@@ -18,7 +20,7 @@ public class Iteration {
 	 * Generate the label corresponding.
 	 */
 	public void tantQue() {
-		Yaka.program += Yaka.yvm.labelFaire();
+		Yaka.yvm.labelFaire();
 	}
 	
 	/**
@@ -26,7 +28,7 @@ public class Iteration {
 	 * Generate the code to go out of the loop.
 	 */
 	public void faire() {
-		Yaka.program += Yaka.yvm.ifFaux();
+		Yaka.yvm.ifFaux();
 	}
 	
 	/**
@@ -34,7 +36,7 @@ public class Iteration {
 	 * Generate the label corresponding.
 	 */
 	public void fait() {
-		Yaka.program += Yaka.yvm.gotoFaire();
-		Yaka.program += Yaka.yvm.labelFait();		
+		Yaka.yvm.gotoFaire();
+		Yaka.yvm.labelFait();		
 	}
 }

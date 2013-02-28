@@ -1,3 +1,4 @@
+package compilateur;
 
 /**
  * Represent the type of a value.
