@@ -225,8 +225,8 @@ public class YVMasm extends YVM {
 		this.addLine("; ");
 		super.inot();
 		String str = "pop ax\n";
-		str += "neg ax\n";
-		str += "push ax\n";
+		str += "not ax\n";
+		str += "push ax\n\n";
 		return this.addLine(str);
 	}
 
@@ -235,8 +235,8 @@ public class YVMasm extends YVM {
 		this.addLine("; ");
 		super.ineg();
 		String str = "pop ax\n";
-		str += "not ax\n";
-		str += "push ax\n";
+		str += "neg ax\n";
+		str += "push ax\n\n";
 		return this.addLine(str);
 	}
 	
