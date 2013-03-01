@@ -2,6 +2,10 @@ package compilateur;
 
 /**
  * Compute the iteration part.
+ * @author Paul Chaignon
+ * @author Damien Le Guen
+ * @author Antoine Lejeune
+ * @author Benoit Travers
  */
 public class Iteration {
 	
@@ -28,7 +32,7 @@ public class Iteration {
 	 * Generate the code to go out of the loop.
 	 */
 	public void faire() {
-		Yaka.yvm.ifFaux();
+		Yaka.yvm.ifFauxFait();
 	}
 	
 	/**
