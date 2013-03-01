@@ -2,6 +2,10 @@ package compilateur;
 
 /**
  * Represent an identificator.
+ * @author Paul Chaignon
+ * @author Damien Le Guen
+ * @author Antoine Lejeune
+ * @author Benoit Travers
  */
 public abstract class Ident {
 	protected Type type;

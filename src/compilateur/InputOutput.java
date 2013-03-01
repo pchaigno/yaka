@@ -2,6 +2,10 @@ package compilateur;
 
 /**
  * Compute the inputs and outputs instructions.
+ * @author Paul Chaignon
+ * @author Damien Le Guen
+ * @author Antoine Lejeune
+ * @author Benoit Travers
  */
 public class InputOutput {
 

@@ -2,6 +2,10 @@ package compilateur;
 
 /**
  * Some constants...
+ * @author Paul Chaignon
+ * @author Damien Le Guen
+ * @author Antoine Lejeune
+ * @author Benoit Travers
  */
 // TODO Translate name.
 public class Constante {

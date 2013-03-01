@@ -5,6 +5,10 @@ import java.util.Stack;
 
 /**
  * Generate the YVM code for each YVM function.
+ * @author Paul Chaignon
+ * @author Damien Le Guen
+ * @author Antoine Lejeune
+ * @author Benoit Travers
  */
 public class YVM {
 	protected int nbIterations;

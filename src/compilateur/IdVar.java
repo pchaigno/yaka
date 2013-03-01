@@ -2,6 +2,10 @@ package compilateur;
 
 /**
  * Represent an identificator of variable.
+ * @author Paul Chaignon
+ * @author Damien Le Guen
+ * @author Antoine Lejeune
+ * @author Benoit Travers
  */
 public class IdVar extends Ident {
 	private int offset;
