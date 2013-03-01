@@ -48,27 +48,31 @@ public class Expression {
 	 */
 	public void pushInteger(int ent) {
 		this.stackType.push(Type.INT);
-		if(this.invert) {
-			ent = -ent;
-			this.invert = false;
-		}
 		Yaka.yvm.iconst(ent);
+		if(this.invert) {
+			if(this.stackOp.pop()==Operator.NEG) {
+				Yaka.yvm.ineg();
+				this.invert = false;
+			} else {
+				System.err.println("Expression: Invalid operation.");
+			}
+		}
 	}
 	
 	/**
 	 * Push a boolean to the stack of values.
 	 * @param bool The boolean.
 	 */
-	public void pushBoolean(boolean bool) {
+	public void pushBoolean(int bool) {
 		this.stackType.push(Type.BOOL);
+		Yaka.yvm.iconst(bool);
 		if(this.invert) {
-			bool = !bool;
-			this.invert = false;
-		}
-		if(bool) {
-			Yaka.yvm.iconst(Constante.TRUE);
-		} else {
-			Yaka.yvm.iconst(Constante.FALSE);
+			if(this.stackOp.pop()==Operator.NOT) {
+				Yaka.yvm.inot();
+				this.invert = false;
+			} else {
+				System.err.println("Expression: Invalid operation.");
+			}
 		}
 	}
 	
@@ -117,6 +121,7 @@ public class Expression {
 					this.stackType.push(Type.BOOL);
 					break;
 				default:
+					System.err.println("Expression: Invalid operation.");
 					this.stackType.push(Type.ERROR);
 			}
 		} else if((a==Type.INT || a==Type.ERROR) && (b==Type.INT || b==Type.ERROR)) {
@@ -162,10 +167,12 @@ public class Expression {
 					this.stackType.push(Type.BOOL);
 					break;
 				default:
+					System.err.println("Expression: Invalid operation.");
 					this.stackType.push(Type.ERROR);
 			}
 		} else {
 			System.err.println("Expression: The two operands doesn't match.");
+			this.stackType.push(Type.ERROR);
 		}
 	}
 	
@@ -175,7 +182,7 @@ public class Expression {
 	 */
 	public void setAffectation(String name) {
 		if(Yaka.tabIdent.containsIdent(name)) {
-			this.affectTo = Yaka.tabIdent.getIdent(name);			
+			this.affectTo = Yaka.tabIdent.getIdent(name);
 		} else {
 			System.err.println("Expression: Ident does not exist in the table of idents.");
 		}

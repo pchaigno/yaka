@@ -178,6 +178,22 @@ public class YVM {
 	String idiff() {
 		return this.addLine("idiff\n");
 	}
+
+	/**
+	 * Generate the code for an inot instruction.
+	 * @return The YVM code.
+	 */
+	String inot() {
+		return this.addLine("inot\n");
+	}
+
+	/**
+	 * Generate the code for an ineg instruction.
+	 * @return The YVM code.
+	 */
+	String ineg() {
+		return this.addLine("ineg\n");
+	}
 	
 	/**
 	 * Generate the code for an istore instruction.

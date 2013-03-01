@@ -1,0 +1,31 @@
+entete
+ouvrePrinc 6
+ecrireChaine "x="
+lireEnt -2
+aLaLigne
+ecrireChaine "y="
+lireEnt -4
+aLaLigne
+ecrireChaine "x+y="
+iload -2
+iload -4
+iadd
+ecrireEnt
+aLaLigne
+iload -2
+iload -4
+iconst 2
+idiv
+iadd
+iconst 5
+idiv
+istore -6
+iload -4
+iconst 3
+iload -4
+imul
+iadd
+iconst 4
+isub
+istore -2
+queue

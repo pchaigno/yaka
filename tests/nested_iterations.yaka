@@ -1,0 +1,18 @@
+PROGRAMME iter1
+VAR ENTIER i,j,n;
+n=5;
+i=1;
+j=1;
+TANTQUE i<=n
+FAIRE
+i=i+1;
+TANTQUE j<=n
+FAIRE
+j=j+1;
+FAIT;
+TANTQUE j<=n
+FAIRE
+j=j+1;
+FAIT
+FAIT
+FPROGRAMME

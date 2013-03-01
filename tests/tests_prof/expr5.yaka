@@ -1,0 +1,12 @@
+PROGRAMME expr3
+VAR ENTIER c1,c2;
+        
+	c1=8;
+	ECRIRE("c1=");
+	ECRIRE(c1);
+	ALALIGNE;
+
+	ECRIRE("-45=");
+	ECRIRE(-2*c1+(-3*4)*2-5);
+	ALALIGNE;
+FPROGRAMME

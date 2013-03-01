@@ -38,10 +38,12 @@ public class Yaka {
   
   public static void main(String args []) {
     java.io.InputStream input;
+    java.io.InputStream inputASM;
     if(args.length == 1) {
       System.out.print(args [args.length - 1] + ": ");
       try {
         input = new java.io.FileInputStream(args [args.length - 1] + ".yaka");
+        inputASM = new java.io.FileInputStream(args [args.length - 1] + ".yaka");
       } catch (java.io.FileNotFoundException e) {
         System.out.println("Fichier introuvable.");
         return;
@@ -49,19 +51,26 @@ public class Yaka {
     } else if (args.length == 0) {
       System.out.println("Lecture sur l'entree standard...");
       input = System.in;
+      inputASM = System.in;
     } else {
       System.out.println("Usage: java Gram [fichier]");
       return;
     }
     try {
+      // Generation YVM
       new Yaka(input);
-	  expression = new Expression();
-  	  declaration = new Declaration();
-  	  yvm = new YVM();
-      Yaka.tabIdent = new TabIdent(10);
+	  Yaka.initVariables(true);
       Yaka.analyse();
-      System.out.println("analyse syntaxique reussie!");
+      System.out.println("analyse syntaxique YVM reussie!");
       Yaka.yvm.generateFile("test.yvm");
+      
+      // Generation ASM
+      Yaka.ReInit(inputASM);
+	  Yaka.initVariables(false);
+      Yaka.analyse();
+      System.out.println("analyse syntaxique ASM reussie!");
+      Yaka.yvm.generateFile("test.asm");
+      
     } catch (ParseException e) {
       String msg = e.getMessage();
       msg = msg.substring(0, msg.indexOf("\n"));
@@ -218,7 +227,7 @@ void type() : {} {
 /******** Expression ********/
 void expression() : {} {
   simpleExpr()
-  (opRel() simpleExpr())?
+  (opRel() simpleExpr() {Yaka.expression.compute();})?
 }
 
 void simpleExpr() : {} {
@@ -234,7 +243,7 @@ void terme() : {} {
 void facteur() : {} {
   primaire()
 | opNeg() {Yaka.expression.invert();}
-  primaire() {Yaka.expression.compute();}
+  primaire()
 }
 
 void primaire() : {} {
@@ -245,8 +254,8 @@ void primaire() : {} {
 void valeur() : {} {
   < entier > {Yaka.expression.pushInteger(YakaTokenManager.entierLu);}
 | < ident > {Yaka.expression.pushIdent(YakaTokenManager.identLu);}
-| < VRAI > {Yaka.expression.pushBoolean(true);}
-| < FAUX > {Yaka.expression.pushBoolean(false);}
+| < VRAI > {Yaka.expression.pushBoolean(Constante.TRUE);}
+| < FAUX > {Yaka.expression.pushBoolean(Constante.FALSE);}
 }
 
 void opRel() : {} {
@@ -303,10 +312,7 @@ void ecriture() : {} {
 
 /******** Iteration ********/
 void iteration() : {} {	< TANTQUE > {Yaka.iteration.tantQue();}
-	expression() {
-	  Yaka.expression.compute();
-	  Yaka.iteration.checkExpression();
-	}
+	expression() {Yaka.iteration.checkExpression();}
 	< FAIRE > {Yaka.iteration.faire();}
 	suiteInstr()
 	< FAIT > {Yaka.iteration.fait();}

@@ -1,0 +1,7 @@
+PROGRAMME expr3
+VAR ENTIER c1,c2;
+VAR BOOLEEN b1;
+        c1=2;
+	b1=VRAI;
+	c2=2*c1+b1+3;
+FPROGRAMME

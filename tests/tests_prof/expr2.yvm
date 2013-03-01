@@ -1,0 +1,39 @@
+entete
+ouvrePrinc 14
+ecrireChaine "c1="
+lireEnt -2
+aLaLigne
+ecrireChaine "c2="
+lireEnt -4
+aLaLigne
+iconst 10
+iconst 10
+iconst 2
+idiv
+iadd
+iconst 5
+idiv
+ecrireEnt
+aLaLigne
+iload -2
+iconst 3
+iload -2
+imul
+iadd
+iconst 10
+isub
+ecrireEnt
+aLaLigne
+iconst -1
+iconst -1
+ior
+ecrireEnt
+aLaLigne
+iload -2
+iload -4
+iconst 4
+iadd
+iinfegal
+ecrireEnt
+aLaLigne
+queue

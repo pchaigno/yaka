@@ -1,0 +1,29 @@
+entete
+ouvrePrinc 14
+ecrireChaine "c1="
+lireEnt -2
+aLaLigne
+ecrireChaine "c3="
+lireEnt -6
+aLaLigne
+ecrireChaine "c4="
+lireEnt -8
+aLaLigne
+iload -6
+iload -8
+iconst 2
+idiv
+iadd
+iconst 5
+idiv
+ecrireEnt
+aLaLigne
+iload -2
+iconst 3
+iload -2
+imul
+iadd
+iconst 10
+isub
+ecrireEnt
+queue

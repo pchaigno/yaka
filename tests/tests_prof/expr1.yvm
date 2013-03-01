@@ -1,0 +1,22 @@
+entete
+ouvrePrinc 10
+iconst 2
+iconst 2
+iconst 3
+imul
+iadd
+istore -10
+iload -10
+ecrireEnt
+aLaLigne
+iconst 2
+iconst 2
+iconst 2
+iconst 1
+iadd
+iconst 2
+iadd
+imul
+iadd
+ecrireEnt
+queue

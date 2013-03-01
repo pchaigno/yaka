@@ -1,0 +1,31 @@
+entete
+ouvrePrinc 4
+ecrireChaine "c1="
+lireEnt -2
+aLaLigne
+iload -2
+ecrireEnt
+aLaLigne
+iconst 2
+iload -2
+imul
+iconst 3
+iconst 4
+imul
+iadd
+iconst 5
+isub
+ecrireEnt
+aLaLigne
+ecrireChaine "factorielle 5= "
+iconst 5
+iconst 4
+imul
+iconst 3
+imul
+iconst 2
+imul
+iconst 1
+imul
+ecrireEnt
+queue

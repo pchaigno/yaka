@@ -219,6 +219,26 @@ public class YVMasm extends YVM {
 		str += "push 0\n\n";
 		return this.addLine(str);
 	}
+
+	@Override
+	String inot() {
+		this.addLine("; ");
+		super.inot();
+		String str = "pop ax\n";
+		str += "not ax\n";
+		str += "push ax\n\n";
+		return this.addLine(str);
+	}
+
+	@Override
+	String ineg() {
+		this.addLine("; ");
+		super.ineg();
+		String str = "pop ax\n";
+		str += "neg ax\n";
+		str += "push ax\n\n";
+		return this.addLine(str);
+	}
 	
 	@Override
 	String istore(int offset) {
@@ -246,9 +266,9 @@ public class YVMasm extends YVM {
 		this.addLine("; ");
 		super.lire(offset);
 		String str = "";
-		if(offset<0){
+		if(offset<0) {
 			str += "lea dx, [bp"+offset+"]\n";
-		}else{
+		} else {
 			str += "lea dx, [bp+"+offset+"]\n";
 		}
 		str += "push dx\n";
@@ -309,7 +329,7 @@ public class YVMasm extends YVM {
 		super.footer();
 		String str = "nop\n";
 		str += "EXITCODE\n";
-		str += "end debut\n\n";
+		str += "end debut\n";
 		return this.addLine(str);
 	}
 }
