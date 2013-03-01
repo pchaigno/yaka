@@ -1,0 +1,22 @@
+PROGRAMME expr3
+CONST 
+	a1=10,
+	b=VRAI;
+CONST
+	a2=5;
+	
+VAR ENTIER c1,c2,c3,c4,c5;
+VAR BOOLEEN b1,b2;
+	ECRIRE("c1=");
+    	LIRE(c1);
+	ALALIGNE;
+	ECRIRE("c3=");
+	LIRE(c3);
+	ALALIGNE;
+	ECRIRE("c4=");
+	LIRE(c4);
+	ALALIGNE;
+	ECRIRE((c3+c4/2)/5);
+	ALALIGNE;
+	ECRIRE(c1+3*c1-a1);
+FPROGRAMME
