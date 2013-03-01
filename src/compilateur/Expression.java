@@ -114,6 +114,7 @@ public class Expression {
 					this.stackType.push(Type.BOOL);
 					break;
 				default:
+					System.err.println("Expression: Invalid operation.");
 					this.stackType.push(Type.ERROR);
 			}
 		} else if((a==Type.INT || a==Type.ERROR) && (b==Type.INT || b==Type.ERROR)) {
@@ -159,10 +160,12 @@ public class Expression {
 					this.stackType.push(Type.BOOL);
 					break;
 				default:
+					System.err.println("Expression: Invalid operation.");
 					this.stackType.push(Type.ERROR);
 			}
 		} else {
 			System.err.println("Expression: The two operands doesn't match.");
+			this.stackType.push(Type.ERROR);
 		}
 	}
 	
