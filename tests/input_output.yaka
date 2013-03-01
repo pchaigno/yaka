@@ -1,12 +1,12 @@
 PROGRAMME entreeSortie
 VAR ENTIER x,y,z;
-ECRIRE(\"x=\");
+ECRIRE("x=");
 LIRE(x);
 ALALIGNE;
-ECRIRE(\"y=\");
+ECRIRE("y=");
 LIRE(y);
 ALALIGNE;
-ECRIRE(\"x+y=\");
+ECRIRE("x+y=");
 ECRIRE(x+y);
 ALALIGNE;
 z=(x+y/2)/5;
