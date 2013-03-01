@@ -225,7 +225,7 @@ void type() : {} {
 /******** Expression ********/
 void expression() : {} {
   simpleExpr()
-  (opRel() simpleExpr())?
+  (opRel() simpleExpr() {Yaka.expression.compute();})?
 }
 
 void simpleExpr() : {} {
