@@ -14,7 +14,7 @@ import junit.framework.TestCase;
  */
 public class TestYaka extends TestCase {
 	boolean showYVMCode = false;
-	boolean showASMCode = true;
+	boolean showASMCode = false;
 	
 	/**
 	 * First test just to intialize the Yaka compiler.
@@ -173,6 +173,47 @@ public class TestYaka extends TestCase {
 			System.out.println(Yaka.yvm.getProgram());
 		}
 		assertEquals(programASM, Yaka.yvm.getProgram());
+	}
+	
+	/**
+	 * Test an expression.
+	 * Written by the teachers.
+	 */
+	public void testTeachersExpr() {
+		for(int i=1 ; i<6 ; i++) {
+			String program = "";
+			try {
+				program = getContentOfFile("tests/tests_prof/expr"+i+".yaka");
+			} catch (IOException e) {
+				fail(e.getMessage());
+			}
+			
+			String programYVM = "";
+			try {
+				programYVM = getContentOfFile("tests/tests_prof/expr"+i+".yvm");
+			} catch (IOException e) {
+				fail(e.getMessage());
+			}
+			compileToYVM(program);
+			if(this.showYVMCode) {
+				System.out.println("From teachers - expr"+i+" in YVM:");
+				System.out.println(Yaka.yvm.getProgram());
+			}
+			assertEquals(programYVM, Yaka.yvm.getProgram());
+			
+			String programASM = "";
+			try {
+				programASM = getContentOfFile("tests/tests_prof/expr"+i+".asm");
+			} catch (IOException e) {
+				fail(e.getMessage());
+			}
+			compileToASM(program);
+			if(this.showASMCode) {
+				System.out.println("From teachers - expr"+i+" in ASM:");
+				System.out.println(Yaka.yvm.getProgram());
+			}
+			assertEquals(programASM, Yaka.yvm.getProgram());
+		}
 	}
 	
 	/**

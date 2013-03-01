@@ -1,0 +1,25 @@
+entete
+ouvrePrinc 4
+iconst 8
+istore -2
+ecrireChaine "c1="
+iload -2
+ecrireEnt
+aLaLigne
+ecrireChaine "-45="
+iconst 2
+ineg
+iload -2
+imul
+iconst 3
+ineg
+iconst 4
+imul
+iconst 2
+imul
+iadd
+iconst 5
+isub
+ecrireEnt
+aLaLigne
+queue
