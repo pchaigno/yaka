@@ -43,8 +43,12 @@ public class Expression {
 		this.stackType.push(Type.INT);
 		Yaka.yvm.iconst(ent);
 		if(this.invert) {
-			Yaka.yvm.ineg();
-			this.invert = false;
+			if(this.stackOp.pop()==Operator.NEG) {
+				Yaka.yvm.ineg();
+				this.invert = false;
+			} else {
+				System.err.println("Expression: Invalid operation.");
+			}
 		}
 	}
 	
@@ -56,8 +60,12 @@ public class Expression {
 		this.stackType.push(Type.BOOL);
 		Yaka.yvm.iconst(bool);
 		if(this.invert) {
-			Yaka.yvm.inot();
-			this.invert = false;
+			if(this.stackOp.pop()==Operator.NOT) {
+				Yaka.yvm.inot();
+				this.invert = false;
+			} else {
+				System.err.println("Expression: Invalid operation.");
+			}
 		}
 	}
 	
