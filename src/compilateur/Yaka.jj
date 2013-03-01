@@ -241,7 +241,7 @@ void terme() : {} {
 void facteur() : {} {
   primaire()
 | opNeg() {Yaka.expression.invert();}
-  primaire() {Yaka.expression.compute();}
+  primaire()
 }
 
 void primaire() : {} {
