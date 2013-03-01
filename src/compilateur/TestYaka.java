@@ -182,7 +182,7 @@ public class TestYaka extends TestCase {
 	/**
 	 * Test a simple iteration.
 	 */
-	public void testIteration() {
+	public void testSimpleIteration() {
 		String program = "";
 		try {
 			program = getContentOfFile("tests/simple_iteration.yaka");
@@ -294,6 +294,44 @@ public class TestYaka extends TestCase {
 			}
 			assertEquals(programASM, Yaka.yvm.getProgram());
 		}
+	}
+	
+	/**
+	 * Test a simple condition bloc.
+	 */
+	public void testSimpleCondition() {
+		String program = "";
+		try {
+			program = getContentOfFile("tests/simple_condition.yaka");
+		} catch (IOException e) {
+			fail(e.getMessage());
+		}
+		
+		String programYVM = "";
+		try {
+			programYVM = getContentOfFile("tests/simple_condition.yvm");
+		} catch (IOException e) {
+			fail(e.getMessage());
+		}
+		compileToYVM(program);
+		if(this.showYVMCode) {
+			System.out.println("Simple condition in YVM:");
+			System.out.println(Yaka.yvm.getProgram());
+		}
+		assertEquals(programYVM, Yaka.yvm.getProgram());
+		
+		String programASM = "";
+		try {
+			programASM = getContentOfFile("tests/simple_condition.asm");
+		} catch (IOException e) {
+			fail(e.getMessage());
+		}
+		compileToASM(program);
+		if(this.showASMCode) {
+			System.out.println("Simple condition in ASM:");
+			System.out.println(Yaka.yvm.getProgram());
+		}
+		assertEquals(programASM, Yaka.yvm.getProgram());
 	}
 	
 	/**

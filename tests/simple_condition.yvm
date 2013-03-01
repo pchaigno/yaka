@@ -1,0 +1,20 @@
+entete
+ouvrePrinc 6
+lireEnt -2
+aLaLigne
+lireEnt -4
+aLaLigne
+iload -4
+istore -6
+iload -2
+iload -4
+isup
+iffaux SINON1
+iload -2
+istore -6
+goto FSI1
+SINON1 :
+FSI1 :
+iload -6
+ecrireEnt
+queue

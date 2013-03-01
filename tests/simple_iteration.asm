@@ -34,6 +34,8 @@ push word ptr 0
 pop ax
 mov word ptr [bp-2], ax
 
+FAIRE1 :
+
 ; iload -4
 push word ptr [bp-4]
 
@@ -48,6 +50,11 @@ jg $+6
 push -1
 jmp $+4
 push 0
+
+; iffaux FAIT1
+pop ax
+cmp ax, 0
+je FAIT1
 
 ; iload -2
 push word ptr [bp-2]
@@ -80,6 +87,11 @@ push ax
 ; istore -4
 pop ax
 mov word ptr [bp-4], ax
+
+; goto FAIRE1
+jmp FAIRE1
+
+FAIT1 :
 
 ; queue
 nop
