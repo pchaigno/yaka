@@ -284,7 +284,7 @@ public class YVMasm extends YVM {
 		super.footer();
 		String str = "nop\n";
 		str += "EXITCODE\n";
-		str += "end debut\n\n";
+		str += "end debut\n";
 		return this.addLine(str);
 	}
 }
