@@ -21,6 +21,7 @@ public class Yaka {
   public static TabIdent tabIdent;
   public static YVM yvm;
   public static InputOutput inputOutput;
+  public static Condition condition;
 
   public static void initVariables(boolean toYVM) {
 	  if(toYVM) {		yvm = new YVM();
@@ -32,6 +33,7 @@ public class Yaka {
   	  declaration = new Declaration();
       expression = new Expression();
       inputOutput = new InputOutput();
+      condition = new Condition();
   }
   
   public static void main(String args []) {
@@ -289,7 +291,7 @@ void suiteInstr() : {} {	instruction()	(	  ";"
 }
 
 void instruction() : {} {
-  affectation() | lecture() | ecriture() | iteration()}
+  affectation() | lecture() | ecriture() | iteration() | conditionnel()}
 
 void affectation() : {} {  < ident > {Yaka.expression.setAffectation(YakaTokenManager.identLu);}
    "="
@@ -317,6 +319,17 @@ void iteration() : {} {	< TANTQUE > {Yaka.iteration.tantQue();}
 }
 
 /******** Conditional ********/
-
+void conditionnel() : {} {
+	< SI >
+	expression() {Yaka.condition.checkExpression();}
+	< ALORS > {Yaka.condition.alors();}
+	suiteInstr()
+	{Yaka.condition.sinon();}
+	(
+	  < SINON >
+	  suiteInstr()
+	)?
+	< FSI > {Yaka.condition.fsi();}
+}
 
 /******** Functions ********/

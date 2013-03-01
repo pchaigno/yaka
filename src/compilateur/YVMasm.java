@@ -306,25 +306,57 @@ public class YVMasm extends YVM {
 	String labelFaire() {
 		this.nbIterations++;
 		this.iterations.push(this.nbIterations);
-		return "FAIRE"+this.iterations.peek()+" :\n";
+		return this.addLine("FAIRE"+this.iterations.peek()+" :\n\n");
 	}
 
 	@Override
-	String ifFaux() {
+	String ifFauxFait() {
+		this.addLine("; ");
+		super.ifFauxFait();
 		String str = "pop ax\n";
-		str += "cmp ax\n";
-		str += "je FAIT"+this.iterations.peek()+"\n";
-		return str;
+		str += "cmp ax, 0\n";
+		str += "je FAIT"+this.iterations.peek()+"\n\n";
+		return this.addLine(str);
 	}
 
 	@Override
 	String gotoFaire() {
-		return "jmp FAIRE"+this.iterations.peek()+"\n";
+		this.addLine("; ");
+		super.gotoFaire();
+		return this.addLine("jmp FAIRE"+this.iterations.peek()+"\n\n");
 	}
 
 	@Override
 	String labelFait() {
-		return "FAIT"+this.iterations.pop()+" :\n";
+		return this.addLine("FAIT"+this.iterations.pop()+" :\n\n");
+	}
+	
+	@Override
+	String ifFauxSinon() {
+		// The incrementation of nbConditions and the update of conditions are done with the super method:
+		this.addLine("; ");
+		super.ifFauxSinon();
+		String str = "pop ax\n";
+		str += "cmp ax, 0\n";
+		str += "je SINON"+this.conditions.peek()+"\n\n";
+		return this.addLine(str);
+	}
+	
+	@Override
+	String gotoFsi() {
+		this.addLine("; ");
+		super.gotoFsi();
+		return this.addLine("jmp FSI"+this.conditions.peek()+"\n\n");
+	}
+	
+	@Override
+	String labelSinon() {
+		return this.addLine("SINON"+this.conditions.peek()+" :\n\n");
+	}
+	
+	@Override
+	String labelFsi() {
+		return this.addLine("FSI"+this.conditions.pop()+" :\n\n");
 	}
 	
 	@Override

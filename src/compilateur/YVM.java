@@ -13,6 +13,8 @@ import java.util.Stack;
 public class YVM {
 	protected int nbIterations;
 	protected Stack<Integer> iterations;
+	protected int nbConditions;
+	protected Stack<Integer> conditions;
 	protected String program;
 
 	/**
@@ -21,6 +23,8 @@ public class YVM {
 	public YVM() {
 		this.nbIterations = 0;
 		this.iterations = new Stack<Integer>();
+		this.nbConditions = 0;
+		this.conditions = new Stack<Integer>();
 		this.program = "";
 	}
 	
@@ -253,7 +257,7 @@ public class YVM {
 	 * Generate the code to go to the end of the loop if the expression is false.
 	 * @return The YVM code.
 	 */
-	String ifFaux() {
+	String ifFauxFait() {
 		return addLine("iffaux FAIT"+this.iterations.peek()+"\n");
 	}
 
@@ -274,7 +278,42 @@ public class YVM {
 	}
 	
 	/**
+	 * Generate the code to go to the second part of the condition bloc.
+	 * @return The YVM code.
+	 */
+	String ifFauxSinon() {
+		this.nbConditions++;
+		this.conditions.push(this.nbConditions);
+		return this.addLine("iffaux SINON"+this.conditions.peek()+"\n");
+	}
+	
+	/**
+	 * Generate the code to go to the end of the condition bloc.
+	 * @return The YVM code.
+	 */
+	String gotoFsi() {
+		return this.addLine("goto FSI"+this.conditions.peek()+"\n");
+	}
+	
+	/**
+	 * Generate the code for a label for the second part of the condition bloc.
+	 * @return The YVM code.
+	 */
+	String labelSinon() {
+		return this.addLine("SINON"+this.conditions.peek()+" :\n");
+	}
+	
+	/**
+	 * Generate the code for a label at the end of the condition bloc.
+	 * @return The YVM code.
+	 */
+	String labelFsi() {
+		return this.addLine("FSI"+this.conditions.pop()+" :\n");
+	}
+	
+	/**
 	 * Generate the program's footer.
+	 * @return The YVM code.
 	 */
 	String footer() {
 		return this.addLine("queue\n");
