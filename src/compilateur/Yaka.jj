@@ -53,10 +53,7 @@ public class Yaka {
     }
     try {
       new Yaka(input);
-	  expression = new Expression();
-  	  declaration = new Declaration();
-  	  yvm = new YVM();
-      Yaka.tabIdent = new TabIdent(10);
+	  Yaka.initVariables(true);
       Yaka.analyse();
       System.out.println("analyse syntaxique reussie!");
       Yaka.yvm.generateFile("test.yvm");
