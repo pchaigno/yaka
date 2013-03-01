@@ -4,6 +4,10 @@ import java.io.OutputStream;
 
 /**
  * Generate the ASM code for each YVM function.
+ * @author Paul Chaignon
+ * @author Damien Le Guen
+ * @author Antoine Lejeune
+ * @author Benoit Travers
  */
 public class YVMasm extends YVM {
 	private static int cptES = 0;

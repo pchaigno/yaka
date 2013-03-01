@@ -4,6 +4,10 @@ import java.util.HashMap;
 
 /**
  * The identificators' table.
+ * @author Paul Chaignon
+ * @author Damien Le Guen
+ * @author Antoine Lejeune
+ * @author Benoit Travers
  */
 public class TabIdent {
 	private HashMap<String, Ident> table;

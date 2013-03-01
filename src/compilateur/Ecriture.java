@@ -3,6 +3,10 @@ import java.io.*;
 
 /**
  * Some methods to write on the screen or in a file.
+ * @author Paul Chaignon
+ * @author Damien Le Guen
+ * @author Antoine Lejeune
+ * @author Benoit Travers
  */
 public class Ecriture {
 	

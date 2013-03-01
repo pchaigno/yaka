@@ -2,6 +2,10 @@ package compilateur;
 
 /**
  * Represent an identificator of constant.
+ * @author Paul Chaignon
+ * @author Damien Le Guen
+ * @author Antoine Lejeune
+ * @author Benoit Travers
  */
 public class IdConst extends Ident {
 	private int value;

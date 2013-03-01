@@ -4,6 +4,10 @@ import java.util.Stack;
 
 /**
  * Compute the expressions.
+ * @author Paul Chaignon
+ * @author Damien Le Guen
+ * @author Antoine Lejeune
+ * @author Benoit Travers
  */
 public class Expression {
 	private Stack<Type> stackType;
