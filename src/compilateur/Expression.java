@@ -24,7 +24,6 @@ public class Expression {
 	 * Tell Expression that the next value need to be inverted.
 	 */
 	public void invert() {
-		System.out.println("inv");
 		this.invert = true;
 	}
 	
@@ -45,6 +44,7 @@ public class Expression {
 		Yaka.yvm.iconst(ent);
 		if(this.invert) {
 			Yaka.yvm.ineg();
+			this.invert = false;
 		}
 	}
 	
@@ -57,6 +57,7 @@ public class Expression {
 		Yaka.yvm.iconst(bool);
 		if(this.invert) {
 			Yaka.yvm.inot();
+			this.invert = false;
 		}
 	}
 	
@@ -86,9 +87,6 @@ public class Expression {
 		Type b = this.stackType.pop();
 		Type a = this.stackType.pop();
 		Operator op = this.stackOp.pop();
-		System.out.println(a + " " + b + " " + op);
-
-		System.out.println(this.stackType);
 		if((a==Type.BOOL || a==Type.ERROR) && (b==Type.BOOL || b==Type.ERROR)) {
 			switch(op) {
 				case OR:
