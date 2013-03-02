@@ -30,7 +30,7 @@ public class TestYaka extends TestCase {
 	/**
 	 * Test the declaration of the variables.
 	 */
-	public void testDeclarationVariables() {
+	public void testVariablesDeclaration() {
 		String program = "";
 		try {
 			program = getContentOfFile("tests/declaration_variables.yaka");

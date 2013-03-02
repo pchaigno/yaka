@@ -83,6 +83,6 @@ public class Declaration {
 	 * Book memory space according to the number of variables.
 	 */
 	public void bookMemory() {
-		Yaka.yvm.bookMemory(Yaka.tabIdent.getNumberOfVariables());
+		Yaka.yvm.ouvrePrinc(Yaka.tabIdent.getNumberOfVariables());
 	}
 }

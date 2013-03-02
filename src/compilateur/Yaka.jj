@@ -175,10 +175,10 @@ TOKEN :
 
 /******** Main ********/
 void analyse() : {}	{
-  < PROGRAMME > {Yaka.yvm.header();}
+  < PROGRAMME > {Yaka.yvm.entete();}
   < ident >
   bloc() 
-  < FPROGRAMME > {Yaka.yvm.footer();}
+  < FPROGRAMME > {Yaka.yvm.queue();}
 }
 
 void bloc() : {} {
@@ -204,8 +204,8 @@ void defConst() : {} {
 void valConst() : {} {
   < entier > {declaration.valConst(Type.INT, YakaTokenManager.entierLu);}
 | < ident > {declaration.valConstRef(YakaTokenManager.identLu);}
-| < VRAI > {declaration.valConst(Type.BOOL, Constante.TRUE);}
-| < FAUX > {declaration.valConst(Type.BOOL, Constante.FALSE);}
+| < VRAI > {declaration.valConst(Type.BOOL, Constants.TRUE);}
+| < FAUX > {declaration.valConst(Type.BOOL, Constants.FALSE);}
 }
 
 void declVar() : {} {
@@ -250,8 +250,8 @@ void primaire() : {} {
 void valeur() : {} {
   < entier > {Yaka.expression.pushInteger(YakaTokenManager.entierLu);}
 | < ident > {Yaka.expression.pushIdent(YakaTokenManager.identLu);}
-| < VRAI > {Yaka.expression.pushBoolean(Constante.TRUE);}
-| < FAUX > {Yaka.expression.pushBoolean(Constante.FALSE);}
+| < VRAI > {Yaka.expression.pushBoolean(Constants.TRUE);}
+| < FAUX > {Yaka.expression.pushBoolean(Constants.FALSE);}
 }
 
 void opRel() : {} {

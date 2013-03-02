@@ -8,13 +8,13 @@ import java.io.*;
  * @author Antoine Lejeune
  * @author Benoit Travers
  */
-public class Ecriture {
+public class Writer {
 	
 	/**
 	 * Display an error and quit.
 	 * @param e The error.
 	 */
-	private static void erreur(IOException e) {
+	private static void error(IOException e) {
 		System.out.println(e.getMessage());
 		System.out.println("Erreur fatale");
 		System.exit(1);
@@ -25,7 +25,7 @@ public class Ecriture {
 	 * @param name The name of the file.
 	 * @return The file stream or null if an error occurred.
 	 */
-	public static OutputStream ouvrir(String name) {
+	public static OutputStream open(String name) {
 		OutputStream f;
 		try {
 			f = new DataOutputStream(new FileOutputStream(name));
@@ -39,11 +39,11 @@ public class Ecriture {
 	 * Close a file.
 	 * @param f The file stream.
 	 */
-	public static void fermer(OutputStream f) {                                          
+	public static void close(OutputStream f) {                                          
 		try {
 			f.close();
 		} catch(IOException e) {
-			erreur(e);
+			error(e);
 		}
 	}
 
@@ -52,11 +52,11 @@ public class Ecriture {
 	 * @param f The file stream.
 	 * @param c The char to write.
 	 */
-	public static void ecrireChar(OutputStream f, char c) {
+	public static void writeChar(OutputStream f, char c) {
 		try {
 			f.write(c);
 		} catch(IOException e) {
-			erreur(e);
+			error(e);
 		}
 	}
 
@@ -64,8 +64,8 @@ public class Ecriture {
 	 * Write a char on the screen.
 	 * @param c The char to write.
 	 */
-	public static void ecrireChar(char c) {
-		ecrireChar(System.out, c);
+	public static void writeChar(char c) {
+		writeChar(System.out, c);
 	}
 
 	/**
@@ -73,13 +73,13 @@ public class Ecriture {
 	 * @param f The file stream.
 	 * @param s The string to write.
 	 */
-	public static void ecrireString(OutputStream f, String s) {
+	public static void writeString(OutputStream f, String s) {
 		try {
 			for(int i=0 ; i<s.length() ; i++) {
 				f.write(s.charAt(i));
 			}
 		} catch(IOException e) {
-			erreur(e);
+			error(e);
 		}
 	}
 
@@ -87,8 +87,8 @@ public class Ecriture {
 	 * Write a string on the screen.
 	 * @param s The string to write.
 	 */
-	public static void ecrireString(String s) {
-		ecrireString(System.out, s);
+	public static void writeString(String s) {
+		writeString(System.out, s);
 	}
 
 	/**
@@ -96,16 +96,16 @@ public class Ecriture {
 	 * @param f The file stream.
 	 * @param s The string to write.
 	 */
-	public static void ecrireStringln(OutputStream f, String s) {
-		ecrireString(f, s+"\r\n");
+	public static void writeStringln(OutputStream f, String s) {
+		writeString(f, s+"\r\n");
 	}
 
 	/**
 	 * Write a string on the screen and make a new line.
 	 * @param s The string to write.
 	 */
-	public static void ecrireStringln(String s) {
-		ecrireStringln(System.out, s);
+	public static void writeStringln(String s) {
+		writeStringln(System.out, s);
 	}
 
 	/**
@@ -113,16 +113,16 @@ public class Ecriture {
 	 * @param f The file stream.
 	 * @param x The integer to write.
 	 */
-	public static void ecrireInt(OutputStream f, int x) {
-		ecrireString(f, Integer.toString(x));
+	public static void writeInt(OutputStream f, int x) {
+		writeString(f, Integer.toString(x));
 	}
 
 	/**
 	 * Write an integer on the screen.
 	 * @param x The integer to write.
 	 */
-	public static void ecrireInt(int x) {
-		ecrireInt(System.out,x);
+	public static void writeInt(int x) {
+		writeInt(System.out,x);
 	}
 
 	/**
@@ -131,13 +131,13 @@ public class Ecriture {
 	 * @param x The integer to write.
 	 * @param longueur The total number of chars written in the file.
 	 */
-	public static void ecrireInt(OutputStream f, int x, int longueur) {
+	public static void writeInt(OutputStream f, int x, int longueur) {
 		String s = Integer.toString(x);
 		int k = longueur - s.length();
 		for(int i=0 ; i<k ; i++) {
-			ecrireChar(f, ' ');
+			writeChar(f, ' ');
 		}
-		ecrireString(f, s);
+		writeString(f, s);
 	}
 
 	/**
@@ -145,8 +145,8 @@ public class Ecriture {
 	 * @param x The integer to write.
 	 * @param longueur The total number of chars written in the file.
 	 */
-	public static void ecrireInt(int x, int longueur) {
-		ecrireInt(System.out, x, longueur);
+	public static void writeInt(int x, int longueur) {
+		writeInt(System.out, x, longueur);
 	}
 
 	/**
@@ -154,16 +154,16 @@ public class Ecriture {
 	 * @param f The file stream.
 	 * @param d The double to write.
 	 */
-	public static void ecrireDouble(OutputStream f, double d) {
-		ecrireString(f, Double.toString(d));
+	public static void writeDouble(OutputStream f, double d) {
+		writeString(f, Double.toString(d));
 	}
 
 	/**
 	 * Write a double on the screen.
 	 * @param d The double to write.
 	 */
-	public static void ecrireDouble(double d) {
-		ecrireDouble(System.out, d);
+	public static void writeDouble(double d) {
+		writeDouble(System.out, d);
 	}
 
 	/**
@@ -172,13 +172,13 @@ public class Ecriture {
 	 * @param d The double to write.
 	 * @param longueur The total number of chars written in the file.
 	 */
-	public static void ecrireDouble(OutputStream f, double d, int longueur) {
+	public static void writeDouble(OutputStream f, double d, int longueur) {
 		String s = Double.toString(d);
 		int k = longueur - s.length();
 		for(int i=0 ; i<k ; i++) {
-			ecrireChar(f, ' ');
+			writeChar(f, ' ');
 		}
-		ecrireString(f, s);
+		writeString(f, s);
 	}
 
 	/**
@@ -186,7 +186,7 @@ public class Ecriture {
 	 * @param d The double to write.
 	 * @param longueur The total number of chars written in the file.
 	 */
-	public static void ecrireDouble(double d, int longueur) {
-		ecrireDouble(System.out, d, longueur);
+	public static void writeDouble(double d, int longueur) {
+		writeDouble(System.out, d, longueur);
 	}
 }

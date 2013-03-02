@@ -41,9 +41,9 @@ public class YVM {
 	 * @param name The name of the file.
 	 */
 	public void generateFile(String name) {
-		OutputStream f = Ecriture.ouvrir(name);
-		Ecriture.ecrireString(f, this.program);
-		Ecriture.fermer(f);
+		OutputStream f = Writer.open(name);
+		Writer.writeString(f, this.program);
+		Writer.close(f);
 		System.out.println("---- Code YVM genere dans '" + name + "' ---- \n" + program);
 	}
 	
@@ -51,7 +51,7 @@ public class YVM {
 	 * Generate the program's header.
 	 * @return The YVM code.
 	 */
-	String header() {
+	String entete() {
 		return this.addLine("entete\n");
 	}
 	
@@ -60,7 +60,7 @@ public class YVM {
 	 * @param nbVariables The number of variables.
 	 * @return The YVM code.
 	 */
-	String bookMemory(int nbVariables) {
+	String ouvrePrinc(int nbVariables) {
 		return this.addLine("ouvrePrinc "+nbVariables*2+"\n");
 	}
 	
@@ -237,7 +237,7 @@ public class YVM {
 	/**
 	 * Generate the program's footer.
 	 */
-	String footer() {
+	String queue() {
 		return this.addLine("queue\n");
 	}
 }
