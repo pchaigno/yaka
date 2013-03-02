@@ -9,37 +9,10 @@ import java.io.OutputStream;
  * @author Antoine Lejeune
  * @author Benoit Travers
  */
-public class YVM {
+public class YVM extends Generator {
 	protected String program;
 	
-	/**
-	 * Constructor
-	 */
-	public YVM() {
-		this.program = "";
-	}
-	
-	/**
-	 * Add some lines to the program and return this line.
-	 * @param str The lines to add.
-	 * @return The lines.
-	 */
-	protected String addLine(String str) {
-		this.program += str;
-		return str;
-	}
-	
-	/**
-	 * @return The program generated.
-	 */
-	public String getProgram() {
-		return this.program;
-	}
-	
-	/**
-	 * Generate the file with the result program.
-	 * @param name The name of the file.
-	 */
+	@Override
 	public void generateFile(String name) {
 		OutputStream f = Writer.open(name);
 		Writer.writeString(f, this.program);
@@ -47,196 +20,122 @@ public class YVM {
 		System.out.println("---- Code YVM genere dans '" + name + "' ---- \n" + program);
 	}
 	
-	/**
-	 * Generate the program's header.
-	 * @return The YVM code.
-	 */
+	@Override
 	String entete() {
 		return this.addLine("entete\n");
 	}
 	
-	/**
-	 * Generate the code to book memory space.
-	 * @param nbVariables The number of variables.
-	 * @return The YVM code.
-	 */
+	@Override
 	String ouvrePrinc(int nbVariables) {
 		return this.addLine("ouvrePrinc "+nbVariables*2+"\n");
 	}
 	
-	/**
-	 * Generate the code for an iconst instruction.
-	 * @param obj The integer.
-	 * @return The YVM code.
-	 */
+	@Override
 	String iconst(int obj) {
 		return this.addLine("iconst "+obj+"\n");
 	}
 		
-	/**
-	 * Generate the code for an iload instruction.
-	 * @param offset The offset.
-	 * @return The YVM code.
-	 */
+	@Override
 	String iload(int offset) {
 		return this.addLine("iload "+offset+"\n");
 	}
 	
-	/**
-	 * Generate the code for an iadd instruction.
-	 * @return The YVM code.
-	 */
+	@Override
 	String iadd() {
 		return this.addLine("iadd\n");
 	}
 
-	/**
-	 * Generate the code for an imul instruction.
-	 * @return The YVM code.
-	 */
+	@Override
 	String imul() {
 		return this.addLine("imul\n");
 	}
 
-	/**
-	 * Generate the code for an isub instruction.
-	 * @return The YVM code.
-	 */
+	@Override
 	String isub() {
 		return this.addLine("isub\n");
 	}
 
-	/**
-	 * Generate the code for an iand instruction.
-	 * @return The YVM code.
-	 */
+	@Override
 	String iand() {
 		return this.addLine("iand\n");
 	}
 
-	/**
-	 * Generate the code for an ior instruction.
-	 * @return The YVM code.
-	 */
+	@Override
 	String ior() {
 		return this.addLine("ior\n");
 	}
 
-	/**
-	 * Generate the code for an idiv instruction.
-	 * @return The YVM code.
-	 */
+	@Override
 	String idiv() {
 		return this.addLine("idiv\n");
 	}
 
-	/**
-	 * Generate the code for an iinf instruction.
-	 * @return The YVM code.
-	 */
+	@Override
 	String iinf() {
 		return this.addLine("iinf\n");
 	}
 
-	/**
-	 * Generate the code for an iinfegal instruction.
-	 * @return The YVM code.
-	 */
+	@Override
 	String iinfegal() {
 		return this.addLine("iinfegal\n");
 	}
 
-	/**
-	 * Generate the code for an isupegal instruction.
-	 * @return The YVM code.
-	 */
+	@Override
 	String isupegal() {
 		return this.addLine("isupegal\n");
 	}
 
-	/**
-	 * Generate the code for an isup instruction.
-	 * @return The YVM code.
-	 */
+	@Override
 	String isup() {
 		return this.addLine("isup\n");
 	}
 
-	/**
-	 * Generate the code for an iegal instruction.
-	 * @return The YVM code.
-	 */
+	@Override
 	String iegal() {
 		return this.addLine("iegal\n");
 	}
 
-	/**
-	 * Generate the code for an idiff instruction.
-	 * @return The YVM code.
-	 */
+	@Override
 	String idiff() {
 		return this.addLine("idiff\n");
 	}
 
-	/**
-	 * Generate the code for an inot instruction.
-	 * @return The YVM code.
-	 */
+	@Override
 	String inot() {
 		return this.addLine("inot\n");
 	}
 
-	/**
-	 * Generate the code for an ineg instruction.
-	 * @return The YVM code.
-	 */
+	@Override
 	String ineg() {
 		return this.addLine("ineg\n");
 	}
 	
-	/**
-	 * Generate the code for an istore instruction.
-	 * @return The YVM code.
-	 */
+	@Override
 	String istore(int offset) {
 		return this.addLine("istore "+offset+"\n");
 	}
 	
-	/**
-	 * Generate the code for an aLaLigne instruction.
-	 * @return The YVM code.
-	 */
+	@Override
 	String aLaLigne() {
 		return this.addLine("aLaLigne\n");
 	}
 	
-	/**
-	 * Generate the code for an lire instruction.
-	 * @return The YVM code.
-	 */
+	@Override
 	String lire(int offset) {
 		return this.addLine("lireEnt "+offset+"\n"); 
 	}
 	
-	/**
-	 * Generate the code for an ecrireChaine instruction.
-	 * @return The YVM code.
-	 */
+	@Override
 	String ecrireChaine(String s) {
 		return this.addLine("ecrireChaine \""+s+"\"\n"); 
 	}
 	
-	/**
-	 * Generate the code for an ecrireEnt instruction.
-	 * @return The YVM code.
-	 */
+	@Override
 	String ecrireEnt() {
 		return this.addLine("ecrireEnt\n"); 
 	}
 	
-	/**
-	 * Generate the program's footer.
-	 */
+	@Override
 	String queue() {
 		return this.addLine("queue\n");
 	}
