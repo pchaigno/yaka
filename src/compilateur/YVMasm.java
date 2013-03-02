@@ -22,16 +22,16 @@ public class YVMasm extends YVM {
 
 	@Override
 	public void generateFile(String name) {
-		OutputStream f = Ecriture.ouvrir(name);
-		Ecriture.ecrireString(f, this.program);
-		Ecriture.fermer(f);
+		OutputStream f = Writer.open(name);
+		Writer.writeString(f, this.program);
+		Writer.close(f);
 		System.out.println("---- Code ASM genere dans '" + name + "' : \n" + program);
 	}
 	
 	@Override
-	String header() {
+	String entete() {
 		this.addLine("; ");
-		super.header();
+		super.entete();
 		String str = "extrn lirent:proc, ecrent:proc\n";
 		str += "extrn ecrbool:proc\n";
 		str += "extrn ecrch:proc, ligsuiv:proc\n";
@@ -44,9 +44,9 @@ public class YVMasm extends YVM {
 	}
 	
 	@Override
-	String bookMemory(int nbVariables) {
+	String ouvrePrinc(int nbVariables) {
 		this.addLine("; ");
-		super.bookMemory(nbVariables);
+		super.ouvrePrinc(nbVariables);
 		String str = "mov bp, sp\n";
 		str += "sub sp, "+nbVariables*2+"\n\n";
 		return this.addLine(str);
@@ -360,9 +360,9 @@ public class YVMasm extends YVM {
 	}
 	
 	@Override
-	String footer() {
+	String queue() {
 		this.addLine("; ");
-		super.footer();
+		super.queue();
 		String str = "nop\n";
 		str += "EXITCODE\n";
 		str += "end debut\n";
