@@ -7,8 +7,7 @@ package compilateur;
  * @author Antoine Lejeune
  * @author Benoit Travers
  */
-public class IdParam extends Ident {
-	private int offset;
+public class IdParam extends IdVar {
 	
 	/**
 	 * Constructor
@@ -16,15 +15,7 @@ public class IdParam extends Ident {
 	 * @param offset The offset.
 	 */
 	public IdParam(Type type, int offset) {
-		super(type);
-		this.offset = offset;
-	}
-
-	/**
-	 * @return The offset.
-	 */
-	public int getOffset() {
-		return this.offset;
+		super(type, offset);
 	}
 
 	@Override
