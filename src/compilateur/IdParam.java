@@ -20,7 +20,9 @@ public class IdParam extends Ident {
 		this.offset = offset;
 	}
 
-	
+	/**
+	 * @return The offset.
+	 */
 	public int getOffset() {
 		return this.offset;
 	}

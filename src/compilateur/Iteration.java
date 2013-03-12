@@ -14,7 +14,7 @@ public class Iteration {
 	 * Therefore it can be use as a predicate for the loop.
 	 */
 	public void checkExpression() {
-		if(!Yaka.expression.isBool()) {
+		if(Yaka.expression.getType()!=Type.BOOL) {
 			System.err.println("Iteration: The expression is not boolean.");
 		}
 	}

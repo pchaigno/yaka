@@ -358,6 +358,13 @@ public class YVMasm extends YVM {
 	String labelFsi() {
 		return this.addLine("FSI"+this.conditions.pop()+" :\n\n");
 	}
+
+	@Override
+	String callFunction(String functionName) {
+		this.addLine("; ");
+		super.callFunction(functionName);
+		return this.addLine("call "+functionName+"\n");
+	}
 	
 	@Override
 	String queue() {

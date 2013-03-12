@@ -193,6 +193,11 @@ public class YVM extends Generator {
 	String labelFsi() {
 		return this.addLine("FSI"+this.conditions.pop()+" :\n");
 	}
+
+	@Override
+	String callFunction(String functionName) {
+		return this.addLine("call "+functionName+"\n");
+	}
 	
 	@Override
 	String queue() {

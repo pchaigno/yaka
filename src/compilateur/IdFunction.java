@@ -11,8 +11,7 @@ import java.util.List;
  * @author Benoit Travers
  */
 public class IdFunction extends Ident {
-	private String tag;
-	private List<Type> listParamType;
+	private List<Type> parametersTypes;
 	
 	/**
 	 * Constructor.
@@ -21,16 +20,30 @@ public class IdFunction extends Ident {
 	 */
 	public IdFunction(String tag, Type type) {
 		super(type);
-		this.tag = tag;
-		this.listParamType = new ArrayList<Type>();
+		this.parametersTypes = new ArrayList<Type>();
 	}
 	
 	/**
 	 * Add a parameter to the definition of the function
-	 * @param t The parameter type.
+	 * @param type The parameter type.
 	 */
-	public void addParam(Type t) {
-		this.listParamType.add(t);
+	public void addParam(Type type) {
+		this.parametersTypes.add(type);
+	}
+	
+	/**
+	 * @return The number of parameters.
+	 */
+	public int getNbParameters() {
+		return this.parametersTypes.size();
+	}
+	
+	/**
+	 * @param i The rank of the argument.
+	 * @return The type of the i-ieme parameter.
+	 */
+	public Type getTypeOfParameter(int i) {
+		return this.parametersTypes.get(i);
 	}
 
 	@Override

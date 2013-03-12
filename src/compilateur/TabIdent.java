@@ -31,6 +31,11 @@ public class TabIdent {
 		return this.local.get(key);
 	}
 	
+	/**
+	 * Get a function by its name from the table.
+	 * @param key The name of the function.
+	 * @return The function (as an ident).
+	 */
 	public IdFunction getFunction(String key) {
 		return this.global.get(key);
 	}
@@ -44,6 +49,11 @@ public class TabIdent {
 		return this.local.containsKey(key);
 	}
 	
+	/**
+	 * Check if the table contains a function.
+	 * @param key The name of the function.
+	 * @return True if it contains the function.
+	 */
 	public boolean containsFunction(String key) {
 		return this.global.containsKey(key);
 	}
@@ -57,6 +67,11 @@ public class TabIdent {
 		this.local.put(key, id);
 	}
 	
+	/**
+	 * Add a function to the table.
+	 * @param key The name of the function.
+	 * @param id The function.
+	 */
 	public void setFunction(String key, IdFunction id) {
 		this.global.put(key, id);
 	}
@@ -79,6 +94,9 @@ public class TabIdent {
 		return "globaux\n" + this.global.toString() + "\nlocaux\n" + this.local.toString();
 	}
 	
+	/**
+	 * Clear the table.
+	 */
 	public void clear() {
 		this.local = new HashMap<String, Ident>();
 	}

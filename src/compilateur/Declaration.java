@@ -45,13 +45,13 @@ public class Declaration {
 	}
 	
 	/**
-	 * Called when a reference to an other constant is set as the value of the last constant.
+	 * Called when a reference to an other constant is set as the value of a constant.
 	 * @param ref The name of the other constant.
 	 */
 	public void valConstRef(String ref) {
 		Ident ident = Yaka.tabIdent.getIdent(ref);
 		if(ident != null) {
-			Yaka.tabIdent.setIdent(this.lastConstName, new IdConst(ident.type, ((IdVar)ident).getOffset()));
+			Yaka.tabIdent.setIdent(this.lastConstName, new IdConst(ident.type, ((IdConst)ident).getValue()));
 		} else {
 			System.err.println("Declaration: Reference to undefined const");
 		}

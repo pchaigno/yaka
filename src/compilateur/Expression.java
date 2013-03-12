@@ -25,10 +25,11 @@ public class Expression {
 	}
 	
 	/**
-	 * @return True if the type of the top of the stack is boolean.
+	 * Pop the type from the stack and return it.
+	 * @return The type on top of the type stack.
 	 */
-	public boolean isBool() {
-		return stackType.pop()==Type.BOOL;
+	public Type getType() {
+		return stackType.pop();
 	}
 	
 	/**

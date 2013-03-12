@@ -14,7 +14,7 @@ public class Condition {
 	 * Therefore it can be use as a predicate for the condition bloc.
 	 */
 	public void checkExpression() {
-		if(!Yaka.expression.isBool()) {
+		if(Yaka.expression.getType()!=Type.BOOL) {
 			System.err.println("Condition: The expression is not boolean.");
 		}
 	}

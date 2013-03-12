@@ -343,7 +343,7 @@ void conditionnel() : {} {
 void declFonction() : {} {
 	type()
 	< FONCTION >
-	< ident >
+	< ident > {Yaka.function.declarFunction(YakaTokenManager.identLu, YakaTokenManager.typeLu);}
 	paramForms()
 	bloc()
 	< FFONCTION >
@@ -357,20 +357,20 @@ void paramForms() : {} {
 }
 
 void paramForm() : {} {
-	type() {function.addTypeParam(YakaTokenManager.typeLu);}
-	< ident > {function.addParam(YakaTokenManager.identLu);}
+	type() {Yaka.function.addTypeParameter(YakaTokenManager.typeLu);}
+	< ident > {Yaka.function.addParameter(YakaTokenManager.identLu);}
 }
 
 void retourne() : {} {
 	< RETOURNE >
-	expression() {function.checkReturnedType();}
+	expression() {Yaka.function.checkReturnedType();}
 }
 
 void argumentsFonction() : {} {
-	"(" {Yaka.function.prepareCallFunction();}
+	"(" {Yaka.function.prepareCallFunction(YakaTokenManager.identLu);}
 	(
-		expression() {function.checkArgument();}
-		("," expression() {function.checkArgument();})*
+		expression() {Yaka.function.checkParameter();}
+		("," expression() {Yaka.function.checkParameter();})*
 	)?
-	")" {function.callFunction();}
+	")" {Yaka.function.callFunction();}
 }
