@@ -181,7 +181,10 @@ TOKEN :
 void analyse() : {}	{
   < PROGRAMME > {Yaka.yvm.entete();}
   < ident >
-  bloc() 
+  (declFonction())*
+  < PRINCIPAL >
+  bloc()
+  < FPRINCIPAL >
   < FPROGRAMME > {Yaka.yvm.queue();}
 }
 
@@ -254,6 +257,8 @@ void primaire() : {} {
 void valeur() : {} {
   < entier > {Yaka.expression.pushInteger(YakaTokenManager.entierLu);}
 | < ident > {Yaka.expression.pushIdent(YakaTokenManager.identLu);}
+	(		argumentsFonction()
+	)?
 | < VRAI > {Yaka.expression.pushBoolean(Constants.TRUE);}
 | < FAUX > {Yaka.expression.pushBoolean(Constants.FALSE);}
 }
@@ -291,7 +296,7 @@ void suiteInstr() : {} {	instruction()	(	  ";"
 }
 
 void instruction() : {} {
-  affectation() | lecture() | ecriture() | iteration() | conditionnel()}
+  affectation() | lecture() | ecriture() | iteration() | conditionnel() | retourne()}
 
 void affectation() : {} {  < ident > {Yaka.expression.setAffectation(YakaTokenManager.identLu);}
    "="
@@ -333,3 +338,39 @@ void conditionnel() : {} {
 }
 
 /******** Functions ********/
+
+void declFonction() : {} {
+	type()
+	< FONCTION >
+	< ident >
+	paramForms()
+	bloc()
+	< FFONCTION >
+}
+
+void paramForms() : {} {
+	"("		(		  paramForm()
+		  (				"," paramForm()
+		  )*
+		)?
+	")"
+}
+
+void paramForm() : {} {
+	type()
+	< ident >
+}
+
+void retourne() : {} {
+	< RETOURNE >
+	expression()
+}
+
+void argumentsFonction) : {} {
+	"("
+		(			expression()
+			(				"," expression()
+			)*
+		)?
+	")"
+}

@@ -14,6 +14,13 @@ public abstract class Generator {
 	protected String program;
 
 	/**
+	 * Constructor
+	 */
+	public Generator() {
+		this.program = "";
+	}
+	
+	/**
 	 * Add some lines to the program and return this line.
 	 * @param str The lines to add.
 	 * @return The lines.
