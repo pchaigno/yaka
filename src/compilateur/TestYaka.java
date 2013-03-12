@@ -17,8 +17,6 @@ import junit.framework.TestCase;
  * @author Benoit Travers
  */
 public class TestYaka extends TestCase {
-	boolean showYVMCode = false;
-	boolean showASMCode = false;
 	
 	/**
 	 * First test just to intialize the Yaka compiler.
@@ -30,185 +28,90 @@ public class TestYaka extends TestCase {
 	/**
 	 * Test the declaration of the variables.
 	 */
-	public void testVariablesDeclaration() throws IOException {
-		String program = getContentOfFile("tests/declaration_variables.yaka");
-		
-		String programYVM = getContentOfFile("tests/declaration_variables.yvm");
-		compileToYVM(program);
-		if(this.showYVMCode) {
-			System.out.println("Variables declaration in YVM:");
-			System.out.println(Yaka.yvm.getProgram());
-		}
-		assertEquals(programYVM, Yaka.yvm.getProgram());
-		
-		String programASM = getContentOfFile("tests/declaration_variables.asm");
-		compileToASM(program);
-		if(this.showASMCode) {
-			System.out.println("Variables declaration in ASM:");
-			System.out.println(Yaka.yvm.getProgram());
-		}
-		assertEquals(programASM, Yaka.yvm.getProgram());
+	public void testVariablesDeclaration() {
+		this.testProgram("tests/declaration_variables", false, false);
 	}
 	
 	/**
 	 * Test all types of declarations.
 	 */
-	public void testDeclaration() throws IOException {
-		String program = getContentOfFile("tests/declaration.yaka");
-		
-		String programYVM = getContentOfFile("tests/declaration.yvm");
-		compileToYVM(program);
-		if(this.showYVMCode) {
-			System.out.println("Declaration in YVM:");
-			System.out.println(Yaka.yvm.getProgram());
-		}
-		assertEquals(programYVM, Yaka.yvm.getProgram());
-		
-		String programASM = getContentOfFile("tests/declaration.asm");
-		compileToASM(program);
-		if(this.showASMCode) {
-			System.out.println("Declaration in ASM:");
-			System.out.println(Yaka.yvm.getProgram());
-		}
-		assertEquals(programASM, Yaka.yvm.getProgram());
+	public void testDeclaration() {
+		this.testProgram("tests/declaration", false, false);
 	}
 	
 	/**
 	 * Test the program for affectations part.
 	 */
-	public void testAffectations() throws IOException {
-		String program = getContentOfFile("tests/affectations.yaka");
-		
-		String programYVM = getContentOfFile("tests/affectations.yvm");
-		compileToYVM(program);
-		if(this.showYVMCode) {
-			System.out.println("Affectations in YVM:");
-			System.out.println(Yaka.yvm.getProgram());
-		}
-		assertEquals(programYVM, Yaka.yvm.getProgram());
-		
-		String programASM = getContentOfFile("tests/affectations.asm");
-		compileToASM(program);
-		if(this.showASMCode) {
-			System.out.println("Affectations in ASM:");
-			System.out.println(Yaka.yvm.getProgram());
-		}
-		assertEquals(programASM, Yaka.yvm.getProgram());
+	public void testAffectations() {
+		this.testProgram("tests/affectations", false, false);
 	}
 	
 	/**
 	 * Test the inputs and outputs.
 	 */
-	public void testInputOutput() throws IOException {
-		String program = getContentOfFile("tests/input_output.yaka");
-		
-		String programYVM = getContentOfFile("tests/input_output.yvm");
-		compileToYVM(program);
-		if(this.showYVMCode) {
-			System.out.println("Inputs and outputs in YVM:");
-			System.out.println(Yaka.yvm.getProgram());
-		}
-		assertEquals(programYVM, Yaka.yvm.getProgram());
-		
-		String programASM = getContentOfFile("tests/input_output.asm");
-		compileToASM(program);
-		if(this.showASMCode) {
-			System.out.println("Inputs and outputs in ASM:");
-			System.out.println(Yaka.yvm.getProgram());
-		}
-		assertEquals(programASM, Yaka.yvm.getProgram());
+	public void testInputOutput() {
+		this.testProgram("tests/input_output", false, false);
 	}
 	
 	/**
 	 * Test a simple iteration.
 	 */
-	public void testSimpleIteration() throws IOException {
-		String program = getContentOfFile("tests/simple_iteration.yaka");
-		
-		String programYVM = getContentOfFile("tests/simple_iteration.yvm");
-		compileToYVM(program);
-		if(this.showYVMCode) {
-			System.out.println("Simple iteration in YVM:");
-			System.out.println(Yaka.yvm.getProgram());
-		}
-		assertEquals(programYVM, Yaka.yvm.getProgram());
-		
-		String programASM = getContentOfFile("tests/simple_iteration.asm");
-		compileToASM(program);
-		if(this.showASMCode) {
-			System.out.println("Simple iteration in ASM:");
-			System.out.println(Yaka.yvm.getProgram());
-		}
-		assertEquals(programASM, Yaka.yvm.getProgram());
+	public void testSimpleIteration() {
+		this.testProgram("tests/simple_iteration", false, false);
 	}
 	
 	/**
 	 * Test nested interations.
 	 */
-	public void testNestedIterations() throws IOException {
-		String program = getContentOfFile("tests/nested_iterations.yaka");
-		
-		String programYVM = getContentOfFile("tests/nested_iterations.yvm");
-		compileToYVM(program);
-		if(this.showYVMCode) {
-			System.out.println("Nested iterations in YVM:");
-			System.out.println(Yaka.yvm.getProgram());
-		}
-		assertEquals(programYVM, Yaka.yvm.getProgram());
-		
-		String programASM = getContentOfFile("tests/nested_iterations.asm");
-		compileToASM(program);
-		if(this.showASMCode) {
-			System.out.println("Nested iterations in ASM:");
-			System.out.println(Yaka.yvm.getProgram());
-		}
-		assertEquals(programASM, Yaka.yvm.getProgram());
+	public void testNestedIterations() {
+		this.testProgram("tests/nested_iterations", false, false);
 	}
 	
 	/**
 	 * Test an expression.
 	 * Written by the teachers.
 	 */
-	public void testTeachersExpr() throws IOException {
+	public void testTeachersExpr() {
 		for(int i=1 ; i<6 ; i++) {
-			String program = getContentOfFile("tests/tests_prof/expr"+i+".yaka");
-			
-			String programYVM = getContentOfFile("tests/tests_prof/expr"+i+".yvm");
-			compileToYVM(program);
-			if(this.showYVMCode) {
-				System.out.println("From teachers - expr"+i+" in YVM:");
-				System.out.println(Yaka.yvm.getProgram());
-			}
-			assertEquals(programYVM, Yaka.yvm.getProgram());
-			
-			String programASM = getContentOfFile("tests/tests_prof/expr"+i+".asm");
-			compileToASM(program);
-			if(this.showASMCode) {
-				System.out.println("From teachers - expr"+i+" in ASM:");
-				System.out.println(Yaka.yvm.getProgram());
-			}
-			assertEquals(programASM, Yaka.yvm.getProgram());
+			this.testProgram("tests/tests_prof/expr"+i, false, false);
 		}
 	}
 	
 	/**
 	 * Test a simple condition bloc.
 	 */
-	public void testSimpleCondition() throws IOException {
-		String program = getContentOfFile("tests/simple_condition.yaka");
+	public void testSimpleCondition() {
+		this.testProgram("tests/simple_condition", false, false);
+	}
+	
+	/**
+	 * Test the functions example from the handout.
+	 */
+	public void testHandoutFunctions() {
+		this.testProgram("tests/simple_functions", true, false);
+	}
+	
+	/**
+	 * Compile a Yaka program and compare it to the YVM and ASM programs.
+	 * @param file The path to the files. They differ in their extensions.
+	 * @param showYVMCode True to show the YVM code.
+	 * @param showASMCode True to show the ASM code.
+	 */
+	private void testProgram(String file, boolean showYVMCode, boolean showASMCode) {
+		String program = getContentOfFile(file+".yaka");
 		
-		String programYVM = getContentOfFile("tests/simple_condition.yvm");
+		String programYVM = getContentOfFile(file+".yvm");
 		compileToYVM(program);
-		if(this.showYVMCode) {
-			System.out.println("Simple condition in YVM:");
+		if(showYVMCode) {
+			System.out.println("YVM:");
 			System.out.println(Yaka.yvm.getProgram());
 		}
 		assertEquals(programYVM, Yaka.yvm.getProgram());
 		
-		String programASM = getContentOfFile("tests/simple_condition.asm");
+		String programASM = getContentOfFile(file+".asm");
 		compileToASM(program);
-		if(this.showASMCode) {
-			System.out.println("Simple condition in ASM:");
+		if(showASMCode) {
+			System.out.println("ASM:");
 			System.out.println(Yaka.yvm.getProgram());
 		}
 		assertEquals(programASM, Yaka.yvm.getProgram());
