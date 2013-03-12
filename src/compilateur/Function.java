@@ -18,7 +18,7 @@ public class Function {
 	 */
 	public void checkReturnedType() {
 		if(Yaka.expression.getType()!=this.function.getType()) {
-			System.err.println("Function: The returned type is incorrect.");
+			System.err.println("Function: The returned type is incorrect for function "+this.functionName+".");
 		}
 	}
 	
@@ -58,11 +58,16 @@ public class Function {
 	 * Need to check the arguments in the right order.
 	 */
 	public void checkParameter() {
-		Type typeNeeded = this.function.getTypeOfParameter(this.nbArguments);
-		if(Yaka.expression.getType()!=typeNeeded) {
-			System.err.println("Function: The "+this.nbArguments+"ieme parameter doesn't have the right type.");
+		if(this.function.getNbParameters()>this.nbArguments) {
+			Type typeNeeded = this.function.getTypeOfParameter(this.nbArguments);
+			if(Yaka.expression.getType()!=typeNeeded) {
+				System.err.println("Function: The "+this.nbArguments+"ieme parameter doesn't have the right type for function "+this.functionName+".");
+			}
+			this.nbArguments++;
+		} else {
+			System.err.println(this.nbArguments+"");
+			System.err.println("Function: There are too many parameters ("+this.function.getNbParameters()+" normaly) for function "+this.functionName+".");
 		}
-		this.nbArguments++;
 	}
 
 	/**
@@ -72,7 +77,7 @@ public class Function {
 	public void prepareCallFunction(String identLu) {
 		this.function = Yaka.tabIdent.getFunction(identLu);
 		if(this.function==null) {
-			System.err.println("Function: There is no function with this name.");
+			System.err.println("Function: There is no function with this name ("+this.functionName+").");
 		} else {
 			this.nbArguments = 0;
 			this.functionName = identLu;
@@ -85,8 +90,9 @@ public class Function {
 	 */
 	public void callFunction() {
 		if(this.nbArguments!=this.function.getNbParameters()) {
-			System.err.println("Function: Incorrect number of arguments.");
+			System.err.println("Function: Incorrect number of arguments for function "+this.functionName+".");
 		}
 		Yaka.yvm.callFunction(this.functionName);
+		Yaka.expression.pushFunction(this.function.getType());
 	}
 }

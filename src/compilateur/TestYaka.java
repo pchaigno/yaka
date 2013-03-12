@@ -85,10 +85,17 @@ public class TestYaka extends TestCase {
 	}
 	
 	/**
+	 * Test a simple function.
+	 */
+	public void testSimpleFunction() {
+		this.testProgram("tests/simple_function", false, false);
+	}
+	
+	/**
 	 * Test the functions example from the handout.
 	 */
 	public void testHandoutFunctions() {
-		this.testProgram("tests/simple_functions", true, false);
+		this.testProgram("tests/simple_functions", false, false);
 	}
 	
 	/**
@@ -147,6 +154,11 @@ public class TestYaka extends TestCase {
 		}
 	}
 	
+	/**
+	 * Get all the content of a file.
+	 * @param nameFile The name of the file.
+	 * @return The content of the file.
+	 */
 	private static String getContentOfFile(String nameFile) {
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(nameFile)));

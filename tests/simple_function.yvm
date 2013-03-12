@@ -1,0 +1,25 @@
+entete
+max :
+ouvbloc 6
+istore -6
+iload -6
+isup
+iffaux SINON1
+iload -6
+goto FSI1
+SINON1 :
+FSI1 :
+
+main :
+ouvbloc 6
+iconst 5
+istore 8
+aLaLigne
+call max
+iconst 2
+iadd
+istore -6
+aLaLigne
+iload -6
+ecrireEnt
+queue

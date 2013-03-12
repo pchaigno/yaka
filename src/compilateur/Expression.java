@@ -100,6 +100,14 @@ public class Expression {
 	}
 	
 	/**
+	 * Push the returned type of a function to the stack of types.
+	 * @param returnedType The returned type of the function.
+	 */
+	public void pushFunction(Type returnedType) {
+		this.stackType.push(returnedType);
+	}
+	
+	/**
 	 * Add the operation part of the expression according to the two last values.
 	 * Display an error if the type of the values doesn't match with the operator.
 	 */
