@@ -19,6 +19,7 @@ public class Yaka {
   public static Expression expression;
   public static Iteration iteration;
   public static TabIdent tabIdent;
+  public static Function function;
   public static YVM yvm;
   public static InputOutput inputOutput;
   public static Condition condition;
@@ -34,6 +35,7 @@ public class Yaka {
       expression = new Expression();
       inputOutput = new InputOutput();
       condition = new Condition();
+      function = new Function();
   }
   
   public static void main(String args []) {
@@ -88,6 +90,7 @@ TOKEN_MGR_DECLS :
 {
   public static String identLu, chaineLue;
   public static int entierLu;
+  public static Type typeLu;
 }
 
 /*** Skip whitespace and comments ***/
@@ -216,14 +219,14 @@ void valConst() : {} {
 }
 
 void declVar() : {} {
-  < VAR > type() 
+  < VAR > type() {declaration.declVar(YakaTokenManager.typeLu);}
   < ident > {declaration.defVar(YakaTokenManager.identLu);}
   ("," < ident > {declaration.defVar(YakaTokenManager.identLu);} )* ";"
 }
 
 void type() : {} {
-  < ENTIER > {declaration.declVar(Type.INT);}
-| < BOOLEEN > {declaration.declVar(Type.BOOL);}
+  < ENTIER > {YakaTokenManager.typeLu = Type.INT;}
+| < BOOLEEN > {YakaTokenManager.typeLu = Type.BOOL;}
 }
 
 	
@@ -257,8 +260,8 @@ void primaire() : {} {
 void valeur() : {} {
   < entier > {Yaka.expression.pushInteger(YakaTokenManager.entierLu);}
 | < ident > {Yaka.expression.pushIdent(YakaTokenManager.identLu);}
-	(		argumentsFonction()
-	)?
+| (< ident > {Yaka.function.prepareCallFunction();}
+	argumentsFonction() {function.callFunction();})
 | < VRAI > {Yaka.expression.pushBoolean(Constants.TRUE);}
 | < FAUX > {Yaka.expression.pushBoolean(Constants.FALSE);}
 }
@@ -357,19 +360,19 @@ void paramForms() : {} {
 }
 
 void paramForm() : {} {
-	type()
-	< ident >
+	type() {function.addTypeParam(YakaTokenManager.typeLu);}
+	< ident > {function.addParam(YakaTokenManager.identLu);}
 }
 
 void retourne() : {} {
 	< RETOURNE >
-	expression()
+	expression() {function.checkReturnedType();}
 }
 
-void argumentsFonction) : {} {
+void argumentsFonction() : {} {
 	"("
-		(			expression()
-			(				"," expression()
+		(			expression() {function.checkArgument();}
+			(				"," expression() {function.checkArgument();}
 			)*
 		)?
 	")"
