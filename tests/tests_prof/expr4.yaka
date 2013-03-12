@@ -1,4 +1,5 @@
 PROGRAMME expr3
+PRINCIPAL
 VAR ENTIER c1,c2;
         
 	ECRIRE("c1=");
@@ -10,4 +11,6 @@ VAR ENTIER c1,c2;
 	ALALIGNE;
         ECRIRE("factorielle 5= ");
 	ECRIRE(5*4*3*2*1);
+
+FPRINCIPAL
 FPROGRAMME

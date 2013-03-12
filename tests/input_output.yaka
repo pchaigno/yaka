@@ -1,4 +1,5 @@
 PROGRAMME entreeSortie
+PRINCIPAL
 VAR ENTIER x,y,z;
 ECRIRE("x=");
 LIRE(x);
@@ -11,4 +12,5 @@ ECRIRE(x+y);
 ALALIGNE;
 z=(x+y/2)/5;
 x=y+3*y-4;
+FPRINCIPAL
 FPROGRAMME

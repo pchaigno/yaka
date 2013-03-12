@@ -1,4 +1,5 @@
 PROGRAMME iter1
+PRINCIPAL
 VAR ENTIER s,i,n;
 n=5;
 i=1;
@@ -8,4 +9,5 @@ FAIRE
 s=s+i;
 i=i+1;
 FAIT
+FPRINCIPAL
 FPROGRAMME
