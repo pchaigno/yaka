@@ -30,20 +30,10 @@ public class TestYaka extends TestCase {
 	/**
 	 * Test the declaration of the variables.
 	 */
-	public void testVariablesDeclaration() {
-		String program = "";
-		try {
-			program = getContentOfFile("tests/declaration_variables.yaka");
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
+	public void testVariablesDeclaration() throws IOException {
+		String program = getContentOfFile("tests/declaration_variables.yaka");
 		
-		String programYVM = "";
-		try {
-			programYVM = getContentOfFile("tests/declaration_variables.yvm");
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
+		String programYVM = getContentOfFile("tests/declaration_variables.yvm");
 		compileToYVM(program);
 		if(this.showYVMCode) {
 			System.out.println("Variables declaration in YVM:");
@@ -51,12 +41,7 @@ public class TestYaka extends TestCase {
 		}
 		assertEquals(programYVM, Yaka.yvm.getProgram());
 		
-		String programASM = "";
-		try {
-			programASM = getContentOfFile("tests/declaration_variables.asm");
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
+		String programASM = getContentOfFile("tests/declaration_variables.asm");
 		compileToASM(program);
 		if(this.showASMCode) {
 			System.out.println("Variables declaration in ASM:");
@@ -68,20 +53,10 @@ public class TestYaka extends TestCase {
 	/**
 	 * Test all types of declarations.
 	 */
-	public void testDeclaration() {
-		String program = "";
-		try {
-			program = getContentOfFile("tests/declaration.yaka");
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
+	public void testDeclaration() throws IOException {
+		String program = getContentOfFile("tests/declaration.yaka");
 		
-		String programYVM = "";
-		try {
-			programYVM = getContentOfFile("tests/declaration.yvm");
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
+		String programYVM = getContentOfFile("tests/declaration.yvm");
 		compileToYVM(program);
 		if(this.showYVMCode) {
 			System.out.println("Declaration in YVM:");
@@ -89,12 +64,7 @@ public class TestYaka extends TestCase {
 		}
 		assertEquals(programYVM, Yaka.yvm.getProgram());
 		
-		String programASM = "";
-		try {
-			programASM = getContentOfFile("tests/declaration.asm");
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
+		String programASM = getContentOfFile("tests/declaration.asm");
 		compileToASM(program);
 		if(this.showASMCode) {
 			System.out.println("Declaration in ASM:");
@@ -106,20 +76,10 @@ public class TestYaka extends TestCase {
 	/**
 	 * Test the program for affectations part.
 	 */
-	public void testAffectations() {
-		String program = "";
-		try {
-			program = getContentOfFile("tests/affectations.yaka");
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
+	public void testAffectations() throws IOException {
+		String program = getContentOfFile("tests/affectations.yaka");
 		
-		String programYVM = "";
-		try {
-			programYVM = getContentOfFile("tests/affectations.yvm");
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
+		String programYVM = getContentOfFile("tests/affectations.yvm");
 		compileToYVM(program);
 		if(this.showYVMCode) {
 			System.out.println("Affectations in YVM:");
@@ -127,12 +87,7 @@ public class TestYaka extends TestCase {
 		}
 		assertEquals(programYVM, Yaka.yvm.getProgram());
 		
-		String programASM = "";
-		try {
-			programASM = getContentOfFile("tests/affectations.asm");
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
+		String programASM = getContentOfFile("tests/affectations.asm");
 		compileToASM(program);
 		if(this.showASMCode) {
 			System.out.println("Affectations in ASM:");
@@ -144,20 +99,10 @@ public class TestYaka extends TestCase {
 	/**
 	 * Test the inputs and outputs.
 	 */
-	public void testInputOutput() {
-		String program = "";
-		try {
-			program = getContentOfFile("tests/input_output.yaka");
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
+	public void testInputOutput() throws IOException {
+		String program = getContentOfFile("tests/input_output.yaka");
 		
-		String programYVM = "";
-		try {
-			programYVM = getContentOfFile("tests/input_output.yvm");
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
+		String programYVM = getContentOfFile("tests/input_output.yvm");
 		compileToYVM(program);
 		if(this.showYVMCode) {
 			System.out.println("Inputs and outputs in YVM:");
@@ -165,12 +110,7 @@ public class TestYaka extends TestCase {
 		}
 		assertEquals(programYVM, Yaka.yvm.getProgram());
 		
-		String programASM = "";
-		try {
-			programASM = getContentOfFile("tests/input_output.asm");
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
+		String programASM = getContentOfFile("tests/input_output.asm");
 		compileToASM(program);
 		if(this.showASMCode) {
 			System.out.println("Inputs and outputs in ASM:");
@@ -182,20 +122,10 @@ public class TestYaka extends TestCase {
 	/**
 	 * Test a simple iteration.
 	 */
-	public void testSimpleIteration() {
-		String program = "";
-		try {
-			program = getContentOfFile("tests/simple_iteration.yaka");
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
+	public void testSimpleIteration() throws IOException {
+		String program = getContentOfFile("tests/simple_iteration.yaka");
 		
-		String programYVM = "";
-		try {
-			programYVM = getContentOfFile("tests/simple_iteration.yvm");
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
+		String programYVM = getContentOfFile("tests/simple_iteration.yvm");
 		compileToYVM(program);
 		if(this.showYVMCode) {
 			System.out.println("Simple iteration in YVM:");
@@ -203,12 +133,7 @@ public class TestYaka extends TestCase {
 		}
 		assertEquals(programYVM, Yaka.yvm.getProgram());
 		
-		String programASM = "";
-		try {
-			programASM = getContentOfFile("tests/simple_iteration.asm");
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
+		String programASM = getContentOfFile("tests/simple_iteration.asm");
 		compileToASM(program);
 		if(this.showASMCode) {
 			System.out.println("Simple iteration in ASM:");
@@ -220,20 +145,10 @@ public class TestYaka extends TestCase {
 	/**
 	 * Test nested interations.
 	 */
-	public void testNestedIterations() {
-		String program = "";
-		try {
-			program = getContentOfFile("tests/nested_iterations.yaka");
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
+	public void testNestedIterations() throws IOException {
+		String program = getContentOfFile("tests/nested_iterations.yaka");
 		
-		String programYVM = "";
-		try {
-			programYVM = getContentOfFile("tests/nested_iterations.yvm");
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
+		String programYVM = getContentOfFile("tests/nested_iterations.yvm");
 		compileToYVM(program);
 		if(this.showYVMCode) {
 			System.out.println("Nested iterations in YVM:");
@@ -241,12 +156,7 @@ public class TestYaka extends TestCase {
 		}
 		assertEquals(programYVM, Yaka.yvm.getProgram());
 		
-		String programASM = "";
-		try {
-			programASM = getContentOfFile("tests/nested_iterations.asm");
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
+		String programASM = getContentOfFile("tests/nested_iterations.asm");
 		compileToASM(program);
 		if(this.showASMCode) {
 			System.out.println("Nested iterations in ASM:");
@@ -259,21 +169,11 @@ public class TestYaka extends TestCase {
 	 * Test an expression.
 	 * Written by the teachers.
 	 */
-	public void testTeachersExpr() {
+	public void testTeachersExpr() throws IOException {
 		for(int i=1 ; i<6 ; i++) {
-			String program = "";
-			try {
-				program = getContentOfFile("tests/tests_prof/expr"+i+".yaka");
-			} catch (IOException e) {
-				fail(e.getMessage());
-			}
+			String program = getContentOfFile("tests/tests_prof/expr"+i+".yaka");
 			
-			String programYVM = "";
-			try {
-				programYVM = getContentOfFile("tests/tests_prof/expr"+i+".yvm");
-			} catch (IOException e) {
-				fail(e.getMessage());
-			}
+			String programYVM = getContentOfFile("tests/tests_prof/expr"+i+".yvm");
 			compileToYVM(program);
 			if(this.showYVMCode) {
 				System.out.println("From teachers - expr"+i+" in YVM:");
@@ -281,12 +181,7 @@ public class TestYaka extends TestCase {
 			}
 			assertEquals(programYVM, Yaka.yvm.getProgram());
 			
-			String programASM = "";
-			try {
-				programASM = getContentOfFile("tests/tests_prof/expr"+i+".asm");
-			} catch (IOException e) {
-				fail(e.getMessage());
-			}
+			String programASM = getContentOfFile("tests/tests_prof/expr"+i+".asm");
 			compileToASM(program);
 			if(this.showASMCode) {
 				System.out.println("From teachers - expr"+i+" in ASM:");
@@ -299,20 +194,10 @@ public class TestYaka extends TestCase {
 	/**
 	 * Test a simple condition bloc.
 	 */
-	public void testSimpleCondition() {
-		String program = "";
-		try {
-			program = getContentOfFile("tests/simple_condition.yaka");
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
+	public void testSimpleCondition() throws IOException {
+		String program = getContentOfFile("tests/simple_condition.yaka");
 		
-		String programYVM = "";
-		try {
-			programYVM = getContentOfFile("tests/simple_condition.yvm");
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
+		String programYVM = getContentOfFile("tests/simple_condition.yvm");
 		compileToYVM(program);
 		if(this.showYVMCode) {
 			System.out.println("Simple condition in YVM:");
@@ -320,12 +205,7 @@ public class TestYaka extends TestCase {
 		}
 		assertEquals(programYVM, Yaka.yvm.getProgram());
 		
-		String programASM = "";
-		try {
-			programASM = getContentOfFile("tests/simple_condition.asm");
-		} catch (IOException e) {
-			fail(e.getMessage());
-		}
+		String programASM = getContentOfFile("tests/simple_condition.asm");
 		compileToASM(program);
 		if(this.showASMCode) {
 			System.out.println("Simple condition in ASM:");
@@ -364,14 +244,19 @@ public class TestYaka extends TestCase {
 		}
 	}
 	
-	private static String getContentOfFile(String nameFile) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(nameFile)));
-		String content = "";
-		String line;
-		while ((line = br.readLine()) != null) {
-			content += line+"\n";
+	private static String getContentOfFile(String nameFile) {
+		try {
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(nameFile)));
+			String content = "";
+			String line;
+			while ((line = br.readLine()) != null) {
+				content += line+"\n";
+			}
+			br.close();
+			return content;
+		} catch (IOException e) {
+			fail(e.getMessage());
 		}
-		br.close();
-		return content;
+		return null;
 	}
 }
