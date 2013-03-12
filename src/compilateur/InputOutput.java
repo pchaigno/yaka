@@ -33,14 +33,16 @@ public class InputOutput {
 	}
 	
 	/**
-	 * Called to read an value from the keyboard.
+	 * Called to read a value from the keyboard.
 	 * @param ident
 	 */
 	public void read(String ident) {
 		if(Yaka.tabIdent.containsIdent(ident)) {
-			Yaka.yvm.lire(Yaka.tabIdent.getIdent(ident).getValue());
+			if (Yaka.tabIdent.getIdent(ident).isVar()) {
+				Yaka.yvm.lire(((IdVar)Yaka.tabIdent.getIdent(ident)).getOffset());
+			}
 		} else {
-			System.err.println("InputOutput: ");
+			System.err.println("InputOutput: "+ident+" doesn't exist.");
 		}
 	}
 }

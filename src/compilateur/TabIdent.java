@@ -10,14 +10,16 @@ import java.util.HashMap;
  * @author Benoit Travers
  */
 public class TabIdent {
-	private HashMap<String, Ident> table;
+	private HashMap<String, IdFunction> global;
+	private HashMap<String, Ident> local;
 	
 	/**
 	 * Constructor
 	 * @param size The initial size of the table.
 	 */
 	public TabIdent(int size) {
-		this.table = new HashMap<String, Ident>(); 
+		this.global = new HashMap<String, IdFunction>(); 
+		this.local = new HashMap<String, Ident>();
 	}
 	
 	/**
@@ -26,7 +28,11 @@ public class TabIdent {
 	 * @return The value corresponding to the key.
 	 */
 	public Ident getIdent(String key) {
-		return this.table.get(key);
+		return this.local.get(key);
+	}
+	
+	public IdFunction getFunction(String key) {
+		return this.global.get(key);
 	}
 	
 	/**
@@ -35,7 +41,11 @@ public class TabIdent {
 	 * @return True if the map contain the key key.
 	 */
 	public boolean containsIdent(String key) {
-		return this.table.containsKey(key);
+		return this.local.containsKey(key);
+	}
+	
+	public boolean containsFunction(String key) {
+		return this.global.containsKey(key);
 	}
 	
 	/**
@@ -44,7 +54,11 @@ public class TabIdent {
 	 * @param id The value.
 	 */
 	public void setIdent(String key, Ident id) {
-		this.table.put(key, id);
+		this.local.put(key, id);
+	}
+	
+	public void setFunction(String key, IdFunction id) {
+		this.global.put(key, id);
 	}
 	
 	/**
@@ -52,8 +66,8 @@ public class TabIdent {
 	 */
 	public int getNumberOfVariables() {
 		int nbVariables = 0;
-		for(String key: this.table.keySet()) {
-			if(this.table.get(key).isVar()) {
+		for(String key: this.local.keySet()) {
+			if(this.local.get(key).isVar()) {
 				nbVariables++;
 			}
 		}
@@ -62,6 +76,10 @@ public class TabIdent {
 	
 	@Override
 	public String toString() {
-		return this.table.toString();
+		return "globaux\n" + this.global.toString() + "\nlocaux\n" + this.local.toString();
+	}
+	
+	public void clear() {
+		this.local = new HashMap<String, Ident>();
 	}
 }

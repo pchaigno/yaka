@@ -7,7 +7,7 @@ package compilateur;
  * @author Antoine Lejeune
  * @author Benoit Travers
  */
-public class IdVar extends Ident {
+public class IdParam extends Ident {
 	private int offset;
 	
 	/**
@@ -15,11 +15,12 @@ public class IdVar extends Ident {
 	 * @param type The type.
 	 * @param offset The offset.
 	 */
-	public IdVar(Type type, int offset) {
+	public IdParam(Type type, int offset) {
 		super(type);
 		this.offset = offset;
 	}
 
+	
 	public int getOffset() {
 		return this.offset;
 	}
@@ -31,12 +32,12 @@ public class IdVar extends Ident {
 
 	@Override
 	public boolean isVar() {
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean isParam() {
-		return false;
+		return true;
 	}
 
 	@Override

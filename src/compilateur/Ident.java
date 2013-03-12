@@ -19,11 +19,6 @@ public abstract class Ident {
 	}
 	
 	/**
-	 * @return The value.
-	 */
-	public abstract int getValue();
-	
-	/**
 	 * @return The type
 	 */
 	public Type getType() {
@@ -39,4 +34,14 @@ public abstract class Ident {
 	 * @return True if it is a variable.
 	 */
 	public abstract boolean isVar();
+	
+	/**
+	 * @return True if it is a parameter.
+	 */
+	public abstract boolean isParam();
+	
+	/**
+	 * @return True if it is a function.
+	 */
+	public abstract boolean isFunction();
 }

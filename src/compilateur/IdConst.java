@@ -20,7 +20,6 @@ public class IdConst extends Ident {
 		this.value = value;
 	}
 
-	@Override
 	public int getValue() {
 		return this.value;
 	}
@@ -32,6 +31,16 @@ public class IdConst extends Ident {
 
 	@Override
 	public boolean isVar() {
+		return false;
+	}
+
+	@Override
+	public boolean isParam() {
+		return false;
+	}
+
+	@Override
+	public boolean isFunction() {
 		return false;
 	}
 }

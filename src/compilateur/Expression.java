@@ -92,9 +92,9 @@ public class Expression {
 		}
 		this.stackType.push(ident.getType());
 		if(ident.isVar()) {
-			Yaka.yvm.iload(ident.getValue());
-		} else {
-			Yaka.yvm.iconst(ident.getValue());
+			Yaka.yvm.iload(((IdVar)ident).getOffset());
+		} else if (ident.isConst()) {
+			Yaka.yvm.iconst(((IdConst)ident).getValue());
 		}
 	}
 	
@@ -197,7 +197,7 @@ public class Expression {
 	 */
 	public void affectation() {
 		if(this.affectTo.getType()==this.stackType.pop()) {
-			Yaka.yvm.istore(this.affectTo.getValue());
+			Yaka.yvm.istore(((IdVar)this.affectTo).getOffset());
 		} else {
 			System.err.println("Expression: Types don't match at the affectation.");
 		}

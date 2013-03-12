@@ -51,7 +51,7 @@ public class Declaration {
 	public void valConstRef(String ref) {
 		Ident ident = Yaka.tabIdent.getIdent(ref);
 		if(ident != null) {
-			Yaka.tabIdent.setIdent(this.lastConstName, new IdConst(ident.type, ident.getValue()));
+			Yaka.tabIdent.setIdent(this.lastConstName, new IdConst(ident.type, ((IdVar)ident).getOffset()));
 		} else {
 			System.err.println("Declaration: Reference to undefined const");
 		}
