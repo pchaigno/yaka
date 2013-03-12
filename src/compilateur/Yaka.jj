@@ -259,9 +259,7 @@ void primaire() : {} {
 
 void valeur() : {} {
   < entier > {Yaka.expression.pushInteger(YakaTokenManager.entierLu);}
-| < ident > {Yaka.expression.pushIdent(YakaTokenManager.identLu);}
-| (< ident > {Yaka.function.prepareCallFunction();}
-	argumentsFonction() {function.callFunction();})
+| < ident > (argumentsFonction() | {Yaka.expression.pushIdent(YakaTokenManager.identLu);})
 | < VRAI > {Yaka.expression.pushBoolean(Constants.TRUE);}
 | < FAUX > {Yaka.expression.pushBoolean(Constants.FALSE);}
 }
@@ -352,10 +350,9 @@ void declFonction() : {} {
 }
 
 void paramForms() : {} {
-	"("		(		  paramForm()
-		  (				"," paramForm()
-		  )*
-		)?
+	"("	(		paramForm()
+		("," paramForm())*
+	)?
 	")"
 }
 
@@ -370,10 +367,10 @@ void retourne() : {} {
 }
 
 void argumentsFonction() : {} {
-	"("
-		(			expression() {function.checkArgument();}
-			(				"," expression() {function.checkArgument();}
-			)*
-		)?
-	")"
+	"(" {Yaka.function.prepareCallFunction();}
+	(
+		expression() {function.checkArgument();}
+		("," expression() {function.checkArgument();})*
+	)?
+	")" {function.callFunction();}
 }
