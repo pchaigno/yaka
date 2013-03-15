@@ -196,6 +196,12 @@ public abstract class Generator {
 	abstract String ecrireEnt();
 	
 	/**
+	 * Generate the code for an ecrireBool instruction.
+	 * @return The code generated.
+	 */
+	abstract String ecrireBool();
+	
+	/**
 	 * Generate the code for a label at the beginning of the loop.
 	 * @return The code generated.
 	 */

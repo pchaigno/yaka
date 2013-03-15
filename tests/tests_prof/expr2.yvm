@@ -28,13 +28,13 @@ aLaLigne
 iconst -1
 iconst -1
 ior
-ecrireEnt
+ecrireBool
 aLaLigne
 iload -2
 iload -4
 iconst 4
 iadd
 iinfegal
-ecrireEnt
+ecrireBool
 aLaLigne
 queue

@@ -308,6 +308,14 @@ public class YVMasm extends YVM {
 	}
 	
 	@Override
+	String ecrireBool() {
+		this.addLine("; ");
+		super.ecrireBool();
+		String str = "call ecrbool\n\n";
+		return this.addLine(str); 
+	}
+	
+	@Override
 	String labelFaire() {
 		this.nbIterations++;
 		this.iterations.push(this.nbIterations);

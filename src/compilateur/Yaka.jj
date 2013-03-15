@@ -312,7 +312,7 @@ void lecture() : {} {
 void ecriture() : {} {
   < ECRIRE > "("
   (
-    expression() {Yaka.inputOutput.writeInteger();}
+    expression() {Yaka.inputOutput.writeResult();}
   	| < chaine > {Yaka.inputOutput.writeString(YakaTokenManager.chaineLue);}
   )
   ")"

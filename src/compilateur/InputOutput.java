@@ -17,10 +17,32 @@ public class InputOutput {
 	}
 	
 	/**
+	 * Called to write the result of an expression on the screen.
+	 * Can be a boolean or an integer.
+	 */
+	public void writeResult() {
+		Type type = Yaka.expression.getType();
+		if(type==Type.BOOL) {
+			this.writeBoolean();
+		} else if(type==Type.INT) {
+			this.writeInteger();
+		} else {
+			System.err.println("InputOutput: The expression can't be display because it wasn't compute successfully.");
+		}
+	}
+	
+	/**
 	 * Called to write an integer on the screen.
 	 */
-	public void writeInteger() {
+	private void writeInteger() {
 		Yaka.yvm.ecrireEnt();
+	}
+	
+	/**
+	 * Called to write a boolean on the screen.
+	 */
+	private void writeBoolean() {
+		Yaka.yvm.ecrireBool();
 	}
 	
 	/**

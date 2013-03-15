@@ -154,6 +154,11 @@ public class YVM extends Generator {
 	String ecrireEnt() {
 		return this.addLine("ecrireEnt\n"); 
 	}
+	
+	@Override
+	String ecrireBool() {
+		return this.addLine("ecrireBool\n"); 
+	}
 
 	@Override
 	String labelFaire() {

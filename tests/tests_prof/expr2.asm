@@ -133,8 +133,8 @@ pop ax
 or ax, bx
 push ax
 
-; ecrireEnt
-call ecrent
+; ecrireBool
+call ecrbool
 
 ; aLaLigne
 call ligsuiv
@@ -163,8 +163,8 @@ push -1
 jmp $+4
 push 0
 
-; ecrireEnt
-call ecrent
+; ecrireBool
+call ecrbool
 
 ; aLaLigne
 call ligsuiv
