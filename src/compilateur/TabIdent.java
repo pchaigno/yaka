@@ -1,6 +1,8 @@
 package compilateur;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * The identificators' table.
@@ -29,6 +31,22 @@ public class TabIdent {
 	 */
 	public Ident getIdent(String key) {
 		return this.local.get(key);
+	}
+	
+	/**
+	 * Get all parameters from the table of local variables.
+	 * @return The parameters.
+	 */
+	public List<IdParam> getParameters() {
+		List<IdParam> parameters = new LinkedList<IdParam>();
+		Ident value;
+		for(String key: this.local.keySet()) {
+			value = this.local.get(key);
+			if(value.isParam()) {
+				parameters.add((IdParam)value);
+			}
+		}
+		return parameters;
 	}
 	
 	/**

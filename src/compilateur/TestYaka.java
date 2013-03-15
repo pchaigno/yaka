@@ -88,7 +88,7 @@ public class TestYaka extends TestCase {
 	 * Test a simple function.
 	 */
 	public void testSimpleFunction() {
-		this.testProgram("tests/simple_function", true, false);
+		this.testProgram("tests/simple_function", false, false);
 	}
 	
 	/**

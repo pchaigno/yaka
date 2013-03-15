@@ -8,7 +8,7 @@ package compilateur;
  * @author Benoit Travers
  */
 public class IdVar extends Ident {
-	private int offset;
+	protected int offset;
 	
 	/**
 	 * Constructor

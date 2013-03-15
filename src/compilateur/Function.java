@@ -39,8 +39,7 @@ public class Function {
 	 * @param identLu The name of the parameter.
 	 */
 	public void addParameter(String identLu) {
-		int offset = this.function.getNbParameters()*2+4-(this.nbParameters*2);
-		IdParam parameter = new IdParam(this.lastTypeParameter, offset);
+		IdParam parameter = new IdParam(this.lastTypeParameter, this.nbParameters+1);
 		Yaka.tabIdent.setIdent(identLu, parameter);
 		this.nbParameters++;
 	}
@@ -52,6 +51,17 @@ public class Function {
 	public void addTypeParameter(Type typeLu) {
 		this.lastTypeParameter = typeLu;
 		this.function.addParam(typeLu);
+	}
+	
+	/**
+	 * Compute the offsets.
+	 * Transform the actual field offset of the parameters
+	 * (currently egal to the rank) in the real offset.
+	 */
+	public void computeOffsets() {
+		for(IdParam param: Yaka.tabIdent.getParameters()) {
+			param.computeOffset(this.nbParameters);
+		}
 	}
 
 	/**

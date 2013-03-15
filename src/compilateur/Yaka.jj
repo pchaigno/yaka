@@ -353,7 +353,7 @@ void paramForms() : {} {
 	"("	(		paramForm()
 		("," paramForm())*
 	)?
-	")"
+	")" {Yaka.function.computeOffsets();}
 }
 
 void paramForm() : {} {
