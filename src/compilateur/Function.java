@@ -95,4 +95,12 @@ public class Function {
 		Yaka.yvm.callFunction(this.functionName);
 		Yaka.expression.pushFunction(this.function.getType());
 	}
+	
+	/**
+	 * Called at the end of a function declaration.
+	 * Clear the local variables.
+	 */
+	public void endFunction() {
+		Yaka.tabIdent.clear();
+	}
 }

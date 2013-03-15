@@ -346,7 +346,7 @@ void declFonction() : {} {
 	< ident > {Yaka.function.declarFunction(YakaTokenManager.identLu, YakaTokenManager.typeLu);}
 	paramForms()
 	bloc()
-	< FFONCTION >
+	< FFONCTION > {Yaka.function.endFunction();}
 }
 
 void paramForms() : {} {
