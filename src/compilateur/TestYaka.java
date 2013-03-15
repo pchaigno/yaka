@@ -95,7 +95,22 @@ public class TestYaka extends TestCase {
 	 * Test the functions example from the handout.
 	 */
 	public void testNestedFunctions() {
-		this.testProgram("tests/nested_functions", false, true);
+		this.testProgram("tests/nested_functions", false, false);
+	}
+	
+	/**
+	 * Test the factorial functions.
+	 * The second one is tail recursive.
+	 */
+	public void testFactorial() {
+		this.testProgram("tests/factorial", false, false);
+	}
+	
+	/**
+	 * Test a recursive function to compute the Fibonacci numbers.
+	 */
+	public void testFibonacci() {
+		this.testProgram("tests/fibonacci", false, false);
 	}
 	
 	/**

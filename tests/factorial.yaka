@@ -1,0 +1,34 @@
+PROGRAMME factorial
+
+ENTIER FONCTION factorial(ENTIER n)
+	SI n=1 ALORS
+		RETOURNE 1;
+	SINON
+		RETOURNE factorial(n-1)*n;
+	FSI
+FFONCTION
+
+ENTIER FONCTION factorialtailrecursive(ENTIER n, ENTIER result)
+	SI n=1 ALORS
+		RETOURNE result;
+	SINON
+		RETOURNE factorialtailrecursive(n-1, result*n);
+	FSI
+FFONCTION
+
+PRINCIPAL
+	VAR ENTIER n, result;
+	LIRE(n);
+	ALALIGNE;
+	result = factorial(n);
+	ALALIGNE;
+	ECRIRE(result);
+	
+	LIRE(n);
+	ALALIGNE;
+	result = factorialtailrecursive(n, 1);
+	ALALIGNE;
+	ECRIRE(result);
+FPRINCIPAL
+
+FPROGRAMME
