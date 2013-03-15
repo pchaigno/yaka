@@ -101,10 +101,12 @@ public class Function {
 	/**
 	 * Called at the end of a function declaration.
 	 * Clear the local variables.
+	 * Reinitialize Declaration.
 	 */
 	public void endFunction() {
 		Yaka.yvm.fermeBloc(this.nbParameters);
 		Yaka.tabIdent.clear();
+		Yaka.declaration = new Declaration();
 	}
 	
 	/**
