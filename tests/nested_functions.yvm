@@ -1,0 +1,79 @@
+entete
+max :
+ouvbloc 6
+iload 6
+istore -6
+iload -6
+iload 4
+isup
+iffaux SINON1
+iload -6
+ireturn 8
+goto FSI1
+SINON1 :
+iload 4
+ireturn 8
+FSI1 :
+fermebloc 4
+min :
+ouvbloc 0
+iload 6
+iload 4
+iinf
+iffaux SINON2
+iload 6
+ireturn 8
+goto FSI2
+SINON2 :
+iload 4
+ireturn 8
+FSI2 :
+fermebloc 4
+sup :
+ouvbloc 0
+iload 6
+iload 4
+isup
+ireturn 8
+fermebloc 4
+main :
+ouvbloc 8
+iconst 5
+istore -2
+lireEnt -4
+aLaLigne
+reserveRetour
+iload -2
+reserveRetour
+iload -4
+iconst 5
+call min
+call max
+iconst 2
+iadd
+istore -6
+reserveRetour
+iconst 1
+reserveRetour
+iload -2
+iload -4
+iconst 5
+isub
+call max
+iadd
+reserveRetour
+iload -2
+iconst 2
+imul
+iload -4
+call min
+call sup
+istore -8
+aLaLigne
+iload -6
+ecrireEnt
+aLaLigne
+iload -8
+ecrireBool
+queue
+

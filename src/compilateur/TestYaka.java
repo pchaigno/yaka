@@ -95,7 +95,7 @@ public class TestYaka extends TestCase {
 	 * Test the functions example from the handout.
 	 */
 	public void testHandoutFunctions() {
-		this.testProgram("tests/simple_functions", false, false);
+		this.testProgram("tests/nested_functions", true, false);
 	}
 	
 	/**

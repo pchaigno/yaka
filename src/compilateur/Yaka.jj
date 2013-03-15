@@ -19,7 +19,8 @@ public class Yaka {
   public static Expression expression;
   public static Iteration iteration;
   public static TabIdent tabIdent;
-  public static Function function;
+  public static FunctionCall functionCall;
+  public static FunctionDeclaration functionDeclaration;
   public static YVM yvm;
   public static InputOutput inputOutput;
   public static Condition condition;
@@ -35,7 +36,8 @@ public class Yaka {
       expression = new Expression();
       inputOutput = new InputOutput();
       condition = new Condition();
-      function = new Function();
+      functionCall = new FunctionCall();
+      functionDeclaration = new FunctionDeclaration();
   }
   
   public static void main(String args []) {
@@ -343,37 +345,37 @@ void conditionnel() : {} {
 void declFonction() : {} {
 	type()
 	< FONCTION >
-	< ident > {Yaka.function.declarFunction(YakaTokenManager.identLu, YakaTokenManager.typeLu);}
+	< ident > {Yaka.functionDeclaration.declarFunction(YakaTokenManager.identLu, YakaTokenManager.typeLu);}
 	paramForms()
 	bloc()
-	< FFONCTION > {Yaka.function.endFunction();}
+	< FFONCTION > {Yaka.functionDeclaration.endFunction();}
 }
 
 void paramForms() : {} {
 	"("	(		paramForm()
 		("," paramForm())*
 	)?
-	")" {Yaka.function.computeOffsets();}
+	")" {Yaka.functionDeclaration.computeOffsets();}
 }
 
 void paramForm() : {} {
-	type() {Yaka.function.addTypeParameter(YakaTokenManager.typeLu);}
-	< ident > {Yaka.function.addParameter(YakaTokenManager.identLu);}
+	type() {Yaka.functionDeclaration.addTypeParameter(YakaTokenManager.typeLu);}
+	< ident > {Yaka.functionDeclaration.addParameter(YakaTokenManager.identLu);}
 }
 
 void retourne() : {} {
 	< RETOURNE >
 	expression() {
-	  Yaka.function.checkReturnedType();
-	  Yaka.function.returnValue();
+	  Yaka.functionDeclaration.checkReturnedType();
+	  Yaka.functionDeclaration.returnValue();
 	}
 }
 
 void argumentsFonction() : {} {
-	"(" {Yaka.function.prepareCallFunction(YakaTokenManager.identLu);}
+	"(" {Yaka.functionCall.prepareCallFunction(YakaTokenManager.identLu);}
 	(
-		expression() {Yaka.function.checkParameter();}
-		("," expression() {Yaka.function.checkParameter();})*
+		expression() {Yaka.functionCall.checkParameter();}
+		("," expression() {Yaka.functionCall.checkParameter();})*
 	)?
-	")" {Yaka.function.callFunction();}
+	")" {Yaka.functionCall.callFunction();}
 }
