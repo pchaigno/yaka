@@ -27,7 +27,6 @@ public class IdParam extends IdVar {
 	 * @param nbParameters The number of parameters.
 	 */
 	public void computeOffset(int nbParameters) {
-		System.out.println(nbParameters+" - "+this.rank);
 		this.offset = 4+2*nbParameters-2*this.rank;
 	}
 

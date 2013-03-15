@@ -248,6 +248,12 @@ public abstract class Generator {
 	 * @return The code generated.
 	 */
 	abstract String label(String label);
+
+	/**
+	 * Generate the code for the main label.
+	 * @return The code generated.
+	 */
+	abstract String main();
 	
 	/**
 	 * Generate the code for a function call.

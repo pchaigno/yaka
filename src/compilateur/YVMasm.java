@@ -37,9 +37,7 @@ public class YVMasm extends YVM {
 		str += "extrn ecrch:proc, ligsuiv:proc\n";
 		str += ".model SMALL\n";
 		str += ".586\n\n";
-		str += ".CODE\n";
-		str += "debut :\n";
-		str += "STARTUPCODE\n\n";
+		str += ".CODE\n\n";
 		return this.addLine(str);
 	}
 	
@@ -368,14 +366,22 @@ public class YVMasm extends YVM {
 	
 	@Override
 	String label(String label) {
-		return this.addLine(label+" :\n");
+		return this.addLine(label+" :\n\n");
+	}
+	
+	@Override
+	String main() {
+		String str = "debut :\n";
+		str += "STARTUPCODE\n\n";
+		str += "main :\n\n";
+		return this.addLine(str);
 	}
 
 	@Override
 	String callFunction(String functionName) {
 		this.addLine("; ");
 		super.callFunction(functionName);
-		return this.addLine("call "+functionName+"\n");
+		return this.addLine("call "+functionName+"\n\n");
 	}
 	
 	@Override

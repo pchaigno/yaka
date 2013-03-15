@@ -47,7 +47,7 @@ public class YVM extends Generator {
 	
 	@Override
 	String fermeBloc(int nbParameters) {
-		return this.addLine("fermebloc "+nbParameters*2+"\n\n");
+		return this.addLine("fermebloc "+nbParameters*2+"\n");
 	}
 	
 	@Override
@@ -202,6 +202,11 @@ public class YVM extends Generator {
 	@Override
 	String label(String label) {
 		return this.addLine(label+" :\n");
+	}
+	
+	@Override
+	String main() {
+		return this.addLine("main :\n");
 	}
 
 	@Override

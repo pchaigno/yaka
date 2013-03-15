@@ -185,7 +185,7 @@ void analyse() : {}	{
   < PROGRAMME > {Yaka.yvm.entete();}
   < ident >
   (declFonction())*
-  < PRINCIPAL > {Yaka.yvm.label("main");}
+  < PRINCIPAL > {Yaka.yvm.main();}
   bloc()
   < FPRINCIPAL >
   < FPROGRAMME > {Yaka.yvm.queue();}

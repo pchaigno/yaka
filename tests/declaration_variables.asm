@@ -6,10 +6,12 @@ extrn ecrch:proc, ligsuiv:proc
 .586
 
 .CODE
+
 debut :
 STARTUPCODE
 
 main :
+
 ; ouvbloc 8
 enter 8, 0
 
