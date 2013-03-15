@@ -1,0 +1,22 @@
+PROGRAMME max2
+
+PRINCIPAL
+	VAR ENTIER i,j,k;
+	i = 5;
+	j = 10;
+	k = -1;
+	
+	SI i>k ALORS
+		SI k>10 ALORS
+			i = 0;
+		SINON 
+			i = 10;
+		FSI;
+		SI k*k*i<10 ALORS
+			k = 42;
+		FSI
+	FSI;
+	ECRIRE(k)
+FPRINCIPAL
+
+FPROGRAMME

@@ -85,6 +85,13 @@ public class TestYaka extends TestCase {
 	}
 	
 	/**
+	 * Test some nested conditions.
+	 */
+	public void testNestedConditions() {
+		this.testProgram("tests/nested_conditions", false, false);
+	}
+	
+	/**
 	 * Test a simple function.
 	 */
 	public void testSimpleFunction() {

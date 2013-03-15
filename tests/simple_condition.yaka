@@ -1,14 +1,17 @@
 PROGRAMME max2
+
 PRINCIPAL
-VAR ENTIER i,j,max;
-LIRE(i);
-ALALIGNE;
-LIRE(j);
-ALALIGNE;
-max = j;
-SI i>j ALORS
-max = i
-FSI ;
-ECRIRE(max)
+	VAR ENTIER i,j,max;
+	LIRE(i);
+	ALALIGNE;
+	LIRE(j);
+	ALALIGNE;
+	
+	max = j;
+	SI i>j ALORS
+		max = i
+	FSI;
+	ECRIRE(max)
 FPRINCIPAL
+
 FPROGRAMME
