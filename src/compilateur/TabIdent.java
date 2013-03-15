@@ -98,6 +98,6 @@ public class TabIdent {
 	 * Clear the table.
 	 */
 	public void clear() {
-		this.local = new HashMap<String, Ident>();
+		this.local.clear();
 	}
 }

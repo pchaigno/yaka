@@ -185,7 +185,7 @@ void analyse() : {}	{
   < PROGRAMME > {Yaka.yvm.entete();}
   < ident >
   (declFonction())*
-  < PRINCIPAL >
+  < PRINCIPAL > {Yaka.yvm.label("main");}
   bloc()
   < FPRINCIPAL >
   < FPROGRAMME > {Yaka.yvm.queue();}
@@ -363,7 +363,10 @@ void paramForm() : {} {
 
 void retourne() : {} {
 	< RETOURNE >
-	expression() {Yaka.function.checkReturnedType();}
+	expression() {
+	  Yaka.function.checkReturnedType();
+	  Yaka.function.returnValue();
+	}
 }
 
 void argumentsFonction() : {} {

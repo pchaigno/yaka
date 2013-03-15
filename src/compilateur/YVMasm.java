@@ -44,11 +44,18 @@ public class YVMasm extends YVM {
 	}
 	
 	@Override
-	String ouvrePrinc(int nbVariables) {
+	String ouvreBloc(int nbVariables) {
 		this.addLine("; ");
-		super.ouvrePrinc(nbVariables);
-		String str = "mov bp, sp\n";
-		str += "sub sp, "+nbVariables*2+"\n\n";
+		super.ouvreBloc(nbVariables);
+		return this.addLine("enter "+nbVariables*2+", 0\n\n");
+	}
+	
+	@Override
+	String fermeBloc(int nbParameters) {
+		this.addLine("; ");
+		super.fermeBloc(nbParameters);
+		String str = "leave\n";
+		str += "ret "+nbParameters*2+"\n\n";
 		return this.addLine(str);
 	}
 
@@ -358,12 +365,33 @@ public class YVMasm extends YVM {
 	String labelFsi() {
 		return this.addLine("FSI"+this.conditions.pop()+" :\n\n");
 	}
+	
+	@Override
+	String label(String label) {
+		return this.addLine(label+" :\n");
+	}
 
 	@Override
 	String callFunction(String functionName) {
 		this.addLine("; ");
 		super.callFunction(functionName);
 		return this.addLine("call "+functionName+"\n");
+	}
+	
+	@Override
+	String reserveRetour() {
+		this.addLine("; ");
+		super.reserveRetour();
+		return this.addLine("sub sp, 2\n\n");
+	}
+	
+	@Override
+	String ireturn(int offset) {
+		this.addLine("; ");
+		super.ireturn(offset);
+		String str = "pop ax\n";
+		str += "mov [bp+"+offset+"], ax\n\n";
+		return this.addLine(str);
 	}
 	
 	@Override

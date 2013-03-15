@@ -1,5 +1,6 @@
 entete
-ouvrePrinc 4
+main :
+ouvbloc 4
 iconst 8
 istore -2
 ecrireChaine "c1="

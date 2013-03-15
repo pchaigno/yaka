@@ -1,20 +1,30 @@
 entete
 max :
 ouvbloc 6
+iload 6
 istore -6
 iload -6
+iload 4
 isup
 iffaux SINON1
 iload -6
+ireturn 8
 goto FSI1
 SINON1 :
+iload 4
+ireturn 8
 FSI1 :
+fermebloc 4
 
 main :
-ouvbloc 6
+ouvbloc 8
 iconst 5
-istore 8
+istore -2
+lireEnt -4
 aLaLigne
+reserveRetour
+iload -2
+iload -4
 call max
 iconst 2
 iadd

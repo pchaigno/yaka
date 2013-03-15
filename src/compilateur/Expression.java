@@ -92,7 +92,7 @@ public class Expression {
 			return;
 		}
 		this.stackType.push(ident.getType());
-		if(ident.isVar()) {
+		if(ident.isVar() || ident.isParam()) {
 			Yaka.yvm.iload(((IdVar)ident).getOffset());
 		} else if (ident.isConst()) {
 			Yaka.yvm.iconst(((IdConst)ident).getValue());

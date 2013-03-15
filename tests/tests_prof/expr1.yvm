@@ -1,5 +1,6 @@
 entete
-ouvrePrinc 10
+main :
+ouvbloc 10
 iconst 2
 iconst 2
 iconst 3

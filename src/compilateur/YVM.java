@@ -41,8 +41,13 @@ public class YVM extends Generator {
 	}
 	
 	@Override
-	String ouvrePrinc(int nbVariables) {
-		return this.addLine("ouvrePrinc "+nbVariables*2+"\n");
+	String ouvreBloc(int nbVariables) {
+		return this.addLine("ouvbloc "+nbVariables*2+"\n");
+	}
+	
+	@Override
+	String fermeBloc(int nbParameters) {
+		return this.addLine("fermebloc "+nbParameters*2+"\n\n");
 	}
 	
 	@Override
@@ -193,10 +198,25 @@ public class YVM extends Generator {
 	String labelFsi() {
 		return this.addLine("FSI"+this.conditions.pop()+" :\n");
 	}
+	
+	@Override
+	String label(String label) {
+		return this.addLine(label+" :\n");
+	}
 
 	@Override
 	String callFunction(String functionName) {
 		return this.addLine("call "+functionName+"\n");
+	}
+	
+	@Override
+	String reserveRetour() {
+		return this.addLine("reserveRetour\n");
+	}
+	
+	@Override
+	String ireturn(int offset) {
+		return this.addLine("ireturn "+offset+"\n");
 	}
 	
 	@Override

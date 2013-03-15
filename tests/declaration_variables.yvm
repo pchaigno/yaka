@@ -1,5 +1,6 @@
 entete
-ouvrePrinc 8
+main :
+ouvbloc 8
 iconst 5
 istore -2
 queue

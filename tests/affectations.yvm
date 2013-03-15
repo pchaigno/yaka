@@ -1,5 +1,6 @@
 entete
-ouvrePrinc 6
+main :
+ouvbloc 6
 iload -2
 iload -4
 iconst 2

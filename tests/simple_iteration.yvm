@@ -1,5 +1,6 @@
 entete
-ouvrePrinc 6
+main :
+ouvbloc 6
 iconst 5
 istore -6
 iconst 1

@@ -8,7 +8,7 @@ package compilateur;
  * @author Benoit Travers
  */
 public class Function {
-	private int nbArguments; // Used during the declaration and the call.
+	private int nbParameters; // Used during the declaration and the call.
 	private String functionName;
 	private IdFunction function;
 	private Type lastTypeParameter;
@@ -30,7 +30,8 @@ public class Function {
 	public void declarFunction(String identLu, Type typeLu) {
 		this.function = new IdFunction(identLu, typeLu); 
 		Yaka.tabIdent.setFunction(identLu, this.function);
-		this.nbArguments = 0;
+		this.nbParameters = 0;
+		Yaka.yvm.label(identLu);
 	}
 
 	/**
@@ -38,10 +39,10 @@ public class Function {
 	 * @param identLu The name of the parameter.
 	 */
 	public void addParameter(String identLu) {
-		int offset = 4+4-(this.nbArguments*2);
+		int offset = this.function.getNbParameters()*2+4-(this.nbParameters*2);
 		IdParam parameter = new IdParam(this.lastTypeParameter, offset);
 		Yaka.tabIdent.setIdent(identLu, parameter);
-		this.nbArguments++;
+		this.nbParameters++;
 	}
 
 	/**
@@ -58,14 +59,14 @@ public class Function {
 	 * Need to check the arguments in the right order.
 	 */
 	public void checkParameter() {
-		if(this.function.getNbParameters()>this.nbArguments) {
-			Type typeNeeded = this.function.getTypeOfParameter(this.nbArguments);
+		if(this.function.getNbParameters()>this.nbParameters) {
+			Type typeNeeded = this.function.getTypeOfParameter(this.nbParameters);
 			if(Yaka.expression.getType()!=typeNeeded) {
-				System.err.println("Function: The "+this.nbArguments+"ieme parameter doesn't have the right type for function "+this.functionName+".");
+				System.err.println("Function: The "+this.nbParameters+"ieme parameter doesn't have the right type for function "+this.functionName+".");
 			}
-			this.nbArguments++;
+			this.nbParameters++;
 		} else {
-			System.err.println(this.nbArguments+"");
+			System.err.println(this.nbParameters+"");
 			System.err.println("Function: There are too many parameters ("+this.function.getNbParameters()+" normaly) for function "+this.functionName+".");
 		}
 	}
@@ -79,8 +80,9 @@ public class Function {
 		if(this.function==null) {
 			System.err.println("Function: There is no function with this name ("+this.functionName+").");
 		} else {
-			this.nbArguments = 0;
+			this.nbParameters = 0;
 			this.functionName = identLu;
+			Yaka.yvm.reserveRetour();
 		}
 	}
 
@@ -89,7 +91,7 @@ public class Function {
 	 * Check the number of arguments.
 	 */
 	public void callFunction() {
-		if(this.nbArguments!=this.function.getNbParameters()) {
+		if(this.nbParameters!=this.function.getNbParameters()) {
 			System.err.println("Function: Incorrect number of arguments for function "+this.functionName+".");
 		}
 		Yaka.yvm.callFunction(this.functionName);
@@ -101,6 +103,15 @@ public class Function {
 	 * Clear the local variables.
 	 */
 	public void endFunction() {
+		Yaka.yvm.fermeBloc(this.nbParameters);
 		Yaka.tabIdent.clear();
+	}
+	
+	/**
+	 * Called in a function when a value need to be returned.
+	 */
+	public void returnValue() {
+		int offset = 2*this.function.getNbParameters()+4;
+		Yaka.yvm.ireturn(offset);
 	}
 }

@@ -58,7 +58,14 @@ public abstract class Generator {
 	 * @param nbVariables The number of variables.
 	 * @return The code generated.
 	 */
-	abstract String ouvrePrinc(int nbVariables);
+	abstract String ouvreBloc(int nbVariables);
+	
+	/**
+	 * Generate the code end a function.
+	 * @param nbParameters The number of parameters
+	 * @return The code generated.
+	 */
+	abstract String fermeBloc(int nbParameters);
 	
 	/**
 	 * Generate the code for an iconst instruction.
@@ -237,11 +244,30 @@ public abstract class Generator {
 	abstract String labelFsi();
 	
 	/**
+	 * Generate the code for a label (used for functions).
+	 * @return The code generated.
+	 */
+	abstract String label(String label);
+	
+	/**
 	 * Generate the code for a function call.
 	 * @param functionName The name of the function.
 	 * @return The code generated.
 	 */
 	abstract String callFunction(String functionName);
+	
+	/**
+	 * Generate the code to book space in the stack.
+	 * @return The code generated.
+	 */
+	abstract String reserveRetour();
+	
+	/**
+	 * Generate the code to save the result of a function in the stack.
+	 * @param offset The offset in the stack.
+	 * @return The code generated.
+	 */
+	abstract String ireturn(int offset);
 	
 	/**
 	 * Generate the program's footer.

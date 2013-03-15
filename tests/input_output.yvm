@@ -1,5 +1,6 @@
 entete
-ouvrePrinc 6
+main :
+ouvbloc 6
 ecrireChaine "x="
 lireEnt -2
 aLaLigne
