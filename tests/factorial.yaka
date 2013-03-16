@@ -23,6 +23,7 @@ PRINCIPAL
 	result = factorial(n);
 	ALALIGNE;
 	ECRIRE(result);
+	ALALIGNE;
 	
 	LIRE(n);
 	ALALIGNE;

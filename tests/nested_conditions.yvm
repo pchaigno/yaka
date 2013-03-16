@@ -1,0 +1,44 @@
+entete
+main :
+ouvbloc 6
+iconst 5
+istore -2
+iconst 10
+istore -4
+iconst 1
+ineg
+istore -6
+iload -2
+iload -6
+isup
+iffaux SINON1
+iload -6
+iconst 10
+isup
+iffaux SINON2
+iconst 0
+istore -2
+goto FSI2
+SINON2 :
+iconst 10
+istore -2
+FSI2 :
+iload -6
+iload -6
+imul
+iload -2
+imul
+iconst 10
+iinf
+iffaux SINON3
+iconst 42
+istore -6
+goto FSI3
+SINON3 :
+FSI3 :
+goto FSI1
+SINON1 :
+FSI1 :
+iload -6
+ecrireEnt
+queue

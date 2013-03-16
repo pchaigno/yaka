@@ -1,0 +1,37 @@
+entete
+fibonacci :
+ouvbloc 0
+iload 4
+iconst 2
+iinf
+iffaux SINON1
+iload 4
+ireturn 6
+goto FSI1
+SINON1 :
+reserveRetour
+iload 4
+iconst 1
+isub
+call fibonacci
+reserveRetour
+iload 4
+iconst 2
+isub
+call fibonacci
+iadd
+ireturn 6
+FSI1 :
+fermebloc 2
+main :
+ouvbloc 4
+lireEnt -2
+aLaLigne
+reserveRetour
+iload -2
+call fibonacci
+istore -4
+aLaLigne
+iload -4
+ecrireEnt
+queue

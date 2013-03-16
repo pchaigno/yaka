@@ -1,0 +1,65 @@
+entete
+factorial :
+ouvbloc 0
+iload 4
+iconst 1
+iegal
+iffaux SINON1
+iconst 1
+ireturn 6
+goto FSI1
+SINON1 :
+reserveRetour
+iload 4
+iconst 1
+isub
+call factorial
+iload 4
+imul
+ireturn 6
+FSI1 :
+fermebloc 2
+factorialtailrecursive :
+ouvbloc 0
+iload 6
+iconst 1
+iegal
+iffaux SINON2
+iload 4
+ireturn 8
+goto FSI2
+SINON2 :
+reserveRetour
+iload 6
+iconst 1
+isub
+iload 4
+iload 6
+imul
+call factorialtailrecursive
+ireturn 8
+FSI2 :
+fermebloc 4
+main :
+ouvbloc 4
+lireEnt -2
+aLaLigne
+reserveRetour
+iload -2
+call factorial
+istore -4
+aLaLigne
+iload -4
+ecrireEnt
+aLaLigne
+lireEnt -2
+aLaLigne
+reserveRetour
+iload -2
+iconst 1
+call factorialtailrecursive
+istore -4
+aLaLigne
+iload -4
+ecrireEnt
+queue
