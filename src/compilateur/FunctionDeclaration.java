@@ -18,7 +18,7 @@ public class FunctionDeclaration {
 	 */
 	public void checkReturnedType() {
 		if(Yaka.expression.getType()!=this.function.getType()) {
-			System.err.println("Function: The returned type is incorrect for function "+this.functionName+".");
+			System.err.println("Function: The returned type is incorrect for function "+functionName+".");
 		}
 	}
 	
@@ -39,7 +39,7 @@ public class FunctionDeclaration {
 	 * @param identLu The name of the parameter.
 	 */
 	public void addParameter(String identLu) {
-		IdParam parameter = new IdParam(this.lastTypeParameter, this.nbParameters+1);
+		IdParam parameter = new IdParam(lastTypeParameter, this.nbParameters+1);
 		Yaka.tabIdent.setIdent(identLu, parameter);
 		this.nbParameters++;
 	}

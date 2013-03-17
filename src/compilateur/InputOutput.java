@@ -12,7 +12,7 @@ public class InputOutput {
 	/**
 	 * Called after a read operation.
 	 */
-	public void newLine() {
+	public static void newLine() {
 		Yaka.yvm.aLaLigne();
 	}
 	
@@ -20,12 +20,12 @@ public class InputOutput {
 	 * Called to write the result of an expression on the screen.
 	 * Can be a boolean or an integer.
 	 */
-	public void writeResult() {
+	public static void writeResult() {
 		Type type = Yaka.expression.getType();
 		if(type==Type.BOOL) {
-			this.writeBoolean();
+			writeBoolean();
 		} else if(type==Type.INT) {
-			this.writeInteger();
+			writeInteger();
 		} else {
 			System.err.println("InputOutput: The expression can't be display because it wasn't compute successfully.");
 		}
@@ -34,14 +34,14 @@ public class InputOutput {
 	/**
 	 * Called to write an integer on the screen.
 	 */
-	private void writeInteger() {
+	private static void writeInteger() {
 		Yaka.yvm.ecrireEnt();
 	}
 	
 	/**
 	 * Called to write a boolean on the screen.
 	 */
-	private void writeBoolean() {
+	private static void writeBoolean() {
 		Yaka.yvm.ecrireBool();
 	}
 	
@@ -49,7 +49,7 @@ public class InputOutput {
 	 * Called to write a string on the screen.
 	 * @param str The string to write.
 	 */
-	public void writeString(String str) {
+	public static void writeString(String str) {
 		str = str.substring(1, str.length()-1);
 		Yaka.yvm.ecrireChaine(str);
 	}
@@ -58,7 +58,7 @@ public class InputOutput {
 	 * Called to read a value from the keyboard.
 	 * @param ident
 	 */
-	public void read(String ident) {
+	public static void read(String ident) {
 		if(Yaka.tabIdent.containsIdent(ident)) {
 			if (Yaka.tabIdent.getIdent(ident).isVar()) {
 				Yaka.yvm.lire(((IdVar)Yaka.tabIdent.getIdent(ident)).getOffset());

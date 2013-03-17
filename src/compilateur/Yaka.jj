@@ -307,37 +307,37 @@ void affectation() : {} {  < ident > {Yaka.expression.setAffectation(YakaTokenM
 
 /******** Reading ********/
 void lecture() : {} {
-  < LIRE > "(" < ident > ")" {Yaka.inputOutput.read(YakaTokenManager.identLu);}}
+  < LIRE > "(" < ident > ")" {InputOutput.read(YakaTokenManager.identLu);}}
 /******** Writing ********/
 void ecriture() : {} {
   < ECRIRE > "("
   (
-    expression() {Yaka.inputOutput.writeResult();}
-  	| < chaine > {Yaka.inputOutput.writeString(YakaTokenManager.chaineLue);}
+    expression() {InputOutput.writeResult();}
+  	| < chaine > {InputOutput.writeString(YakaTokenManager.chaineLue);}
   )
   ")"
-  | < ALALIGNE > {Yaka.inputOutput.newLine();}}
+  | < ALALIGNE > {InputOutput.newLine();}}
 
 /******** Iteration ********/
-void iteration() : {} {	< TANTQUE > {Yaka.iteration.tantQue();}
-	expression() {Yaka.iteration.checkExpression();}
-	< FAIRE > {Yaka.iteration.faire();}
+void iteration() : {} {	< TANTQUE > {Iteration.tantQue();}
+	expression() {Iteration.checkExpression();}
+	< FAIRE > {Iteration.faire();}
 	suiteInstr()
-	< FAIT > {Yaka.iteration.fait();}
+	< FAIT > {Iteration.fait();}
 }
 
 /******** Conditional ********/
 void conditionnel() : {} {
 	< SI >
-	expression() {Yaka.condition.checkExpression();}
-	< ALORS > {Yaka.condition.alors();}
+	expression() {Condition.checkExpression();}
+	< ALORS > {Condition.alors();}
 	suiteInstr()
-	{Yaka.condition.sinon();}
+	{Condition.sinon();}
 	(
 	  < SINON >
 	  suiteInstr()
 	)?
-	< FSI > {Yaka.condition.fsi();}
+	< FSI > {Condition.fsi();}
 }
 
 /******** Functions ********/

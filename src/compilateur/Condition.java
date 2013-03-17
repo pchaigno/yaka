@@ -13,7 +13,7 @@ public class Condition {
 	 * Check that the last expression returned a boolean.
 	 * Therefore it can be use as a predicate for the condition bloc.
 	 */
-	public void checkExpression() {
+	public static void checkExpression() {
 		if(Yaka.expression.getType()!=Type.BOOL) {
 			System.err.println("Condition: The expression is not boolean.");
 		}
@@ -23,7 +23,7 @@ public class Condition {
 	 * Called at the beginning of a condition bloc after the predicate.
 	 * Generate the code to skip the first part of the condition bloc.
 	 */
-	public void alors() {
+	public static void alors() {
 		Yaka.yvm.ifFauxSinon();
 	}
 	
@@ -31,7 +31,7 @@ public class Condition {
 	 * Called for the second part of the condition bloc.
 	 * Generate the label corresponding.
 	 */
-	public void sinon() {
+	public static void sinon() {
 		Yaka.yvm.gotoFsi();
 		Yaka.yvm.labelSinon();
 	}
@@ -40,7 +40,7 @@ public class Condition {
 	 * Called at the end of the condition bloc.
 	 * Generate the label corresponding.
 	 */
-	public void fsi() {
+	public static void fsi() {
 		Yaka.yvm.labelFsi();
 	}
 }

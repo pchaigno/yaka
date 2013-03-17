@@ -13,7 +13,7 @@ public class Iteration {
 	 * Check that the last expression returned a boolean.
 	 * Therefore it can be use as a predicate for the loop.
 	 */
-	public void checkExpression() {
+	public static void checkExpression() {
 		if(Yaka.expression.getType()!=Type.BOOL) {
 			System.err.println("Iteration: The expression is not boolean.");
 		}
@@ -23,7 +23,7 @@ public class Iteration {
 	 * Called at the beginning of a loop.
 	 * Generate the label corresponding.
 	 */
-	public void tantQue() {
+	public static void tantQue() {
 		Yaka.yvm.labelFaire();
 	}
 	
@@ -31,7 +31,7 @@ public class Iteration {
 	 * Called at the beginning of the loop after the predicate.
 	 * Generate the code to go out of the loop.
 	 */
-	public void faire() {
+	public static void faire() {
 		Yaka.yvm.ifFauxFait();
 	}
 	
@@ -39,7 +39,7 @@ public class Iteration {
 	 * Called at the end of a loop.
 	 * Generate the label corresponding.
 	 */
-	public void fait() {
+	public static void fait() {
 		Yaka.yvm.gotoFaire();
 		Yaka.yvm.labelFait();		
 	}

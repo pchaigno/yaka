@@ -10,13 +10,13 @@ package compilateur;
 public class Declaration {
 	private String lastConstName;
 	private Type lastVarType;
-	private static int offset;
+	private int offset;
 	
 	/**
 	 * Constructor
 	 */
 	public Declaration() {
-		offset = -2;
+		this.offset = -2;
 	}
 	
 	/**
@@ -71,8 +71,8 @@ public class Declaration {
 	 */
 	public void defVar(String name) {
 		if(!Yaka.tabIdent.containsIdent(name)) {
-			Yaka.tabIdent.setIdent(name, new IdVar(lastVarType, offset));
-			offset -= 2;
+			Yaka.tabIdent.setIdent(name, new IdVar(lastVarType, this.offset));
+			this.offset -= 2;
 		} else {
 			System.err.println("Declaration: Name '"+name+"' already taken.");
 		}
