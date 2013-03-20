@@ -25,7 +25,7 @@ public class YVMasm extends YVM {
 		OutputStream f = Writer.open(name);
 		Writer.writeString(f, this.program);
 		Writer.close(f);
-		System.out.println("---- Code ASM genere dans '" + name + "' : \n" + program);
+		//System.out.println("---- Code ASM genere dans '" + name + "' : \n" + program);
 	}
 	
 	@Override

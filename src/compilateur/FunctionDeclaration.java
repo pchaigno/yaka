@@ -28,7 +28,8 @@ public class FunctionDeclaration {
 	 * @param typeLu The type returned by the function.
 	 */
 	public void declarFunction(String identLu, Type typeLu) {
-		this.function = new IdFunction(identLu, typeLu); 
+		this.functionName = identLu;
+		this.function = new IdFunction(this.functionName, typeLu); 
 		Yaka.tabIdent.setFunction(identLu, this.function);
 		this.nbParameters = 0;
 		Yaka.yvm.label(identLu);

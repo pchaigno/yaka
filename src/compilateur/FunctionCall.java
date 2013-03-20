@@ -35,13 +35,13 @@ public class FunctionCall {
 		if(function.getNbParameters()>nbParams) {
 			Type typeNeeded = function.getTypeOfParameter(nbParams);
 			if(Yaka.expression.getType()!=typeNeeded) {
-				System.err.println("Function: The "+nbParams+"ieme parameter doesn't have the right type for function "+functionName+".");
+				System.err.println("Function: The parameter n." + (nbParams+1) + " doesn't have the right type for function '" + functionName + "'.");
 			}
 			nbParams++;
-			this.nbParameters.push(nbParams);
 		} else {
-			System.err.println("Function: There are too many parameters ("+function.getNbParameters()+" normaly) for function "+functionName+".");
+			System.err.println("Function: There are too many parameters ("+function.getNbParameters()+" normaly) for function '"+functionName+"'.");
 		}
+		this.nbParameters.push(nbParams);
 	}
 
 	/**
