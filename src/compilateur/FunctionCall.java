@@ -35,13 +35,13 @@ public class FunctionCall {
 		if(function.getNbParameters()>nbParams) {
 			Type typeNeeded = function.getTypeOfParameter(nbParams);
 			if(Yaka.expression.getType()!=typeNeeded) {
-				System.err.println("Function: The parameter n." + (nbParams+1) + " doesn't have the right type for function '" + functionName + "'.");
+				Yaka.errors.addError("The "+(nbParams+1)+"ieme parameter doesn't have the right type for function "+functionName+".");
 			}
 			nbParams++;
+			this.nbParameters.push(nbParams);
 		} else {
-			System.err.println("Function: There are too many parameters ("+function.getNbParameters()+" normaly) for function '"+functionName+"'.");
+			Yaka.errors.addError("There are too many parameters ("+function.getNbParameters()+" normaly) for function "+functionName+".");
 		}
-		this.nbParameters.push(nbParams);
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class FunctionCall {
 		IdFunction function = Yaka.tabIdent.getFunction(identLu);
 		this.functions.push(function);
 		if(function==null) {
-			System.err.println("Function: There is no function with this name ("+identLu+").");
+			Yaka.errors.addError("There is no function with the name '"+identLu+"'.");
 		} else {
 			this.nbParameters.push(0);
 			this.functionsName.push(identLu);
@@ -69,7 +69,9 @@ public class FunctionCall {
 		int nbParams = this.nbParameters.pop();
 		String functionName = this.functionsName.pop();
 		if(nbParams!=function.getNbParameters()) {
-			System.err.println("Function: Incorrect number of arguments for function "+functionName+".");
+			String message = "Incorrect number of arguments for function "+functionName+".\n";
+			message += "Expected "+function.getNbParameters()+" but "+nbParams+" found.";
+			Yaka.errors.addError(message);
 		}
 		Yaka.yvm.callFunction(functionName);
 		Yaka.expression.pushFunction(function.getType());

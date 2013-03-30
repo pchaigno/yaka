@@ -27,7 +27,7 @@ public class InputOutput {
 		} else if(type==Type.INT) {
 			writeInteger();
 		} else {
-			System.err.println("InputOutput: The expression can't be display because it wasn't compute successfully.");
+			Yaka.errors.addError("The expression can't be display because it wasn't compute successfully.");
 		}
 	}
 	
@@ -56,15 +56,15 @@ public class InputOutput {
 	
 	/**
 	 * Called to read a value from the keyboard.
-	 * @param ident
+	 * @param ident The ident where to store the value read.
 	 */
 	public static void read(String ident) {
 		if(Yaka.tabIdent.containsIdent(ident)) {
-			if (Yaka.tabIdent.getIdent(ident).isVar()) {
+			if(Yaka.tabIdent.getIdent(ident).isVar()) {
 				Yaka.yvm.lire(((IdVar)Yaka.tabIdent.getIdent(ident)).getOffset());
 			}
 		} else {
-			System.err.println("InputOutput: "+ident+" doesn't exist.");
+			Yaka.errors.addError("Ident '"+ident+"' doesn't exist.");
 		}
 	}
 }

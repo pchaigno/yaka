@@ -27,7 +27,7 @@ public class Declaration {
 		if(!Yaka.tabIdent.containsIdent(name)) {
 			this.lastConstName = name;
 		} else {
-			System.err.println("Declaration: Name '"+name+"' already taken.");
+			Yaka.errors.addError("A variable or a constant already has the name '"+name+".");
 		}
 	}
 	
@@ -39,8 +39,9 @@ public class Declaration {
 	public void valConst(Type type, int value) {
 		if(this.lastConstName != "") {
 			Yaka.tabIdent.setIdent(this.lastConstName, new IdConst(type, value));
+			this.lastConstName = "";
 		} else {
-			System.err.println("Declaration: Constant name undefined");
+			Yaka.errors.addError("Value not assigned because the name was already taken.");
 		}
 	}
 	
@@ -51,9 +52,13 @@ public class Declaration {
 	public void valConstRef(String ref) {
 		Ident ident = Yaka.tabIdent.getIdent(ref);
 		if(ident != null) {
-			Yaka.tabIdent.setIdent(this.lastConstName, new IdConst(ident.type, ((IdConst)ident).getValue()));
+			if(this.lastConstName != "") {
+				Yaka.tabIdent.setIdent(this.lastConstName, new IdConst(ident.type, ((IdConst)ident).getValue()));
+			} else {
+				Yaka.errors.addError("Value not assigned because the name was already taken.");
+			}
 		} else {
-			System.err.println("Declaration: Reference to undefined const");
+			Yaka.errors.addError("Reference to undefined const ("+ref+") in the declaration part.");
 		}
 	}
 	
@@ -74,7 +79,7 @@ public class Declaration {
 			Yaka.tabIdent.setIdent(name, new IdVar(lastVarType, this.offset));
 			this.offset -= 2;
 		} else {
-			System.err.println("Declaration: Name '"+name+"' already taken.");
+			Yaka.errors.addError("A variable or a constant already has the name '"+name+".");
 		}
 	}
 	

@@ -25,7 +25,7 @@ public class YVMasm extends YVM {
 		OutputStream f = Writer.open(name);
 		Writer.writeString(f, this.program);
 		Writer.close(f);
-		//System.out.println("---- Code ASM genere dans '" + name + "' : \n" + program);
+		System.out.println("---- Code ASM genere dans '" + name + "' : \n" + program);
 	}
 	
 	@Override
@@ -319,7 +319,7 @@ public class YVMasm extends YVM {
 	String labelFaire() {
 		this.nbIterations++;
 		this.iterations.push(this.nbIterations);
-		return this.addLineWithoutTab("FAIRE"+this.iterations.peek()+" :\n\n");
+		return this.addLine("FAIRE"+this.iterations.peek()+" :\n\n");
 	}
 
 	@Override
@@ -341,7 +341,7 @@ public class YVMasm extends YVM {
 
 	@Override
 	String labelFait() {
-		return this.addLineWithoutTab("FAIT"+this.iterations.pop()+" :\n\n");
+		return this.addLine("FAIT"+this.iterations.pop()+" :\n\n");
 	}
 	
 	@Override
@@ -364,25 +364,25 @@ public class YVMasm extends YVM {
 	
 	@Override
 	String labelSinon() {
-		return this.addLineWithoutTab("SINON"+this.conditions.peek()+" :\n\n");
+		return this.addLine("SINON"+this.conditions.peek()+" :\n\n");
 	}
 	
 	@Override
 	String labelFsi() {
-		return this.addLineWithoutTab("FSI"+this.conditions.pop()+" :\n\n");
+		return this.addLine("FSI"+this.conditions.pop()+" :\n\n");
 	}
 	
 	@Override
 	String label(String label) {
-		return this.addLineWithoutTab(label+" :\n\n");
+		return this.addLine(label+" :\n\n");
 	}
 	
 	@Override
 	String main() {
 		String str = "debut :\n";
-		str += "	STARTUPCODE\n\n";
+		str += "STARTUPCODE\n\n";
 		str += "main :\n\n";
-		return this.addLineWithoutTab(str);
+		return this.addLine(str);
 	}
 
 	@Override

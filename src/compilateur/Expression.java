@@ -3,7 +3,7 @@ package compilateur;
 import java.util.Stack;
 
 /**
- * Compute the expressions.
+ * Compute the expressions and the affectations.
  * @author Paul Chaignon
  * @author Damien Le Guen
  * @author Antoine Lejeune
@@ -55,11 +55,12 @@ public class Expression {
 		this.stackType.push(Type.INT);
 		Yaka.yvm.iconst(ent);
 		if(this.invert) {
-			if(this.stackOp.pop()==Operator.NEG) {
+			Operator op = this.stackOp.pop();
+			if(op==Operator.NEG) {
 				Yaka.yvm.ineg();
 				this.invert = false;
 			} else {
-				System.err.println("Expression: Invalid operation.");
+				Yaka.errors.addError("Encountered a "+op+" operator while trying to invert but a - operator was expected.");
 			}
 		}
 	}
@@ -72,11 +73,12 @@ public class Expression {
 		this.stackType.push(Type.BOOL);
 		Yaka.yvm.iconst(bool);
 		if(this.invert) {
-			if(this.stackOp.pop()==Operator.NOT) {
+			Operator op = this.stackOp.pop();
+			if(op==Operator.NOT) {
 				Yaka.yvm.inot();
 				this.invert = false;
 			} else {
-				System.err.println("Expression: Invalid operation.");
+				Yaka.errors.addError("Encountered a "+op+" operator while trying to invert but a NOT was expected.");
 			}
 		}
 	}
@@ -87,15 +89,17 @@ public class Expression {
 	 */
 	public void pushIdent(String str) {
 		Ident ident = Yaka.tabIdent.getIdent(str);
-		if(ident==null) {
-			System.err.println("Ident not found: "+str);
-			return;
-		}
-		this.stackType.push(ident.getType());
-		if(ident.isVar() || ident.isParam()) {
-			Yaka.yvm.iload(((IdVar)ident).getOffset());
-		} else if (ident.isConst()) {
-			Yaka.yvm.iconst(((IdConst)ident).getValue());
+		if(ident!=null) {
+			this.stackType.push(ident.getType());
+			if(ident.isVar() || ident.isParam()) {
+				Yaka.yvm.iload(((IdVar)ident).getOffset());
+			} else if(ident.isConst()) {
+				Yaka.yvm.iconst(((IdConst)ident).getValue());
+			} else {
+				Yaka.errors.addError("An IdFunction has been found in the table of local variables!");
+			}
+		} else {
+			Yaka.errors.addError("Ident '"+str+"' not found.");
 		}
 	}
 	
@@ -134,7 +138,7 @@ public class Expression {
 					this.stackType.push(Type.BOOL);
 					break;
 				default:
-					System.err.println("Expression: Invalid operation.");
+					Yaka.errors.addError("Invalid boolean operation: "+op+".");
 					this.stackType.push(Type.ERROR);
 			}
 		} else if((a==Type.INT || a==Type.ERROR) && (b==Type.INT || b==Type.ERROR)) {
@@ -180,11 +184,11 @@ public class Expression {
 					this.stackType.push(Type.BOOL);
 					break;
 				default:
-					System.err.println("Expression: Invalid operation.");
+					Yaka.errors.addError("Invalid integer operation: "+op+".");
 					this.stackType.push(Type.ERROR);
 			}
 		} else {
-			System.err.println("Expression: The two operands doesn't match.");
+			Yaka.errors.addError("The two operands doesn't match: "+a+" "+op+" "+b+".");
 			this.stackType.push(Type.ERROR);
 		}
 	}
@@ -197,7 +201,7 @@ public class Expression {
 		if(Yaka.tabIdent.containsIdent(name)) {
 			this.affectTo = Yaka.tabIdent.getIdent(name);
 		} else {
-			System.err.println("Expression: Ident does not exist in the table of idents.");
+			Yaka.errors.addError("Ident '"+name+"' doesn't exist in the table of idents.");
 		}
 	}
 	
@@ -205,10 +209,14 @@ public class Expression {
 	 * Add the affectation part of an expression.
 	 */
 	public void affectation() {
-		if(this.affectTo.getType()==this.stackType.pop()) {
+		Type varType = this.affectTo.getType();
+		Type valType = this.stackType.pop(); 
+		if(varType==valType) {
 			Yaka.yvm.istore(((IdVar)this.affectTo).getOffset());
 		} else {
-			System.err.println("Expression: Types don't match at the affectation.");
+			String message = "Types don't match at the affectation.\n";
+			message += "Variable is of type "+varType+" but value is of type "+valType+".";
+			Yaka.errors.addError(message);
 		}
 	}
 }

@@ -24,6 +24,7 @@ public class Yaka {
   public static YVM yvm;
   public static InputOutput inputOutput;
   public static Condition condition;
+  public static CompilationError errors;
 
   public static void initVariables(boolean toYVM) {
 	  if(toYVM) {		yvm = new YVM();
@@ -38,6 +39,7 @@ public class Yaka {
       condition = new Condition();
       functionCall = new FunctionCall();
       functionDeclaration = new FunctionDeclaration();
+      errors = new CompilationError();
   }
   
   public static void main(String args []) {
@@ -65,14 +67,21 @@ public class Yaka {
       new Yaka(input);
 	  Yaka.initVariables(true);
       Yaka.analyse();
-      System.out.println("analyse syntaxique YVM reussie!");
+      if(Yaka.errors.errorsOccurred()) {
+		System.err.println(Yaka.errors.getErrorMessages());
+      } else {
+        System.out.println("Compilation reussie!");      }
       Yaka.yvm.generateFile("test.yvm");
       
       // Generation ASM
       Yaka.ReInit(inputASM);
 	  Yaka.initVariables(false);
       Yaka.analyse();
-      System.out.println("analyse syntaxique ASM reussie!");
+	  if(Yaka.errors.errorsOccurred()) {
+		System.err.println(Yaka.errors.getErrorMessages());
+      } else {
+        System.out.println("Compilation reussie!");
+      }
       Yaka.yvm.generateFile("test.asm");
       
     } catch (ParseException e) {

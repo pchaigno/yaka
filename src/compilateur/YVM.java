@@ -164,12 +164,12 @@ public class YVM extends Generator {
 	String labelFaire() {
 		this.nbIterations++;
 		this.iterations.push(this.nbIterations);
-		return this.addLineWithoutTab("FAIRE"+this.iterations.peek()+" :\n");
+		return addLine("FAIRE"+this.iterations.peek()+" :\n");
 	}
 
 	@Override
 	String ifFauxFait() {
-		return this.addLine("iffaux FAIT"+this.iterations.peek()+"\n");
+		return addLine("iffaux FAIT"+this.iterations.peek()+"\n");
 	}
 
 	@Override
@@ -179,7 +179,7 @@ public class YVM extends Generator {
 
 	@Override
 	String labelFait() {
-		return this.addLineWithoutTab("FAIT"+this.iterations.pop()+" :\n");
+		return this.addLine("FAIT"+this.iterations.pop()+" :\n");
 	}
 	
 	@Override
@@ -196,22 +196,22 @@ public class YVM extends Generator {
 	
 	@Override
 	String labelSinon() {
-		return this.addLineWithoutTab("SINON"+this.conditions.peek()+" :\n");
+		return this.addLine("SINON"+this.conditions.peek()+" :\n");
 	}
 	
 	@Override
 	String labelFsi() {
-		return this.addLineWithoutTab("FSI"+this.conditions.pop()+" :\n");
+		return this.addLine("FSI"+this.conditions.pop()+" :\n");
 	}
 	
 	@Override
 	String label(String label) {
-		return this.addLineWithoutTab(label+" :\n");
+		return this.addLine(label+" :\n");
 	}
 	
 	@Override
 	String main() {
-		return this.addLineWithoutTab("main :\n");
+		return this.addLine("main :\n");
 	}
 
 	@Override

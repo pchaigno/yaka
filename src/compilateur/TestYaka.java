@@ -135,7 +135,8 @@ public class TestYaka extends TestCase {
 			System.out.println("YVM:");
 			System.out.println(Yaka.yvm.getProgram());
 		}
-		assertEquals(programYVM, Yaka.yvm.getProgram().replace("	", ""));
+		assertFalse(Yaka.errors.errorsOccurred());
+		assertEquals(programYVM, Yaka.yvm.getProgram());
 		
 		String programASM = getContentOfFile(file+".asm");
 		compileToASM(program);
@@ -143,7 +144,8 @@ public class TestYaka extends TestCase {
 			System.out.println("ASM:");
 			System.out.println(Yaka.yvm.getProgram());
 		}
-		assertEquals(programASM, Yaka.yvm.getProgram().replace("	", ""));
+		assertFalse(Yaka.errors.errorsOccurred());
+		assertEquals(programASM, Yaka.yvm.getProgram());
 	}
 	
 	/**
