@@ -1,6 +1,7 @@
 package compilateur;
 
 import java.util.Stack;
+import compilateur.CompilationError.Error;
 
 /**
  * Compute the expressions and the affectations.
@@ -60,7 +61,7 @@ public class Expression {
 				Yaka.yvm.ineg();
 				this.invert = false;
 			} else {
-				Yaka.errors.addError("Encountered a "+op+" operator while trying to invert but a - operator was expected.");
+				Yaka.errors.addError(Error.INVALID_OPERATION, "Encountered a "+op+" operator while trying to invert but a - operator was expected.");
 			}
 		}
 	}
@@ -78,7 +79,7 @@ public class Expression {
 				Yaka.yvm.inot();
 				this.invert = false;
 			} else {
-				Yaka.errors.addError("Encountered a "+op+" operator while trying to invert but a NOT was expected.");
+				Yaka.errors.addError(Error.INVALID_OPERATION, "Encountered a "+op+" operator while trying to invert but a NOT was expected.");
 			}
 		}
 	}
@@ -96,10 +97,10 @@ public class Expression {
 			} else if(ident.isConst()) {
 				Yaka.yvm.iconst(((IdConst)ident).getValue());
 			} else {
-				Yaka.errors.addError("An IdFunction has been found in the table of local variables!");
+				Yaka.errors.addError(Error.CODE_ERROR, "An IdFunction has been found in the table of local variables!");
 			}
 		} else {
-			Yaka.errors.addError("Ident '"+str+"' not found.");
+			Yaka.errors.addError(Error.IDENT_UNKNOWN, "Ident '"+str+"' not found.");
 		}
 	}
 	
@@ -138,7 +139,7 @@ public class Expression {
 					this.stackType.push(Type.BOOL);
 					break;
 				default:
-					Yaka.errors.addError("Invalid boolean operation: "+op+".");
+					Yaka.errors.addError(Error.INVALID_OPERATION, "Invalid boolean operation: "+op+".");
 					this.stackType.push(Type.ERROR);
 			}
 		} else if((a==Type.INT || a==Type.ERROR) && (b==Type.INT || b==Type.ERROR)) {
@@ -184,11 +185,11 @@ public class Expression {
 					this.stackType.push(Type.BOOL);
 					break;
 				default:
-					Yaka.errors.addError("Invalid integer operation: "+op+".");
+					Yaka.errors.addError(Error.INVALID_OPERATION, "Invalid integer operation: "+op+".");
 					this.stackType.push(Type.ERROR);
 			}
 		} else {
-			Yaka.errors.addError("The two operands doesn't match: "+a+" "+op+" "+b+".");
+			Yaka.errors.addError(Error.OPERANDS_DONT_MATCH, "The two operands doesn't match: "+a+" "+op+" "+b+".");
 			this.stackType.push(Type.ERROR);
 		}
 	}
@@ -201,7 +202,7 @@ public class Expression {
 		if(Yaka.tabIdent.containsIdent(name)) {
 			this.affectTo = Yaka.tabIdent.getIdent(name);
 		} else {
-			Yaka.errors.addError("Ident '"+name+"' doesn't exist in the table of idents.");
+			Yaka.errors.addError(Error.IDENT_UNKNOWN, "Ident '"+name+"' doesn't exist in the table of idents.");
 		}
 	}
 	
@@ -216,7 +217,7 @@ public class Expression {
 		} else {
 			String message = "Types don't match at the affectation.\n";
 			message += "Variable is of type "+varType+" but value is of type "+valType+".";
-			Yaka.errors.addError(message);
+			Yaka.errors.addError(Error.TYPE_AFFECTATION_DONT_MATCH, message);
 		}
 	}
 }

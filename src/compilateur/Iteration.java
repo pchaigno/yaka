@@ -1,5 +1,7 @@
 package compilateur;
 
+import compilateur.CompilationError.Error;
+
 /**
  * Compute the iteration part.
  * @author Paul Chaignon
@@ -16,7 +18,7 @@ public class Iteration {
 	public static void checkExpression() {
 		Type type = Yaka.expression.getType();
 		if(type!=Type.BOOL) {
-			Yaka.errors.addError("Encountered an expression of type "+type+" but a boolean expression was expected for the iteration condition.");
+			Yaka.errors.addError(Error.TYPE_ITERATION_INCORRECT, "Encountered an expression of type "+type+" but a boolean expression was expected for the iteration condition.");
 		}
 	}
 	

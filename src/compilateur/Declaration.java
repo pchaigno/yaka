@@ -1,5 +1,7 @@
 package compilateur;
 
+import compilateur.CompilationError.Error;
+
 /**
  * Compute the declaration part.
  * @author Paul Chaignon
@@ -27,7 +29,7 @@ public class Declaration {
 		if(!Yaka.tabIdent.containsIdent(name)) {
 			this.lastConstName = name;
 		} else {
-			Yaka.errors.addError("A variable or a constant already has the name '"+name+".");
+			Yaka.errors.addError(Error.NAME_ALREADY_TAKEN, "A variable or a constant already has the name '"+name+".");
 		}
 	}
 	
@@ -41,7 +43,7 @@ public class Declaration {
 			Yaka.tabIdent.setIdent(this.lastConstName, new IdConst(type, value));
 			this.lastConstName = "";
 		} else {
-			Yaka.errors.addError("Value not assigned because the name was already taken.");
+			Yaka.errors.addError(Error.NAME_ALREADY_TAKEN, "Value not assigned because the name was already taken.");
 		}
 	}
 	
@@ -55,10 +57,10 @@ public class Declaration {
 			if(this.lastConstName != "") {
 				Yaka.tabIdent.setIdent(this.lastConstName, new IdConst(ident.type, ((IdConst)ident).getValue()));
 			} else {
-				Yaka.errors.addError("Value not assigned because the name was already taken.");
+				Yaka.errors.addError(Error.NAME_ALREADY_TAKEN, "Value not assigned because the name was already taken.");
 			}
 		} else {
-			Yaka.errors.addError("Reference to undefined const ("+ref+") in the declaration part.");
+			Yaka.errors.addError(Error.IDENT_UNKNOWN, "Reference to undefined const ("+ref+") in the declaration part.");
 		}
 	}
 	
@@ -79,7 +81,7 @@ public class Declaration {
 			Yaka.tabIdent.setIdent(name, new IdVar(lastVarType, this.offset));
 			this.offset -= 2;
 		} else {
-			Yaka.errors.addError("A variable or a constant already has the name '"+name+".");
+			Yaka.errors.addError(Error.NAME_ALREADY_TAKEN, "A variable or a constant already has the name '"+name+".");
 		}
 	}
 	

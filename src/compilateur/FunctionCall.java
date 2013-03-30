@@ -1,6 +1,7 @@
 package compilateur;
 
 import java.util.Stack;
+import compilateur.CompilationError.Error;
 
 /**
  * Compute the calls of functions.
@@ -35,12 +36,12 @@ public class FunctionCall {
 		if(function.getNbParameters()>nbParams) {
 			Type typeNeeded = function.getTypeOfParameter(nbParams);
 			if(Yaka.expression.getType()!=typeNeeded) {
-				Yaka.errors.addError("The "+(nbParams+1)+"ieme parameter doesn't have the right type for function "+functionName+".");
+				Yaka.errors.addError(Error.TYPE_PARAMETER_INCORRECT, "The "+(nbParams+1)+"ieme parameter doesn't have the right type for function "+functionName+".");
 			}
 			nbParams++;
 			this.nbParameters.push(nbParams);
 		} else {
-			Yaka.errors.addError("There are too many parameters ("+function.getNbParameters()+" normaly) for function "+functionName+".");
+			Yaka.errors.addError(Error.NUMBER_PARAMETERS_INCORRECT, "There are too many parameters ("+function.getNbParameters()+" normaly) for function "+functionName+".");
 		}
 	}
 
@@ -52,7 +53,7 @@ public class FunctionCall {
 		IdFunction function = Yaka.tabIdent.getFunction(identLu);
 		this.functions.push(function);
 		if(function==null) {
-			Yaka.errors.addError("There is no function with the name '"+identLu+"'.");
+			Yaka.errors.addError(Error.IDENT_UNKNOWN, "There is no function with the name '"+identLu+"'.");
 		} else {
 			this.nbParameters.push(0);
 			this.functionsName.push(identLu);
@@ -71,7 +72,7 @@ public class FunctionCall {
 		if(nbParams!=function.getNbParameters()) {
 			String message = "Incorrect number of arguments for function "+functionName+".\n";
 			message += "Expected "+function.getNbParameters()+" but "+nbParams+" found.";
-			Yaka.errors.addError(message);
+			Yaka.errors.addError(Error.NUMBER_PARAMETERS_INCORRECT, message);
 		}
 		Yaka.yvm.callFunction(functionName);
 		Yaka.expression.pushFunction(function.getType());

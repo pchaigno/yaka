@@ -1,5 +1,7 @@
 package compilateur;
 
+import compilateur.CompilationError.Error;
+
 /**
  * Compute the inputs and outputs instructions.
  * @author Paul Chaignon
@@ -27,7 +29,7 @@ public class InputOutput {
 		} else if(type==Type.INT) {
 			writeInteger();
 		} else {
-			Yaka.errors.addError("The expression can't be display because it wasn't compute successfully.");
+			Yaka.errors.addError(Error.NO_ERROR, "The expression can't be displayed because it wasn't compute successfully.");
 		}
 	}
 	
@@ -64,7 +66,7 @@ public class InputOutput {
 				Yaka.yvm.lire(((IdVar)Yaka.tabIdent.getIdent(ident)).getOffset());
 			}
 		} else {
-			Yaka.errors.addError("Ident '"+ident+"' doesn't exist.");
+			Yaka.errors.addError(Error.IDENT_UNKNOWN, "Ident '"+ident+"' doesn't exist.");
 		}
 	}
 }
