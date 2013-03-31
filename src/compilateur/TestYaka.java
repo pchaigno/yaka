@@ -1,6 +1,7 @@
 package compilateur;
 
 import java.io.BufferedReader;
+
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,6 +9,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import junit.framework.TestCase;
+
+import compilateur.CompilationError.Error;
 
 /**
  * Unit tests.
@@ -118,6 +121,89 @@ public class TestYaka extends TestCase {
 	 */
 	public void testFibonacci() {
 		this.testProgram("tests/fibonacci", false, false);
+	}
+	
+	/**
+	 * Check that an error is raised when the returned type of a function is incorrect.
+	 */
+	public void testReturnedTypeError() {
+		this.testError("tests/errors/returned_type", Error.RETURNED_TYPE_INCORRECT);
+	}
+	
+	/**
+	 * Check that an error is raised when an undeclared ident is used.
+	 */
+	public void testIdentUnknownError() {
+		this.testError("tests/errors/ident_unknown", Error.IDENT_UNKNOWN);
+	}
+	
+	/**
+	 * Check that an error is raised when there isn't the right number of parameters at the call of a function.
+	 */
+	public void testNumberParametersError() {
+		this.testError("tests/errors/number_parameters", Error.NUMBER_PARAMETERS_INCORRECT);
+	}
+	
+	/**
+	 * Check that an error is raised when a parameter of a function doesn't have the right type.
+	 */
+	public void testParameterTypeError() {
+		this.testError("tests/errors/parameter_type", Error.PARAMETER_TYPE_INCORRECT);
+	}
+	
+	/**
+	 * Check that an error is raised when the types don't match at an affectation.
+	 */
+	public void testAffectationTypeError() {
+		this.testError("tests/errors/affectation_type", Error.TYPE_AFFECTATION_DONT_MATCH);
+	}
+	
+	/**
+	 * Check that an error is raised when the condition in an iteration is not boolean.
+	 */
+	public void testIterationTypeError() {
+		this.testError("tests/errors/iteration_type", Error.TYPE_ITERATION_INCORRECT);
+	}
+	
+	/**
+	 * Check that an error is raised when a conditional instruction doesn't have a boolean condition.
+	 */
+	public void testConditionTypeError() {
+		this.testError("tests/errors/condition_type", Error.TYPE_CONDITION_INCORRECT);
+	}
+	
+	/**
+	 * Check that an error is raised when the name for a variable is already taken.
+	 */
+	public void testNameAlreadyTakenError() {
+		this.testError("tests/errors/name_already_taken", Error.NAME_ALREADY_TAKEN);
+	}
+	
+	/**
+	 * Check that an error is raised when a boolean is compute with an integer.
+	 */
+	public void testOperandsDontLatchError() {
+		this.testError("tests/errors/operands_dont_match", Error.OPERANDS_DONT_MATCH);
+	}
+	
+	/**
+	 * Check that an error is raised when an invalid operation occurred.
+	 */
+	public void testInvalidOperationError() {
+		this.testError("tests/errors/invalid_operation", Error.INVALID_OPERATION);
+	}
+	
+	/**
+	 * Compile a Yaka program and check that an error if effectively raised.
+	 * @param file The path to the file containing the program.
+	 * @param error
+	 */
+	private void testError(String file, Error error) {
+		String program = getContentOfFile(file+".yaka");
+		compileToASM(program);
+		assertTrue(Yaka.errors.checkTypeError(error));
+		compileToYVM(program);
+		assertTrue(Yaka.errors.checkTypeError(error));
 	}
 	
 	/**

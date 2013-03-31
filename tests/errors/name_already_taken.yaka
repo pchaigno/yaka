@@ -1,0 +1,21 @@
+PROGRAMME fibonacci
+
+ENTIER FONCTION fibonacci(ENTIER n)
+	VAR BOOLEEN n;
+	SI n<2 ALORS
+		RETOURNE n;
+	SINON
+		RETOURNE fibonacci(n-1)+fibonacci(n-2);
+	FSI
+FFONCTION
+
+PRINCIPAL
+	VAR ENTIER n, result;
+	LIRE(n);
+	ALALIGNE;
+	result = fibonacci(n);
+	ALALIGNE;
+	ECRIRE(result);
+FPRINCIPAL
+
+FPROGRAMME

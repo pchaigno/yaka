@@ -11,7 +11,7 @@ public class CompilationError {
 	
 	public enum Error {
 		IDENT_UNKNOWN, TYPE_ITERATION_INCORRECT, TYPE_CONDITION_INCORRECT, NAME_ALREADY_TAKEN,
-		TYPE_PARAMETER_INCORRECT, NUMBER_PARAMETERS_INCORRECT, RETURNED_TYPE_INCORRECT, NO_ERROR,
+		PARAMETER_TYPE_INCORRECT, NUMBER_PARAMETERS_INCORRECT, RETURNED_TYPE_INCORRECT, NO_ERROR,
 		TYPE_AFFECTATION_DONT_MATCH, CODE_ERROR, OPERANDS_DONT_MATCH, INVALID_OPERATION
 	}
 	
@@ -27,7 +27,7 @@ public class CompilationError {
 	 * @return True if errors have occurred.
 	 */
 	public boolean errorsOccurred() {
-		return this.errors.size()==0;
+		return this.errors.size()>0;
 	}
 	
 	/**
@@ -51,6 +51,13 @@ public class CompilationError {
 			return false;
 		}
 		return this.errors.contains(type);
+	}
+	
+	/**
+	 * @return The set of error types.
+	 */
+	public Set<Error> getErrorTypes() {
+		return this.errors;
 	}
 	
 	/**
