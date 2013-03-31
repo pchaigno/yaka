@@ -100,6 +100,7 @@ public class Expression {
 				Yaka.errors.addError(Error.CODE_ERROR, "An IdFunction has been found in the table of local variables!");
 			}
 		} else {
+			this.stackType.push(Type.ERROR);
 			Yaka.errors.addError(Error.IDENT_UNKNOWN, "Ident '"+str+"' not found.");
 		}
 	}

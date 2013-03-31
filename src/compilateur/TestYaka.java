@@ -195,9 +195,6 @@ public class TestYaka extends TestCase {
 	private void testError(String file, Error error) {
 		String program = getContentOfFile(file+".yaka");
 		compileToASM(program);
-		System.out.println("--- "+file+" ---");
-		System.out.println(Yaka.errors.getErrorTypes());
-		System.out.println();
 		assertTrue(Yaka.errors.checkTypeError(error));
 		compileToYVM(program);
 		assertTrue(Yaka.errors.checkTypeError(error));
