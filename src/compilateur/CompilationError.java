@@ -47,7 +47,7 @@ public class CompilationError {
 	 * @return True if there is only one error of type type.
 	 */
 	public boolean checkTypeError(Error type) {
-		if(this.errors.size()==1) {
+		if(this.errors.size()!=1) {
 			return false;
 		}
 		return this.errors.contains(type);

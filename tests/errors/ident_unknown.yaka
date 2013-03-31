@@ -1,7 +1,6 @@
 PROGRAMME max
 PRINCIPAL
-CONST 
-	a=2,
+CONST a=2,
 	b=a,
 	c=VRAI;
 	

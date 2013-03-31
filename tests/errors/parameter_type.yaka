@@ -19,7 +19,7 @@ ENTIER FONCTION min (ENTIER i, ENTIER j)
 	FSI
 FFONCTION
 
-BOOLEEN FONCTION sup(BOOLEEN i, ENTIER j)
+BOOLEEN FONCTION sup(ENTIER i, ENTIER j)
 	RETOURNE i>j
 FFONCTION
 
@@ -30,8 +30,7 @@ PRINCIPAL
 	LIRE(j);
 	ALALIGNE;
 	k=max (i,min(j,5))+2;
-	b=sup(1+max(i,j-5),
-			min(i*2,j));
+	b=sup(1+max(i,j-5), VRAI);
 	ALALIGNE;
 	ECRIRE(k);
 	ALALIGNE;

@@ -20,13 +20,7 @@ import compilateur.CompilationError.Error;
  * @author Benoit Travers
  */
 public class TestYaka extends TestCase {
-	
-	/**
-	 * First test just to intialize the Yaka compiler.
-	 */
-	public void testFirst() {
-		new Yaka(System.in);
-	}
+	public static boolean init = false;
 	
 	/**
 	 * Test the declaration of the variables.
@@ -201,6 +195,9 @@ public class TestYaka extends TestCase {
 	private void testError(String file, Error error) {
 		String program = getContentOfFile(file+".yaka");
 		compileToASM(program);
+		System.out.println("--- "+file+" ---");
+		System.out.println(Yaka.errors.getErrorTypes());
+		System.out.println();
 		assertTrue(Yaka.errors.checkTypeError(error));
 		compileToYVM(program);
 		assertTrue(Yaka.errors.checkTypeError(error));
@@ -240,6 +237,10 @@ public class TestYaka extends TestCase {
 	 */
 	private static void compileToYVM(String program) {
 		InputStream input = new ByteArrayInputStream(program.getBytes());
+		if(!init) {
+			new Yaka(System.in);
+			init = true;
+		}
 		Yaka.ReInit(input);
 		Yaka.initVariables(true);
 	    try {
@@ -255,6 +256,10 @@ public class TestYaka extends TestCase {
 	 */
 	private static void compileToASM(String program) {
 		InputStream input = new ByteArrayInputStream(program.getBytes());
+		if(!init) {
+			new Yaka(System.in);
+			init = true;
+		}
 		Yaka.ReInit(input);
 		Yaka.initVariables(false);
 	    try {
