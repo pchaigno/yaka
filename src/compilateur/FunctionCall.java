@@ -35,8 +35,13 @@ public class FunctionCall {
 		String functionName = this.functionsName.peek();
 		if(function.getNbParameters()>nbParams) {
 			Type typeNeeded = function.getTypeOfParameter(nbParams);
-			if(Yaka.expression.getType()!=typeNeeded) {
-				Yaka.errors.addError(Error.PARAMETER_TYPE_INCORRECT, "The "+(nbParams+1)+"ieme parameter doesn't have the right type for function "+functionName+".");
+			Type type = Yaka.expression.getType();
+			if(type!=typeNeeded) {
+				if(type==Type.ERROR) {
+					Yaka.errors.addError(Error.NO_ERROR, "The "+(nbParams+1)+"ieme parameter doesn't have the right type for function "+functionName+".");
+				} else {
+					Yaka.errors.addError(Error.PARAMETER_TYPE_INCORRECT, "The "+(nbParams+1)+"ieme parameter doesn't have the right type for function "+functionName+".");
+				}
 			}
 			nbParams++;
 			this.nbParameters.push(nbParams);

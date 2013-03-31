@@ -24,7 +24,11 @@ public class FunctionDeclaration {
 		if(type!=expType) {
 			String message = "The returned type is incorrect for function "+functionName+".\n";
 			message += "Expected type "+expType+" but the expression returned is of type "+type+".";
-			Yaka.errors.addError(Error.RETURNED_TYPE_INCORRECT, message);
+			if(type==Type.ERROR) {
+				Yaka.errors.addError(Error.NO_ERROR, message);
+			} else {
+				Yaka.errors.addError(Error.RETURNED_TYPE_INCORRECT, message);
+			}
 		}
 	}
 	

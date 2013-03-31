@@ -218,7 +218,11 @@ public class Expression {
 		} else {
 			String message = "Types don't match at the affectation.\n";
 			message += "Variable is of type "+varType+" but value is of type "+valType+".";
-			Yaka.errors.addError(Error.TYPE_AFFECTATION_DONT_MATCH, message);
+			if(valType==Type.ERROR) {
+				Yaka.errors.addError(Error.NO_ERROR, message);
+			} else {
+				Yaka.errors.addError(Error.TYPE_AFFECTATION_DONT_MATCH, message);
+			}
 		}
 	}
 }

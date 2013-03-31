@@ -18,7 +18,11 @@ public class Condition {
 	public static void checkExpression() {
 		Type type = Yaka.expression.getType();
 		if(type!=Type.BOOL) {
-			Yaka.errors.addError(Error.TYPE_CONDITION_INCORRECT, "Encountered an expression of type "+type+" but a boolean expression was expected for the conditionnal instruction.");
+			if(type==Type.ERROR) {
+				Yaka.errors.addError(Error.NO_ERROR, "Encountered an expression of type ERROR but a boolean expression was expected for the conditionnal instruction.");
+			} else {
+				Yaka.errors.addError(Error.TYPE_CONDITION_INCORRECT, "Encountered an expression of type "+type+" but a boolean expression was expected for the conditionnal instruction.");
+			}
 		}
 	}
 	
