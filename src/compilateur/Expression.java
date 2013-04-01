@@ -49,6 +49,32 @@ public class Expression {
 	}
 	
 	/**
+	 * Invert the last value.
+	 * This value need to be an integer.
+	 */
+	private void invertInteger() {
+		Operator op = this.stackOp.pop();
+		if(op==Operator.NEG) {
+			Yaka.yvm.ineg();
+		} else {
+			Yaka.errors.addError(Error.INVALID_OPERATION, "Encountered a "+op+" operator while trying to invert but a - operator was expected.");
+		}
+	}
+	
+	/**
+	 * Invert the last value.
+	 * This value need to be a boolean.
+	 */
+	private void invertBoolean() {
+		Operator op = this.stackOp.pop();
+		if(op==Operator.NOT) {
+			Yaka.yvm.inot();
+		} else {
+			Yaka.errors.addError(Error.INVALID_OPERATION, "Encountered a "+op+" operator while trying to invert but a NOT was expected.");
+		}
+	}
+	
+	/**
 	 * Push an integer to the stack of values.
 	 * @param ent The integer.
 	 */
@@ -56,13 +82,8 @@ public class Expression {
 		this.stackType.push(Type.INT);
 		Yaka.yvm.iconst(ent);
 		if(this.invert) {
-			Operator op = this.stackOp.pop();
-			if(op==Operator.NEG) {
-				Yaka.yvm.ineg();
-				this.invert = false;
-			} else {
-				Yaka.errors.addError(Error.INVALID_OPERATION, "Encountered a "+op+" operator while trying to invert but a - operator was expected.");
-			}
+			this.invertInteger();
+			this.invert = false;
 		}
 	}
 	
@@ -74,13 +95,8 @@ public class Expression {
 		this.stackType.push(Type.BOOL);
 		Yaka.yvm.iconst(bool);
 		if(this.invert) {
-			Operator op = this.stackOp.pop();
-			if(op==Operator.NOT) {
-				Yaka.yvm.inot();
-				this.invert = false;
-			} else {
-				Yaka.errors.addError(Error.INVALID_OPERATION, "Encountered a "+op+" operator while trying to invert but a NOT was expected.");
-			}
+			this.invertBoolean();
+			this.invert = false;
 		}
 	}
 	
@@ -98,6 +114,18 @@ public class Expression {
 				Yaka.yvm.iconst(((IdConst)ident).getValue());
 			} else {
 				Yaka.errors.addError(Error.CODE_ERROR, "An IdFunction has been found in the table of local variables!");
+			}
+			
+			// Invert:
+			if(this.invert) {
+				if(ident.getType()==Type.BOOL) {
+					this.invertBoolean();
+				} else if(ident.getType()==Type.INT) {
+					this.invertInteger();
+				} else {
+					Yaka.errors.addError(Error.CODE_ERROR, "Found an ident of type ERROR!");
+				}
+				this.invert = false;
 			}
 		} else {
 			this.stackType.push(Type.ERROR);

@@ -15,10 +15,9 @@ public class IdFunction extends Ident {
 	
 	/**
 	 * Constructor.
-	 * @param tag The name of the function
 	 * @param type The type.
 	 */
-	public IdFunction(String tag, Type type) {
+	public IdFunction(Type type) {
 		super(type);
 		this.parametersTypes = new ArrayList<Type>();
 	}

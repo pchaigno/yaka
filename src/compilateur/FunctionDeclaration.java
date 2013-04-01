@@ -22,7 +22,7 @@ public class FunctionDeclaration {
 		Type type = Yaka.expression.getType();
 		Type expType = this.function.getType(); 
 		if(type!=expType) {
-			String message = "The returned type is incorrect for function "+functionName+".\n";
+			String message = "The returned type is incorrect for function '"+this.functionName+"'.\n";
 			message += "Expected type "+expType+" but the expression returned is of type "+type+".";
 			if(type==Type.ERROR) {
 				Yaka.errors.addError(Error.NO_ERROR, message);
@@ -38,7 +38,8 @@ public class FunctionDeclaration {
 	 * @param typeLu The type returned by the function.
 	 */
 	public void declarFunction(String identLu, Type typeLu) {
-		this.function = new IdFunction(identLu, typeLu); 
+		this.functionName = identLu;
+		this.function = new IdFunction(typeLu); 
 		Yaka.tabIdent.setFunction(identLu, this.function);
 		this.nbParameters = 0;
 		Yaka.yvm.label(identLu);
