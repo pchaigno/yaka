@@ -26,7 +26,8 @@ public abstract class Generator {
 	 * @return The lines.
 	 */
 	protected String addLine(String str) {
-		str.replace("\n", "\n	");
+		str = str.replaceAll("\n", "\n\t");
+		str = str.replaceAll("; 	", "; ");
 		this.program += "	" + str;
 		return str;
 	}

@@ -37,7 +37,7 @@ public class Expression {
 	 * Tell Expression that the next value need to be inverted.
 	 */
 	public void invert() {
-		this.invert = true;
+		this.invert = !this.invert;
 	}
 	
 	/**
