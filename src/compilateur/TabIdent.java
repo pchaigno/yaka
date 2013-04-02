@@ -118,4 +118,12 @@ public class TabIdent {
 	public void clear() {
 		this.local.clear();
 	}
+	
+	/**
+	 * Remove the function with the key.
+	 * @param key
+	 */
+	public void remove(String key) {
+		this.global.remove(key);
+	}
 }
