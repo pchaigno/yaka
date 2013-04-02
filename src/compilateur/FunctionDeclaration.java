@@ -15,22 +15,43 @@ public class FunctionDeclaration {
 	private Type lastTypeParameter;
 	private String functionName;
 	private boolean erreur;
+	private boolean main;
+	
+	/**
+	 * Constructor
+	 */
+	public FunctionDeclaration() {
+		this.main = false;
+		this.erreur = false;
+	}
 
 	/**
 	 * Check the type of the returned expression.
 	 */
 	public void checkReturnedType() {
 		Type type = Yaka.expression.getType();
-		Type expType = this.function.getType(); 
-		if(type!=expType) {
-			String message = "The returned type is incorrect for function '"+this.functionName+"'.\n";
-			message += "Expected type "+expType+" but the expression returned is of type "+type+".";
-			if(type==Type.ERROR) {
-				Yaka.errors.addError(Error.NO_ERROR, message);
-			} else {
-				Yaka.errors.addError(Error.RETURNED_TYPE_INCORRECT, message);
+		Type expType = this.function.getType();
+		if(this.main) {
+			Yaka.errors.addError(Error.RETURN_IN_MAIN, "Retourne instruction found in main function.");
+		} else {
+			if(type!=expType) {
+				String message = "The returned type is incorrect for function '"+this.functionName+"'.\n";
+				message += "Expected type "+expType+" but the expression returned is of type "+type+".";
+				if(type==Type.ERROR) {
+					Yaka.errors.addError(Error.NO_ERROR, message);
+				} else {
+					Yaka.errors.addError(Error.RETURNED_TYPE_INCORRECT, message);
+				}
 			}
 		}
+	}
+	
+	/**
+	 * Called when the main function begin.
+	 */
+	public void main() {
+		Yaka.yvm.main();
+		this.main = true;
 	}
 
 	/**
@@ -43,7 +64,6 @@ public class FunctionDeclaration {
 		this.function = new IdFunction(typeLu);
 		if(!Yaka.tabIdent.containsFunction(identLu)) {
 			this.functionName = identLu;
-			this.erreur = false;
 		} else {
 			this.functionName = identLu+"err";
 			Yaka.errors.addError(Error.NAME_ALREADY_TAKEN, "The name '"+ identLu +"' is already taken by another function.");
@@ -92,17 +112,20 @@ public class FunctionDeclaration {
 		Yaka.yvm.fermeBloc(this.nbParameters);
 		Yaka.tabIdent.clear();
 		Yaka.declaration = new Declaration();
-		functionName = "";
 		if(this.erreur) {
 			Yaka.tabIdent.remove(this.functionName);
+			this.erreur = false;
 		}
+		functionName = "";
 	}
 
 	/**
 	 * Called in a function when a value need to be returned.
 	 */
 	public void returnValue() {
-		int offset = 2*this.function.getNbParameters()+4;
-		Yaka.yvm.ireturn(offset);
+		if(!this.main) {
+			int offset = 2*this.function.getNbParameters()+4;
+			Yaka.yvm.ireturn(offset);
+		}
 	}
 }
