@@ -1,0 +1,63 @@
+PROGRAMME  ex3
+
+ENTIER FONCTION facto (ENTIER i) 
+      SI i=1 ALORS RETOURNE 1
+             SINON RETOURNE i*facto(i-1)
+      FSI
+FFONCTION
+
+ENTIER FONCTION combin (ENTIER n,ENTIER p) 
+VAR ENTIER factn,factp,f;
+   
+   factn=facto(n);
+   factp=facto(p);
+   f=facto(n-p);
+   RETOURNE factn/(factp*f)
+ FFONCTION
+
+ENTIER FONCTION arrang (ENTIER n,ENTIER p) 
+   VAR  ENTIER   factn,factp;
+     factn= facto(n);factp=facto(p);
+     RETOURNE factn/factp
+   FFONCTION
+
+PRINCIPAL
+VAR ENTIER cnp,anp,n,p,rep; 
+   rep=0;
+   TANTQUE rep<>3 FAIRE 
+      ECRIRE(" fact (0)arr (1),combi(2) ou sortie (3) ?");
+      LIRE(rep);ALALIGNE;
+      SI rep = 0 ALORS
+        ECRIRE("n:");LIRE(n);ALALIGNE;
+        ECRIRE("fact(n)= ");
+	p=facto(n);ECRIRE(p)
+       SINON  SI rep<>3 ALORS
+                 ECRIRE("n:");LIRE(n);ALALIGNE;
+                 ECRIRE("p:");LIRE(p);ALALIGNE;
+                SI n<p ALORS ECRIRE("n<p impossible")
+                 SINON SI rep=1 ALORS anp=arrang(n,p);
+                                     ECRIRE("A(n,p)=");ECRIRE(anp)
+                               SINON cnp=combin(n,p);
+                                     ECRIRE("C(n,p)=");ECRIRE(cnp)
+                       FSI;
+                      ALALIGNE
+               FSI
+              FSI
+     FSI
+   FAIT
+FPRINCIPAL
+FPROGRAMME
+(*
+ fact (0)arr (1),combi(2) ou sortie (3) ?0
+n:5
+fact(n)= 120 fact (0)arr (1),combi(2) ou sortie (3) ?1
+n:5
+p:3
+A(n,p)=20
+ fact (0)arr (1),combi(2) ou sortie (3) ?2
+n:5
+p:3
+C(n,p)=10
+ fact (0)arr (1),combi(2) ou sortie (3) ?3
+
+*)

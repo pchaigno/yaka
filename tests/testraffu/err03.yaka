@@ -1,0 +1,33 @@
+PROGRAMME  err03
+PRINCIPAL
+(* conrtoles de type affectation et  expression *)
+VAR ENTIER ent1,ent2,lon1,lon2,a;
+VAR BOOLEEN true,peutetre,b;
+      
+    lon1=VRAI; (*erreur de type a l'affectation*)
+    b=4 * a;
+    b=-b;      (* erreur de type operande unaire *)
+    ent2=12 + 1 -5 * (52/b)+6;(*erreur de type sur b*)
+    ent2=true/ent2;  (*erreur de type sur ent2 entier attendu *)
+    peutetre=(a=b); (* erreur de type sur b : entier attendu *)
+    true=b >= VRAI; (* operateur incompatible avec operandes *)
+    peutetre= true/peutetre ; (* operateur incompatible avec operandes *)
+    true=true  ET (NON(NON true)); (*correct*)
+    peutetre=NON(FAUX) ET (22>ent1); (*correct*)
+    true=peutetre ET (a<>10)(*correct*)
+FPRINCIPAL
+FPROGRAMME
+(*
+ligne : 7 types differents pour l'affectation
+ligne : 8 types differents pour l'affectation
+ligne : 9 erreur de type - unaire avec booleen
+ligne : 10 erreur de type sur b entier attendu
+ligne : 10 types differents pour l'affectation - pas utile a voir
+ligne : 11 erreur de type sur ent2 entier attendu
+ligne : 11 types differents pour l'affectation - pas utile a voir
+ligne : 12  erreur de type sur b : entier attendu
+ligne : 12 types differents pour l'affectation - pas utile a voir
+ligne : 13  operateur incompatible avec operandes >= sur booleen
+ligne : 14  operateur incompatible avec operandes / sur BOOLEEN
+*)
+

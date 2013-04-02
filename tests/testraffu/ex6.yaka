@@ -1,0 +1,40 @@
+PROGRAMME ex6
+
+        ENTIER FONCTION  somdiv (ENTIER  x)
+        VAR ENTIER i,s;
+          s=1;
+          i=2;
+	  TANTQUE  i<=(x/2) FAIRE
+            SI (x/i)*i = x ALORS s = s +i FSI;
+            i=i+1
+          FAIT;
+	RETOURNE s;
+        FFONCTION
+
+	PRINCIPAL
+        CONST n = 300;
+	VAR ENTIER i,j,s,t,u;
+  	    i=1 ; 
+  	        TANTQUE  i<=n FAIRE 
+                    j=i;
+     		    TANTQUE j<=n FAIRE
+                       s=somdiv(i);
+		       t=somdiv(j);
+		       		   
+                       SI (s=j) ET (t=i)
+			 ALORS ECRIRE(i);ECRIRE("--");
+                               ECRIRE(j);ALALIGNE;LIRE(u) FSI;
+     		       j=j+1
+		    FAIT;
+		i=i+1
+  		FAIT
+  	    
+	FPRINCIPAL 
+FPROGRAMME 
+(*
+1--1    lecture entre chaque affichage
+6--6
+28--28
+220--284
+1
+*)

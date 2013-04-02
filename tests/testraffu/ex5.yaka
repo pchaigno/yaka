@@ -1,0 +1,54 @@
+PROGRAMME  ex5
+
+ENTIER FONCTION dessin(ENTIER n,BOOLEEN b )
+CONST a1=10, c=VRAI;
+CONST a2=5;
+VAR ENTIER i,j,k,s;
+VAR BOOLEEN b1,b2;
+   s=0;
+   SI b=c ALORS 
+    i=0 SINON i=n-2 
+   FSI ;
+ 
+   TANTQUE i<=n FAIRE
+     j=0;
+     TANTQUE j<i FAIRE
+        SI j= (j/2)*2 ALORS ECRIRE("*")SINON  ECRIRE(" ")FSI;
+       j=j+1
+     FAIT;
+     j=i;
+   
+     TANTQUE j<n FAIRE
+        SI j<>(j/3)*3 ALORS ECRIRE("-") SINON ECRIRE(" ")FSI;
+       j=j+1
+     FAIT;
+     ALALIGNE;
+     s=s+i;
+     i=i+1
+   FAIT;
+	RETOURNE s
+FFONCTION
+
+ PRINCIPAL
+VAR ENTIER r,n;
+ LIRE(n);ALALIGNE;
+ r=dessin (n,VRAI)  ;  
+  ALALIGNE;
+   ECRIRE(r);
+FPRINCIPAL
+FPROGRAMME
+(*
+10
+ -- -- --
+*-- -- --
+* - -- --
+* * -- --
+* * -- --
+* * *- --
+* * *  --
+* * * *--
+* * * * -
+* * * * *
+* * * * *
+
+*)

@@ -1,0 +1,58 @@
+PROGRAMME err04
+(* controle sur les parametres lors de l'appel *)
+
+ENTIER FONCTION  p (BOOLEEN b,BOOLEEN q)
+  VAR ENTIER  f;
+   RETOURNE 2   
+FFONCTION 
+
+ENTIER FONCTION q()  
+  VAR ENTIER  f;
+    RETOURNE p(VRAI,FAUX)  
+FFONCTION
+
+BOOLEEN FONCTION un(ENTIER x)  
+    RETOURNE x=1  
+FFONCTION
+
+PRINCIPAL
+CONST c=5;
+VAR ENTIER a,r;
+VAR BOOLEEN b;
+r=p(VRAI,a);   (*parametre  a de type incorrect *) 
+r=p(VRAI,b,VRAI); (* un parametre  en trop*)  
+r=p(VRAI);   (* un parametre en moins*)   
+r=q(VRAI); (* un parametre  en trop *)  
+p=q();		(* affectation a une fonction interdite*)
+r=p();		(* manque deux parametres *)
+c=p(VRAI,FAUX); (* constante interdite en affectation*)
+a=p(VRAI,un(10,4));(*un parametre  en trop pour un- test imbrication *)
+a=p(VRAI,un(q()),VRAI); (*un parametre  en trop pour un- test imbrication*)  
+a=p(VRAI,q());    (*parametre de type incorrect *) 
+a=un(6);(*erreur de type lors de l'affectation*)
+FPRINCIPAL
+FPROGRAMME
+(*
+ligne : 22 type du parametre errone
+
+ligne : 23 parametre en trop dans l'appel
+
+
+ligne : 24 manque un parametre
+
+ligne : 25 parametre en trop dans l'appel
+
+ligne : 26 p : identificateur de variable attendu
+
+ligne : 27  manque deux parametres
+
+ligne : 28 c : identificateur de variable attendu
+
+ligne : 29 parametre en trop dans l'appel
+
+ligne : 30 parametre en trop dans l'appel
+
+ligne : 31 type du parametre errone
+
+ligne : 32 types differents pour l'affectation
+*)

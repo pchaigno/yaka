@@ -1,0 +1,15 @@
+PROGRAMME  err02
+PRINCIPAL
+(* double definition de a et x *)
+CONST  a=1;
+VAR   ENTIER  ent1,ent2,lon1,lon2,a,x;
+VAR   BOOLEEN  true,peutetre,x;
+ent1=2;
+ent2=xx (*xx non declare*)
+FPRINCIPAL
+FPROGRAMME
+(*
+ligne : 5 a : identificateur deja declare 
+ligne : 6 x : identificateur deja declare 
+ligne : 8 xx : identificateur inconnu
+*)

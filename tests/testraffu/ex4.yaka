@@ -1,0 +1,57 @@
+PROGRAMME ex4
+
+ENTIER FONCTION valeurde (ENTIER i) 
+ SI i=1 ALORS RETOURNE 100
+ SINON SI i=2 ALORS RETOURNE 50
+ SINON SI i=3 ALORS RETOURNE 20
+ SINON SI i=4 ALORS RETOURNE 10
+ SINON SI i=5 ALORS RETOURNE 5
+ SINON SI i=6 ALORS RETOURNE 2
+ SINON SI i=7 ALORS RETOURNE 1
+       FSI
+       FSI
+       FSI
+       FSI
+       FSI
+       FSI
+ FSI
+FFONCTION
+
+ENTIER FONCTION nbc (ENTIER  montant, ENTIER nbpieces) 
+VAR
+  ENTIER nbf2,nbfacon,t;
+
+ SI montant=0 ALORS nbfacon=1
+ SINON SI (montant<0)  OU (nbpieces=0) ALORS nbfacon=0
+ SINON t=valeurde(nbpieces);
+       nbfacon=nbc(montant-t,nbpieces);
+       nbf2=nbc(montant,nbpieces-1);
+       nbfacon=nbfacon+nbf2
+ FSI
+ FSI;
+ RETOURNE nbfacon
+FFONCTION
+
+PRINCIPAL
+VAR ENTIER  somme,nbf;
+ ECRIRE("donner le montant: ");
+ ALALIGNE;
+ LIRE(somme);
+ nbf=nbc(somme,7);
+ ECRIRE("il y a ");
+ ECRIRE(nbf);
+ ECRIRE(" facons de changer ");
+ ECRIRE(somme);
+ ECRIRE(' francs.');
+ ALALIGNE
+FPRINCIPAL
+FPROGRAMME
+(*
+G:\COMPIL\YAKA\TP5\ASM>ex4
+donner le montant:
+il y a 4 facons de changer 5 francs.
+
+G:\COMPIL\YAKA\TP5\ASM>ex4
+donner le montant:
+il y a 4563 facons de changer 100 francs.
+*)

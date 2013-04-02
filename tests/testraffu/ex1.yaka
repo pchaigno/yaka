@@ -1,0 +1,17 @@
+PROGRAMME ex1
+PRINCIPAL
+CONST a1=10,
+      a2=20;
+VAR ENTIER  c1,c2,c3,c4,c5;
+   c1=(a1+a2/2)/5;ECRIRE(c1);ALALIGNE;
+   c2=c1+3*c1-a1;ECRIRE(c2);ALALIGNE;
+  ECRIRE(-(-2*-3)-(-7));ALALIGNE;
+  ECRIRE("ce programme a du ecrire 4 puis 6 puis 1")
+FPRINCIPAL
+FPROGRAMME
+(*
+4
+6
+1
+ce programme a du ecrire 4 puis 6 puis 1
+*)

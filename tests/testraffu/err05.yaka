@@ -1,0 +1,33 @@
+PROGRAMME err05
+(*tests sur les controles dans les fonctions*)
+
+ENTIER FONCTION f(BOOLEEN v ,ENTIER r) 
+  VAR ENTIER x; 
+   RETOURNE v   (* erreur sur le type du retourne *)
+FFONCTION
+
+ENTIER FONCTION f(BOOLEEN v ,ENTIER r) 
+  VAR ENTIER x;   (* f est deja declaree*)
+   RETOURNE x  
+FFONCTION
+
+ENTIER FONCTION g(BOOLEEN v ,ENTIER r) 
+  VAR ENTIER v;  (* double definition de v *)
+   RETOURNE r+1   
+FFONCTION
+
+PRINCIPAL
+  RETOURNE f(VRAI,4) (* RETOURNE interdit dana le main*)
+FPRINCIPAL
+FPROGRAMME
+(*
+ligne : 6 type de retour incorrect
+
+ligne : 9 f : identificateur deja declare
+
+ligne : 15 v : identificateur deja declare
+
+ligne 20 : retourne interdit dans le module principal 
+
+ 
+*)

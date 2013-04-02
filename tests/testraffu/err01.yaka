@@ -1,0 +1,19 @@
+PROGRAMME err01
+PRINCIPAL
+
+CONST  a=4,
+      b=4,
+      d=2365,
+      e=a,
+      false=FAUX,
+      e=2, (*double definition*)
+      g=h; (* h inconnu *)
+
+  a=e; (*affectation constante impossible*)
+FPRINCIPAL
+FPROGRAMME
+(*
+ligne : 9 e : identificateur deja declare : 
+ligne : 10 h : identificateur inconnu 
+ligne : 12 a : identificateur de variable attendu
+*)
