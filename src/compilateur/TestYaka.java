@@ -190,8 +190,8 @@ public class TestYaka extends TestCase {
 	/**
 	 * Check that an error is raised when functions with the same name are declared.
 	 */
-	public void testSameNameFunctions() {
-		this.testError("tests/errors/same_name_functions", Error.NAME_ALREADY_TAKEN);
+	public void testNameFunctionAlreadyTakenError() {
+		this.testError("tests/errors/name_function_already_taken", Error.NAME_ALREADY_TAKEN);
 	}
 	
 	/**
@@ -202,10 +202,6 @@ public class TestYaka extends TestCase {
 	private void testError(String file, Error error) {
 		String program = getContentOfFile(file+".yaka");
 		compileToASM(program);
-		System.out.println(file);
-		System.out.println(Yaka.errors.getErrorTypes());
-		System.out.println(Yaka.errors.getErrorMessages());
-		System.out.println();
 		assertTrue(Yaka.errors.checkTypeError(error));
 		compileToYVM(program);
 		assertTrue(Yaka.errors.checkTypeError(error));

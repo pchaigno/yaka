@@ -22,14 +22,14 @@ public class FunctionDeclaration {
 	public void checkReturnedType() {
 		Type type = Yaka.expression.getType();
 		Type expType = this.function.getType(); 
-			if(type!=expType) {
-				String message = "The returned type is incorrect for function '"+this.functionName+"'.\n";
-				message += "Expected type "+expType+" but the expression returned is of type "+type+".";
-				if(type==Type.ERROR) {
-					Yaka.errors.addError(Error.NO_ERROR, message);
-				} else {
-					Yaka.errors.addError(Error.RETURNED_TYPE_INCORRECT, message);
-				}
+		if(type!=expType) {
+			String message = "The returned type is incorrect for function '"+this.functionName+"'.\n";
+			message += "Expected type "+expType+" but the expression returned is of type "+type+".";
+			if(type==Type.ERROR) {
+				Yaka.errors.addError(Error.NO_ERROR, message);
+			} else {
+				Yaka.errors.addError(Error.RETURNED_TYPE_INCORRECT, message);
+			}
 		}
 	}
 
@@ -41,12 +41,12 @@ public class FunctionDeclaration {
 	public void declarFunction(String identLu, Type typeLu) {
 		this.nbParameters = 0;
 		this.function = new IdFunction(typeLu);
-		if (! Yaka.tabIdent.containsFunction(identLu)) {
+		if(!Yaka.tabIdent.containsFunction(identLu)) {
 			this.functionName = identLu;
 			this.erreur = false;
 		} else {
 			this.functionName = identLu+"err";
-			Yaka.errors.addError(Error.NAME_ALREADY_TAKEN, "The function name '"+ identLu +"' is already taken.");
+			Yaka.errors.addError(Error.NAME_ALREADY_TAKEN, "The name '"+ identLu +"' is already taken by another function.");
 			this.erreur = true;
 		}
 		Yaka.tabIdent.setFunction(this.functionName, this.function);
@@ -58,9 +58,9 @@ public class FunctionDeclaration {
 	 * @param identLu The name of the parameter.
 	 */
 	public void addParameter(String identLu) {
-			IdParam parameter = new IdParam(lastTypeParameter, this.nbParameters+1);
-			Yaka.tabIdent.setIdent(identLu, parameter);
-			this.nbParameters++;
+		IdParam parameter = new IdParam(lastTypeParameter, this.nbParameters+1);
+		Yaka.tabIdent.setIdent(identLu, parameter);
+		this.nbParameters++;
 	}
 
 	/**
@@ -68,8 +68,8 @@ public class FunctionDeclaration {
 	 * @param typeLu The type of the parameter.
 	 */
 	public void addTypeParameter(Type typeLu) {
-			this.lastTypeParameter = typeLu;
-			this.function.addParam(typeLu);
+		this.lastTypeParameter = typeLu;
+		this.function.addParam(typeLu);
 	}
 
 	/**
@@ -78,9 +78,9 @@ public class FunctionDeclaration {
 	 * (currently egal to the rank) in the real offset.
 	 */
 	public void computeOffsets() {
-			for(IdParam param: Yaka.tabIdent.getParameters()) {
-				param.computeOffset(this.nbParameters);
-			}
+		for(IdParam param: Yaka.tabIdent.getParameters()) {
+			param.computeOffset(this.nbParameters);
+		}
 	}
 
 	/**
@@ -89,20 +89,20 @@ public class FunctionDeclaration {
 	 * Reinitialize Declaration.
 	 */
 	public void endFunction() {
-			Yaka.yvm.fermeBloc(this.nbParameters);
-			Yaka.tabIdent.clear();
-			Yaka.declaration = new Declaration();
-			functionName = "";
-			if(this.erreur) {
+		Yaka.yvm.fermeBloc(this.nbParameters);
+		Yaka.tabIdent.clear();
+		Yaka.declaration = new Declaration();
+		functionName = "";
+		if(this.erreur) {
 			Yaka.tabIdent.remove(this.functionName);
-			}
+		}
 	}
 
 	/**
 	 * Called in a function when a value need to be returned.
 	 */
 	public void returnValue() {
-			int offset = 2*this.function.getNbParameters()+4;
-			Yaka.yvm.ireturn(offset);
-		}
+		int offset = 2*this.function.getNbParameters()+4;
+		Yaka.yvm.ireturn(offset);
+	}
 }

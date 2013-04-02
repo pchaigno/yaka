@@ -60,7 +60,7 @@ public class Declaration {
 				Yaka.errors.addError(Error.NAME_ALREADY_TAKEN, "Value not assigned because the name was already taken.");
 			}
 		} else {
-			Yaka.errors.addError(Error.IDENT_UNKNOWN, "Reference to undefined const ("+ref+") in the declaration part.");
+			Yaka.errors.addError(Error.IDENT_UNKNOWN, "Reference to undefined const '"+ref+"' in the declaration part.");
 		}
 	}
 	
@@ -81,7 +81,7 @@ public class Declaration {
 			Yaka.tabIdent.setIdent(name, new IdVar(lastVarType, this.offset));
 			this.offset -= 2;
 		} else {
-			Yaka.errors.addError(Error.NAME_ALREADY_TAKEN, "A variable or a constant already has the name '"+name+".");
+			Yaka.errors.addError(Error.NAME_ALREADY_TAKEN, "A variable or a constant already has the name '"+name+"'.");
 		}
 	}
 	
