@@ -240,17 +240,21 @@ public class Expression {
 	 */
 	public void affectation() {
 		Type varType = this.affectTo.getType();
-		Type valType = this.stackType.pop(); 
-		if(varType==valType) {
-			Yaka.yvm.istore(((IdVar)this.affectTo).getOffset());
-		} else {
-			String message = "Types don't match at the affectation.\n";
-			message += "Variable is of type "+varType+" but value is of type "+valType+".";
-			if(valType==Type.ERROR) {
-				Yaka.errors.addError(Error.NO_ERROR, message);
+		Type valType = this.stackType.pop();
+		if(this.affectTo.isVar()) {
+			if(varType==valType) {
+				Yaka.yvm.istore(((IdVar)this.affectTo).getOffset());
 			} else {
-				Yaka.errors.addError(Error.TYPE_AFFECTATION_DONT_MATCH, message);
+				String message = "Types don't match at the affectation.\n";
+				message += "Variable is of type "+varType+" but value is of type "+valType+".";
+				if(valType==Type.ERROR) {
+					Yaka.errors.addError(Error.NO_ERROR, message);
+				} else {
+					Yaka.errors.addError(Error.TYPE_AFFECTATION_DONT_MATCH, message);
+				}
 			}
+		} else {
+			Yaka.errors.addError(Error.AFFECTATION_CONSTANT, "Trying to affect constant.");
 		}
 	}
 }

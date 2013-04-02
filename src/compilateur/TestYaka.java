@@ -250,10 +250,10 @@ public class TestYaka extends TestCase {
 	private void testError(String file, Error error) {
 		String program = getContentOfFile(file+".yaka");
 		compileToASM(program);
-		/*System.out.println(file);
-		System.out.println(Yaka.errors.getErrorTypes());
-		System.out.println(Yaka.errors.getErrorMessages());
-		System.out.println();*/
+//		System.out.println(file);
+//		System.out.println(Yaka.errors.getErrorTypes());
+//		System.out.println(Yaka.errors.getErrorMessages());
+//		System.out.println();
 		assertTrue(Yaka.errors.checkTypeError(error));
 		compileToYVM(program);
 		assertTrue(Yaka.errors.checkTypeError(error));
@@ -275,7 +275,7 @@ public class TestYaka extends TestCase {
 			System.out.println(Yaka.yvm.getProgram());
 		}
 		assertFalse(Yaka.errors.errorsOccurred());
-		assertEquals(programYVM, Yaka.yvm.getProgram());
+		assertEquals(programYVM, Yaka.yvm.getProgram().replaceAll("\t", ""));
 		
 		String programASM = getContentOfFile(file+".asm");
 		compileToASM(program);
@@ -284,7 +284,7 @@ public class TestYaka extends TestCase {
 			System.out.println(Yaka.yvm.getProgram());
 		}
 		assertFalse(Yaka.errors.errorsOccurred());
-		assertEquals(programASM, Yaka.yvm.getProgram());
+		assertEquals(programASM, Yaka.yvm.getProgram().replaceAll("\t", ""));
 	}
 	
 	/**
