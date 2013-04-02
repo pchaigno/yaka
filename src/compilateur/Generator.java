@@ -31,6 +31,16 @@ public abstract class Generator {
 	}
 	
 	/**
+	 * Add some lines to the program without tabulation and return this line.
+	 * @param str The lines to add.
+	 * @return The lines without tabulation.
+	 */
+	protected String addLineWithoutTab(String str) {
+		this.program += str;
+		return str;
+	}
+	
+	/**
 	 * @return The program generated.
 	 */
 	public String getProgram() {
