@@ -117,34 +117,6 @@ public class TestYaka extends TestCase {
 		this.testProgram("tests/fibonacci", false, false);
 	}
 	
-	public void testEx1() {
-		this.testProgram("tests/testraffu/ex1", false, false);
-	}
-	
-	public void testEx2() {
-		this.testProgram("tests/testraffu/ex2", false, false);
-	}
-	
-	public void testEx3() {
-		this.testProgram("tests/testraffu/ex3", false, false);
-	}
-	
-	public void testEx4() {
-		this.testProgram("tests/testraffu/ex4", false, false);
-	}
-	
-	public void testEx5() {
-		this.testProgram("tests/testraffu/ex5", false, false);
-	}
-	
-	public void testEx6() {
-		this.testProgram("tests/testraffu/ex6", false, false);
-	}
-	
-	public void testEx7() {
-		this.testProgram("tests/testraffu/ex7", false, false);
-	}
-	
 	/**
 	 * Check that an error is raised when the returned type of a function is incorrect.
 	 */
@@ -250,10 +222,10 @@ public class TestYaka extends TestCase {
 	private void testError(String file, Error error) {
 		String program = getContentOfFile(file+".yaka");
 		compileToASM(program);
-//		System.out.println(file);
+		System.out.println(file);
 //		System.out.println(Yaka.errors.getErrorTypes());
-//		System.out.println(Yaka.errors.getErrorMessages());
-//		System.out.println();
+		System.out.println(Yaka.errors.getErrorMessages());
+		System.out.println();
 		assertTrue(Yaka.errors.checkTypeError(error));
 		compileToYVM(program);
 		assertTrue(Yaka.errors.checkTypeError(error));
