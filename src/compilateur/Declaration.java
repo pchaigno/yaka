@@ -29,7 +29,7 @@ public class Declaration {
 		if(!Yaka.tabIdent.containsIdent(name)) {
 			this.lastConstName = name;
 		} else {
-			Yaka.errors.addError(Error.NAME_ALREADY_TAKEN, "A variable or a constant already has the name '"+name+".");
+			Yaka.errors.addError(Error.NAME_ALREADY_TAKEN, "A variable or a constant already has the name '"+name+"'.");
 		}
 	}
 	
