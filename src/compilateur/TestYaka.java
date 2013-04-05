@@ -214,6 +214,10 @@ public class TestYaka extends TestCase {
 		this.testError("tests/testraffu/err05", Error.NAME_ALREADY_TAKEN);
 	}
 	
+	public void testEx5() {
+		this.testProgram("tests/testraffu/ex5", false, false);
+	}
+	
 	/**
 	 * Compile a Yaka program and check that an error if effectively raised.
 	 * @param file The path to the file containing the program.
@@ -223,7 +227,7 @@ public class TestYaka extends TestCase {
 		String program = getContentOfFile(file+".yaka");
 		compileToASM(program);
 		System.out.println(file);
-//		System.out.println(Yaka.errors.getErrorTypes());
+		System.out.println(Yaka.errors.getErrorTypes());
 		System.out.println(Yaka.errors.getErrorMessages());
 		System.out.println();
 		assertTrue(Yaka.errors.checkTypeError(error));
